@@ -7,6 +7,7 @@ import ProjectsGrid from '@/components/ProjectsGrid';
 import ProfileCard from '@/components/ProfileCard';
 import StatsBox from '@/components/StatsBox';
 import ScrollToTop from '@/components/ScrollToTop';
+import { getGoatCounterViews } from '@/lib/getGoatCounterViews';
 
 export async function getStaticProps() {
 
@@ -22,8 +23,12 @@ export async function getStaticProps() {
   const projects = JSON.parse(fs.readFileSync(projectPath, 'utf-8'));
   const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
 
+  const visitorCount = await getGoatCounterViews();
+  settings.visitor_count = visitorCount;
+
   return {
-    props: { projects, settings, experiences, skills }
+    props: { projects, settings, experiences, skills },
+    revalidate: 60,
   };
 }
 
