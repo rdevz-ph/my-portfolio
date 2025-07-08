@@ -7,6 +7,8 @@ import ProjectsGrid from '@/components/ProjectsGrid';
 import ProfileCard from '@/components/ProfileCard';
 import StatsBox from '@/components/StatsBox';
 import ScrollToTop from '@/components/ScrollToTop';
+import WorkTimeline from '@/components/WorkTimeline';
+import TechStack from '@/components/TechStack';
 import { getGoatCounterViews } from '@/lib/getGoatCounterViews';
 
 export async function getStaticProps() {
@@ -31,9 +33,6 @@ export async function getStaticProps() {
     revalidate: 60,
   };
 }
-
-import WorkTimeline from '@/components/WorkTimeline';
-import TechStack from '@/components/TechStack';
 
 export default function Home({ projects, settings, experiences, skills }) {
   return (
