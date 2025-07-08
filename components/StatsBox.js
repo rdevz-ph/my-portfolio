@@ -1,23 +1,24 @@
 import {
     EyeIcon,
-    UserGroupIcon,
+    UsersIcon,
     BriefcaseIcon,
 } from '@heroicons/react/24/outline'; // Make sure this is installed via `@heroicons/react`
 
 import CountUp from 'react-countup';
 
-const StatCard = ({ icon, label, value, color }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl transition duration-500 hover:shadow-2xl text-center space-y-4 group">
+const StatCard = ({ icon, label, value, color, suffix }) => (
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl transition duration-500 hover:shadow-2xl text-center space-y-4">
         <div className="flex flex-col items-center space-y-1">
-            <div className={`text-${color}-500 dark:text-${color}-400 transition-transform duration-300 group-hover:scale-110`}>
+            <div className={`text-${color}-500 dark:text-${color}-400`}>
                 {icon}
             </div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {label}
             </h3>
         </div>
-        <p className={`text-4xl font-bold text-${color}-600 dark:text-${color}-400`}>
-            <CountUp end={parseInt(value)} duration={2} separator="," />
+        <p className={`text-4xl font-bold text-${color}-600 dark:text-${color}-400 flex items-center justify-center gap-1`}>
+            <CountUp end={parseInt(value)} duration={2} />
+            {suffix && <span className="text-lg font-medium">{suffix}</span>}
         </p>
     </div>
 );
@@ -26,24 +27,25 @@ export default function StatsBox({ settings }) {
     return (
         <div className="grid md:grid-cols-3 gap-8 mb-16">
             <StatCard
-                icon={<EyeIcon className="w-8 h-8" />}
+                icon={<BriefcaseIcon className="w-8 h-8" />}
+                label="Experience"
+                value={settings.years_of_experience}
+                color="green"
+                suffix="+ years"
+            />
+
+            <StatCard
+                icon={<EyeIcon className="w-6 h-6" />}
                 label="Total Visitors"
                 value={settings.visitor_count}
                 color="purple"
             />
 
             <StatCard
-                icon={<UserGroupIcon className="w-8 h-8" />}
+                icon={<UsersIcon className="w-6 h-6" />}
                 label="Total Clients"
                 value={settings.client_count}
                 color="blue"
-            />
-
-            <StatCard
-                icon={<BriefcaseIcon className="w-8 h-8" />}
-                label="Experience"
-                value={`${settings.years_of_experience}+ years`}
-                color="green"
             />
         </div>
     );
