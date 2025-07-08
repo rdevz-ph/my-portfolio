@@ -1,5 +1,3 @@
-// components/TechStack.js
-
 export default function TechStack({ skills }) {
     const techIcons = {
         HTML: 'html5',

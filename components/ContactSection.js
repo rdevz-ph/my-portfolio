@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 export default function ContactSection() {
-    const [status, setStatus] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
 
-        setStatus('Sending...');
+        setLoading(true);
 
         const res = await fetch('https://formspree.io/f/mqabvyeb', {
             method: 'POST',
@@ -15,11 +16,23 @@ export default function ContactSection() {
             body: new FormData(form),
         });
 
+        setLoading(false);
+
         if (res.ok) {
-            setStatus('Message sent successfully!');
+            Swal.fire({
+                icon: 'success',
+                title: 'Message Sent!',
+                text: 'Thank you for reaching out. I will get back to you shortly.',
+                confirmButtonColor: '#8b5cf6'
+            });
             form.reset();
         } else {
-            setStatus('Failed to send. Try again.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong. Please try again.',
+                confirmButtonColor: '#ef4444'
+            });
         }
     };
 
@@ -35,12 +48,10 @@ export default function ContactSection() {
                     <input type="text" name="name" required placeholder="Your Name" className="w-full px-4 py-3 rounded-md border dark:bg-gray-800 dark:border-gray-700 dark:text-white" />
                     <input type="email" name="email" required placeholder="Your Email" className="w-full px-4 py-3 rounded-md border dark:bg-gray-800 dark:border-gray-700 dark:text-white" />
                     <textarea name="message" required rows="5" placeholder="Your Message" className="w-full px-4 py-3 rounded-md border dark:bg-gray-800 dark:border-gray-700 dark:text-white"></textarea>
-                    <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-md shadow-md transition transform hover:scale-105">
-                        Send Message
+                    <button type="submit" disabled={loading} className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-md shadow-md transition transform hover:scale-105">
+                        {loading ? 'Sending...' : 'Send Message'}
                     </button>
                 </form>
-
-                {status && <p className="mt-4 text-purple-600 dark:text-purple-400">{status}</p>}
             </div>
         </section>
     );
