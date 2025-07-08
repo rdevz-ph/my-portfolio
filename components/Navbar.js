@@ -24,7 +24,7 @@ export default function Navbar() {
         <nav className="bg-white dark:bg-gray-900 shadow fixed top-0 w-full z-50">
             <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
                 <h1 className="text-xl font-bold text-purple-600 dark:text-purple-400">
-                    Romel's Portfolio
+                    Romel&apos;s Portfolio
                 </h1>
                 <div className="space-x-4 flex items-center">
                     <a href="#about" className={linkClasses('about')}>About</a>
