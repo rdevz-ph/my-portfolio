@@ -4,17 +4,32 @@ import 'lightbox2/dist/css/lightbox.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import AOS from 'aos';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Loader from "@/components/Loader";
 
 export default function App({ Component, pageProps }) {
+  const [showLoader, setShowLoader] = useState(true);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
 
-    // Dynamically import lightbox2 on the client-side only
     import('jquery').then(() => {
       import('lightbox2');
     });
-  }, []);
 
-  return <Component {...pageProps} />;
+    // Prevent scrolling while loader is showing
+    if (showLoader) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 3000); // 3 seconds
+
+    return () => clearTimeout(timer);
+  }, [showLoader]);
+
+  return showLoader ? <Loader /> : <Component {...pageProps} />;
 }
