@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import 'aos/dist/aos.css';
 import 'lightbox2/dist/css/lightbox.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import AOS from 'aos';
 import { useEffect } from 'react';

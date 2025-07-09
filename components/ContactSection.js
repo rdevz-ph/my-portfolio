@@ -81,6 +81,48 @@ export default function ContactSection() {
                         {loading ? 'Sending...' : 'Send Message'}
                     </button>
                 </form>
+
+                {/* Social Links */}
+                <div
+                    className="space-y-3 mt-10 text-left"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
+                >
+                    <p className="flex items-center gap-3 justify-center">
+                        <i className="fab fa-github text-gray-700 dark:text-gray-400"></i>
+                        <a
+                            href="https://github.com/rdevz-ph"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                        >
+                            GitHub
+                        </a>
+                    </p>
+                    <p className="flex items-center gap-3 justify-center">
+                        <i className="fab fa-linkedin text-gray-700 dark:text-gray-400"></i>
+                        <a
+                            href="https://linkedin.com/in/romel-brosas-b547572a8"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                        >
+                            LinkedIn
+                        </a>
+                    </p>
+                    <p className="flex items-center gap-3 justify-center">
+                        <i className="fab fa-facebook text-gray-700 dark:text-gray-400"></i>
+                        <a
+                            href="https://facebook.com/rdevzph.dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                        >
+                            Facebook
+                        </a>
+                    </p>
+                </div>
+
             </div>
         </section>
     );
