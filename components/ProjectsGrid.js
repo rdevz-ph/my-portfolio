@@ -15,24 +15,31 @@ const techIcons = {
     Bootstrap: 'bootstrap',
 };
 
-
 export default function ProjectsGrid({ projects }) {
     return (
         <div className="py-12">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
+            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8" data-aos="fade-up">
                 Featured Projects
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects.map((project, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition duration-500 hover:shadow-xl transform hover:-translate-y-2">
-                        <Image
-                            src={project.image}
-                            alt={project.title}
-                            width={600}
-                            height={300}
-                            className="w-full h-48 object-cover"
-                        />
+                    <div
+                        key={index}
+                        className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition duration-500 hover:shadow-xl transform hover:-translate-y-2"
+                        data-aos="zoom-in-up"
+                        data-aos-delay={index * 100} // staggered animation
+                    >
+                        <a href={project.image} data-lightbox="projects" data-title={project.title}>
+                            <Image
+                                src={project.image}
+                                alt={project.title}
+                                width={600}
+                                height={300}
+                                className="w-full h-48 object-cover cursor-pointer"
+                            />
+                        </a>
+
                         <div className="p-6">
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                                 {project.title}
@@ -69,7 +76,12 @@ export default function ProjectsGrid({ projects }) {
                                 >
                                     Live Preview
                                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        />
                                     </svg>
                                 </a>
                             )}

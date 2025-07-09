@@ -15,7 +15,11 @@ export default function TechStack({ skills }) {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl transition duration-500 hover:shadow-2xl mb-16">
+        <div
+            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl transition duration-500 hover:shadow-2xl mb-16"
+            data-aos="fade-up"
+            data-aos-delay="100"
+        >
             <div className="flex flex-col items-center space-y-4">
                 <div className="p-4 bg-purple-100 dark:bg-purple-900 rounded-full">
                     <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,6 +36,8 @@ export default function TechStack({ skills }) {
                             <span
                                 key={index}
                                 className="flex items-center space-x-2 px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-full text-sm font-medium transition transform hover:scale-105"
+                                data-aos="zoom-in"
+                                data-aos-delay={index * 50}
                             >
                                 {iconName && (
                                     <img

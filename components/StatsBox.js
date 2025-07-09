@@ -6,8 +6,12 @@ import {
 
 import CountUp from 'react-countup';
 
-const StatCard = ({ icon, label, value, color, suffix }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl transition duration-500 hover:shadow-2xl text-center space-y-4">
+const StatCard = ({ icon, label, value, color, suffix, aos, delay }) => (
+    <div
+        className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl transition duration-500 hover:shadow-2xl text-center space-y-4"
+        data-aos={aos}
+        data-aos-delay={delay}
+    >
         <div className="flex flex-col items-center space-y-1">
             <div className={`text-${color}-500 dark:text-${color}-400`}>
                 {icon}
@@ -32,6 +36,8 @@ export default function StatsBox({ settings }) {
                 value={settings.years_of_experience}
                 color="green"
                 suffix="+ years"
+                aos="fade-up"
+                delay="0"
             />
 
             <StatCard
@@ -39,6 +45,8 @@ export default function StatsBox({ settings }) {
                 label="Total Visitors"
                 value={settings.visitor_count}
                 color="purple"
+                aos="fade-up"
+                delay="100"
             />
 
             <StatCard
@@ -46,6 +54,8 @@ export default function StatsBox({ settings }) {
                 label="Total Clients"
                 value={settings.client_count}
                 color="blue"
+                aos="fade-up"
+                delay="200"
             />
         </div>
     );

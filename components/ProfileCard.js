@@ -2,8 +2,12 @@ import Image from 'next/image';
 
 export default function ProfileCard({ settings }) {
     return (
-        <div className="flex flex-col items-center space-y-8 mb-16">
-            <div className="relative group">
+        <div
+            className="flex flex-col items-center space-y-8 mb-16"
+            data-aos="fade-up"
+            data-aos-delay="100"
+        >
+            <div className="relative group" data-aos="zoom-in">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                 <Image
                     src={settings.system_logo}
@@ -14,7 +18,7 @@ export default function ProfileCard({ settings }) {
                 />
             </div>
 
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-2" data-aos="fade-up" data-aos-delay="200">
                 <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
                     {settings.full_name}
                 </h1>
@@ -23,7 +27,7 @@ export default function ProfileCard({ settings }) {
                 </p>
             </div>
 
-            <div className="max-w-3xl text-center space-y-4">
+            <div className="max-w-3xl text-center space-y-4" data-aos="fade-up" data-aos-delay="300">
                 <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                     {settings.description}
                 </p>
