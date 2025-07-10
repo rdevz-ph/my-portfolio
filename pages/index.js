@@ -22,7 +22,10 @@ export async function getStaticProps() {
   const projectPath = path.join(process.cwd(), 'data', 'projects.json');
   const settingsPath = path.join(process.cwd(), 'data', 'settings.json');
 
-  const projects = JSON.parse(fs.readFileSync(projectPath, 'utf-8'));
+  const rawProjects = JSON.parse(fs.readFileSync(projectPath, 'utf-8'));
+  // Reverse the array so latest entries appear first
+  const projects = rawProjects.reverse();
+
   const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
 
   const visitorCount = await getGoatCounterViews();
