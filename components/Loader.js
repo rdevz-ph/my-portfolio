@@ -24,9 +24,9 @@ export default function Loader() {
             </h1>
 
             <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-                <div className="w-full h-3 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div className="loader-wrapper">
                     <div
-                        className="h-full bg-purple-600 dark:bg-purple-400 transition-all duration-100 ease-linear"
+                        className="loader-fill"
                         style={{ width: `${progress}%` }}
                     ></div>
                 </div>
