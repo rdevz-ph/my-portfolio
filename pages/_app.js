@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import AOS from 'aos';
 import { useEffect, useState } from 'react';
 import Loader from "@/components/Loader";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function App({ Component, pageProps }) {
   const [showLoader, setShowLoader] = useState(true);
@@ -31,5 +32,10 @@ export default function App({ Component, pageProps }) {
     return () => clearTimeout(timer);
   }, [showLoader]);
 
-  return showLoader ? <Loader /> : <Component {...pageProps} />;
+  return (
+    <>
+      {showLoader ? <Loader /> : <Component {...pageProps} />}
+      <Analytics />
+    </>
+  );
 }
