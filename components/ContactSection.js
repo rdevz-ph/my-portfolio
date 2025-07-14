@@ -43,7 +43,7 @@ export default function ContactSection() {
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                         Contact Me
                     </h2>
-                    <div data-aos="fade-in" className="mt-2 mx-auto w-24 h-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
+                    <div data-aos="fade-up" className="mt-2 mx-auto w-24 h-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
                 </div>
 
                 <p className="text-gray-600 dark:text-gray-300 mb-8" data-aos="fade-up" data-aos-delay="100">
