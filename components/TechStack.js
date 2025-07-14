@@ -12,6 +12,8 @@ export default function TechStack({ skills }) {
         'TailwindCSS': 'tailwindcss',
         'Tailwind CSS': 'tailwindcss',
         Bootstrap: 'bootstrap',
+        React: 'react',
+        'Next.js': 'nextdotjs'
     };
 
     return (

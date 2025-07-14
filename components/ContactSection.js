@@ -39,9 +39,13 @@ export default function ContactSection() {
     return (
         <section id="contact" className="py-16 bg-gray-100 dark:bg-gray-900">
             <div className="max-w-3xl mx-auto text-center px-4" data-aos="fade-up">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                    Contact Me
-                </h2>
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                        Contact Me
+                    </h2>
+                    <div data-aos="fade-in" className="mt-2 mx-auto w-24 h-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
+                </div>
+
                 <p className="text-gray-600 dark:text-gray-300 mb-8" data-aos="fade-up" data-aos-delay="100">
                     Want to work together or have a question? Feel free to reach out!
                 </p>

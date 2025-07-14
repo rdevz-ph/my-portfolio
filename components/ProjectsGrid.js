@@ -13,14 +13,20 @@ const techIcons = {
     'TailwindCSS': 'tailwindcss',
     'Tailwind CSS': 'tailwindcss',
     Bootstrap: 'bootstrap',
+    React: 'react',
+    'Next.js': 'nextdotjs'
 };
 
 export default function ProjectsGrid({ projects }) {
     return (
         <div className="py-12">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8" data-aos="fade-up">
-                Recent Projects
-            </h2>
+
+            <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    Recent Projects
+                </h2>
+                <div data-aos="fade-up" className="mt-2 mx-auto w-24 h-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects.map((project, index) => (

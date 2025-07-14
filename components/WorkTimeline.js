@@ -3,9 +3,12 @@ import { format } from 'date-fns';
 export default function WorkTimeline({ experiences }) {
     return (
         <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
-                Work Experience
-            </h2>
+            <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    Work Experience
+                </h2>
+                <div data-aos="fade-up" className="mt-2 mx-auto w-24 h-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
+            </div>
 
             <ol className="relative border-s border-gray-300 dark:border-gray-700">
                 {experiences.map((exp, index) => (
