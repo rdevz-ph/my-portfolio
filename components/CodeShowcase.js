@@ -15,7 +15,7 @@ export default function CodeShowcase() {
                 data-aos="fade-up"
             >
                 This portfolio is open source and built using <b>Next.js</b>, <b>Tailwind CSS</b>, and more.
-                Here's a look into the setup:
+                Here&apos;s a look into the setup:
             </p>
 
             <div className="text-center mb-10" data-aos="zoom-in">
