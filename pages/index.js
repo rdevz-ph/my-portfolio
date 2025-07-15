@@ -10,6 +10,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import WorkTimeline from '@/components/WorkTimeline';
 import TechStack from '@/components/TechStack';
 import { getGoatCounterViews } from '@/lib/getGoatCounterViews';
+import CodeShowcase from '@/components/CodeShowcase';
 
 export async function getStaticProps() {
 
@@ -46,7 +47,10 @@ export default function Home({ projects, settings, experiences, skills }) {
           <ProfileCard settings={settings} />
           <StatsBox settings={settings} />
           <TechStack skills={skills} />
-          <WorkTimeline experiences={experiences} />
+          <section id="about">
+            <CodeShowcase />
+            <WorkTimeline experiences={experiences} />
+          </section>
         </section>
 
         <section id="projects">

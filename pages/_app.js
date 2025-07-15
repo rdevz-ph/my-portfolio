@@ -7,6 +7,7 @@ import AOS from 'aos';
 import { useEffect, useState } from 'react';
 import Loader from "@/components/Loader";
 import { Analytics } from "@vercel/analytics/next"
+import 'react-treeview/react-treeview.css';
 
 export default function App({ Component, pageProps }) {
   const [showLoader, setShowLoader] = useState(true);
