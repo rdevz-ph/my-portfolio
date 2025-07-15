@@ -5,7 +5,6 @@ import { FiFolder } from 'react-icons/fi';
 import { SiJavascript } from 'react-icons/si';
 import { VscJson } from 'react-icons/vsc';
 
-// eslint-disable-next-line react/no-unescaped-entities
 const indexJsCode = `import fs from 'fs';
 import path from 'path';
 import Navbar from '@/components/Navbar';
