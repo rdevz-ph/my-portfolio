@@ -31,6 +31,7 @@ export async function getStaticProps() {
 
   const visitorCount = await getGoatCounterViews();
   settings.visitor_count = visitorCount;
+  console.log('[GoatCounter] Visitor count:', visitorCount);
 
   return {
     props: { projects, settings, experiences, skills },
