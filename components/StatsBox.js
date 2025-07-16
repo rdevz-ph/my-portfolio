@@ -43,7 +43,7 @@ export default function StatsBox({ settings }) {
             <StatCard
                 icon={<EyeIcon className="w-6 h-6" />}
                 label="Total Visitors"
-                value={settings.visitor_count.toLocaleString('en-US')}
+                value={settings.visitor_count}
                 color="purple"
                 aos="fade-up"
                 delay="100"
