@@ -181,5 +181,16 @@
             "MySQL"
         ],
         "url": null
+    },
+    {
+        "title": "Free Live TV PH",
+        "description": "Free Live TV PH is a web-based IPTV browser that lets users stream live television channels from around the world. Users can filter by country, source (iptv-org or Free-TV/IPTV), and video quality (HD/SD), as well as search channel names in real-time. Built with Next.js, it includes dynamic M3U parsing, offline detection, retry handling, and channel count indicators for a responsive, user-friendly viewing experience.",
+        "image": "/projects/live-tv-cover.png",
+        "technologies": [
+            "React",
+            "Next.js",
+            "Tailwind CSS"
+        ],
+        "url": "https://rdevz-ph-live-tv.vercel.app/"
     }
 ]
