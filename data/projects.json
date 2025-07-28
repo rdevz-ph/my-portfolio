@@ -192,5 +192,16 @@
             "Tailwind CSS"
         ],
         "url": "https://rdevz-ph-live-tv.vercel.app/"
+    },
+    {
+        "title": "Laravel Template with shadcn/ui",
+        "description": "A modern Laravel starter template featuring shadcn/ui components for building beautiful, accessible web applications. This template provides a solid foundation with pre-configured authentication, responsive design, and a comprehensive component library. Perfect for rapid development of admin panels, dashboards, and modern web applications with clean, professional UI components.",
+        "image": "/projects/laravel-shadcn-template.png",
+        "technologies": [
+            "Laravel",
+            "Tailwind CSS",
+            "MySQL"
+        ],
+        "url": null
     }
 ]
