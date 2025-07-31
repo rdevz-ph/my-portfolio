@@ -36,10 +36,11 @@ export default function ProjectsGrid({ projects }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                 {sortedProjects.map((project, index) => (
                     <div
                         key={index}
-                        className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition duration-500 hover:shadow-xl transform hover:-translate-y-2"
+                        class="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-sm border border-gray-200 dark:border-gray-700 p-6"
                         data-aos="zoom-in-up"
                         data-aos-delay={index * 100} // staggered animation
                     >

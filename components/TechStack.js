@@ -18,7 +18,7 @@ export default function TechStack({ skills }) {
 
     return (
         <div
-            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl transition duration-500 hover:shadow-2xl mb-16"
+            class="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-10"
             data-aos="fade-up"
             data-aos-delay="100"
         >

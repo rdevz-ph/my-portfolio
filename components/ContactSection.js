@@ -52,7 +52,7 @@ export default function ContactSection() {
 
                 <form
                     onSubmit={handleSubmit}
-                    className="space-y-6"
+                    className="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-sm border border-gray-200 dark:border-gray-700 p-6 space-y-6"
                     data-aos="fade-up"
                     data-aos-delay="200"
                 >
