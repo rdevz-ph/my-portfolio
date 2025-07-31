@@ -11,7 +11,8 @@
             "Laravel",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "REDCROSS E-DONATEMO",
@@ -25,7 +26,8 @@
             "Laravel",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "Digital Paws: Animal Health Services Management System",
@@ -39,7 +41,8 @@
             "Laravel",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "Municipal Assessor Office: Land and Building Assessment System",
@@ -53,7 +56,8 @@
             "Laravel",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "MHO: Dental Clinic Appointment System",
@@ -67,7 +71,8 @@
             "Laravel",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "Tailwind Laravel",
@@ -78,7 +83,8 @@
             "Tailwind CSS",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "Service and Stock Management System w/ Qr Code (Calumpit)",
@@ -93,7 +99,8 @@
             "Bootstrap",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "SABLAYAN WATER DISTRICT RECRUITMENT, SELECTION AND PLACEMENT SYSTEM",
@@ -105,7 +112,8 @@
             "Tailwind CSS",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "Patient Management System with QR Code (Sablayan Municipal Health Office)",
@@ -119,7 +127,8 @@
             "Laravel",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "SPPF Freedom Track Management System",
@@ -134,7 +143,8 @@
             "Bootstrap",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "ETBDOTSMo INTEGRATED MONITORING AND TRACKING SYSTEM",
@@ -146,7 +156,8 @@
             "Tailwind CSS",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "MediTrack w/ QR Code Integration",
@@ -158,7 +169,8 @@
             "Tailwind CSS",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "TESDA Data Analysis and Reporting System",
@@ -169,18 +181,20 @@
             "Tailwind CSS",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "Sangguniang Kabataan System",
-        "description": "Sangguniang Kabataan System is a centralized system designed to manage youth organization activities and member data efficiently. It features user registration tracking, approval workflows, announcements, and transparency reports. Interactive charts provide real-time insights into demographics such as civil status, age group, sectorial affiliation, and approval status\u2014empowering SK leaders to make informed, data-driven decisions.",
+        "description": "Sangguniang Kabataan System is a centralized system designed to manage youth organization activities and member data efficiently. It features user registration tracking, approval workflows, announcements, and transparency reports. Interactive charts provide real-time insights into demographics such as civil status, age group, sectorial affiliation, and approval status—empowering SK leaders to make informed, data-driven decisions.",
         "image": "/projects/bTQ5dRrhvLb1ffa45xIdnsJYoOMUZ81FT3MVQpSZ.png",
         "technologies": [
             "Laravel",
             "Tailwind CSS",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     },
     {
         "title": "Free Live TV PH",
@@ -191,7 +205,8 @@
             "Next.js",
             "Tailwind CSS"
         ],
-        "url": "https://rdevz-ph-live-tv.vercel.app/"
+        "url": "https://rdevz-ph-live-tv.vercel.app/",
+        "isPinned": true
     },
     {
         "title": "Laravel Template with shadcn/ui",
@@ -202,6 +217,7 @@
             "Tailwind CSS",
             "MySQL"
         ],
-        "url": null
+        "url": null,
+        "isPinned": false
     }
 ]

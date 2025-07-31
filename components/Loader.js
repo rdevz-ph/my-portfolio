@@ -22,7 +22,7 @@ export default function Loader() {
 
                 return next;
             });
-        }, 150); // ~3 seconds
+        }, 75); // 1.5 seconds (20 iterations * 75ms = 1500ms)
 
         return () => clearInterval(interval);
     }, []);

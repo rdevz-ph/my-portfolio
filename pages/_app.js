@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
 
     const timer = setTimeout(() => {
       setShowLoader(false);
-    }, 3000); // 3 seconds
+    }, 2000); // 2 seconds
 
     return () => clearTimeout(timer);
   }, [showLoader]);
