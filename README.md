@@ -219,15 +219,6 @@ my-portfolio/
 
 ## 🔧 Configuration
 
-### **Environment Variables** (Optional)
-```env
-# Analytics
-NEXT_PUBLIC_GOATCOUNTER_CODE=your-code
-
-# Contact Form
-NEXT_PUBLIC_FORMSPREE_ID=your-form-id
-```
-
 ### **Package Scripts**
 ```json
 {
@@ -280,9 +271,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Romel Brosas**
-- Portfolio: [Your Portfolio URL]
+- Portfolio: [Visit here](https://romel-portfolio.vercel.app)
 - GitHub: [@rdevz-ph](https://github.com/rdevz-ph)
-- Email: your.email@example.com
+- Email: brosasromel01@gmail.com
 
 ## 🙏 Acknowledgments
 
@@ -290,6 +281,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Tailwind CSS** - Utility-first CSS framework
 - **Vercel** - Hosting and deployment platform
 - **Open Source Community** - All the amazing libraries used
+
+## ☕ Buy Me a Coffee
+
+<div align="center">
+  <a href="https://ko-fi.com/romelbrosas" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20Me-yellow?style=for-the-badge&logo=ko-fi" alt="Buy Me a Coffee" />
+  </a>
+  <br /><br />
+  <strong>❤️ Support the project: <a href="https://ko-fi.com/romelbrosas" target="_blank">Buy me a coffee</a></strong>
+</div>
 
 ---
 
