@@ -367,7 +367,7 @@ export default function WorkAdmin() {
                         {workExperience.length === 0 && (
                             <div className="text-center py-8">
                                 <p className="text-gray-400">No work experience added yet.</p>
-                                <p className="text-gray-500 text-sm mt-1">Click "Add New Position" to get started!</p>
+                                <p className="text-gray-500 text-sm mt-1">Click &quot;Add New Position&quot; to get started!</p>
                             </div>
                         )}
                     </div>

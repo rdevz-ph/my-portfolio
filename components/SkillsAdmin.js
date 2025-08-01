@@ -388,9 +388,9 @@ export default function SkillsAdmin() {
                         <div className="mt-6 p-4 bg-blue-900 bg-opacity-50 rounded-lg border border-blue-700">
                             <h3 className="text-blue-300 font-medium mb-2">💡 Quick Tips:</h3>
                             <ul className="text-blue-200 text-sm space-y-1">
-                                <li>• Use "Bulk Add" to quickly add multiple skills at once</li>
+                                <li>• Use &quot;Bulk Add&quot; to quickly add multiple skills at once</li>
                                 <li>• Skills are automatically sorted and displayed in your portfolio</li>
-                                <li>• Click "Edit" to rename any skill inline</li>
+                                <li>• Click &quot;Edit&quot; to rename any skill inline</li>
                                 <li>• Duplicate skills are automatically prevented</li>
                             </ul>
                         </div>
