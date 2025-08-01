@@ -41,19 +41,13 @@ export async function getStaticProps() {
 }
 
 export default function Home({ projects, settings, experiences, skills }) {
-  // Generate SEO data dynamically - use simple title for homepage
+  // Generate SEO data dynamically
   const pageTitle = `${settings.full_name} - ${settings.position}`;
   const pageDescription = settings.description || siteConfig.description;
-
-  // For homepage, use simple title without site name appended
-  const seo = {
-    title: pageTitle, // Direct title without site name duplication
-    description: pageDescription,
-    canonical: siteConfig.url,
-    ogImage: `${siteConfig.url}${siteConfig.ogImage}`
-  };
-
-  // Featured projects for structured data
+  const seo = generateSEO({
+    title: pageTitle,
+    description: pageDescription
+  });  // Featured projects for structured data
   const featuredProjects = projects.filter(p => p.isPinned).slice(0, 3);
 
   return (
