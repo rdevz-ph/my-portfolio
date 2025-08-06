@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import TreeView from 'react-treeview';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { FiFolder } from 'react-icons/fi';
 import { SiJavascript } from 'react-icons/si';
 import { VscJson } from 'react-icons/vsc';
@@ -32,6 +32,53 @@ export default function Home({ projects, settings, experiences, skills }) {
 }`;
 
 export default function ExplorerWithPreview() {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        // Check initial theme
+        const checkTheme = () => {
+            if (typeof window !== 'undefined') {
+                setIsDarkMode(document.documentElement.classList.contains('dark'));
+            }
+        };
+
+        checkTheme();
+
+        // Listen for theme changes
+        const observer = new MutationObserver(checkTheme);
+        if (typeof window !== 'undefined') {
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    // Custom theme style that works for both light and dark modes
+    const customThemeStyle = {
+        'code[class*="language-"]': {
+            color: isDarkMode ? '#e5e7eb' : '#1f2937', // gray-200 for dark, gray-800 for light
+            background: 'transparent',
+        },
+        'pre[class*="language-"]': {
+            color: isDarkMode ? '#e5e7eb' : '#1f2937', // gray-200 for dark, gray-800 for light
+            background: 'transparent',
+        },
+        'comment': { color: isDarkMode ? '#6b7280' : '#6b7280' }, // gray-500 for both
+        'string': { color: isDarkMode ? '#10b981' : '#059669' }, // emerald-500/600
+        'keyword': { color: '#8b5cf6' }, // purple-500 for both (matches your theme)
+        'function': { color: isDarkMode ? '#3b82f6' : '#2563eb' }, // blue-500/600
+        'number': { color: isDarkMode ? '#f59e0b' : '#d97706' }, // amber-500/600
+        'operator': { color: isDarkMode ? '#e5e7eb' : '#1f2937' }, // gray-200/800
+        'punctuation': { color: isDarkMode ? '#9ca3af' : '#6b7280' }, // gray-400/500
+        'property': { color: isDarkMode ? '#06b6d4' : '#0891b2' }, // cyan-500/600
+        'boolean': { color: isDarkMode ? '#f59e0b' : '#d97706' }, // amber-500/600
+        'constant': { color: isDarkMode ? '#f59e0b' : '#d97706' }, // amber-500/600
+        'class-name': { color: '#8b5cf6' }, // purple-500 for both (matches your theme)
+    };
+
     return (
         <div className="flex flex-col md:flex-row gap-6 mt-10">
             {/* Tree */}
@@ -134,9 +181,26 @@ export default function ExplorerWithPreview() {
                         pages/index.js
                     </span>
                 </div>
-                <SyntaxHighlighter language="javascript" style={oneDark}>
-                    {indexJsCode}
-                </SyntaxHighlighter>
+                <div className="bg-white dark:bg-gray-800 rounded-b-md border border-t-0 border-gray-200 dark:border-gray-600">
+                    <SyntaxHighlighter
+                        language="javascript"
+                        style={customThemeStyle}
+                        customStyle={{
+                            margin: 0,
+                            padding: '1rem',
+                            backgroundColor: 'transparent',
+                            borderRadius: '0 0 0.375rem 0.375rem',
+                            fontSize: '0.875rem'
+                        }}
+                        codeTagProps={{
+                            style: {
+                                backgroundColor: 'transparent'
+                            }
+                        }}
+                    >
+                        {indexJsCode}
+                    </SyntaxHighlighter>
+                </div>
             </div>
         </div>
     );
