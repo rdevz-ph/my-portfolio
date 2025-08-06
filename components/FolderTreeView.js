@@ -80,7 +80,7 @@ export default function ExplorerWithPreview() {
     };
 
     return (
-        <div className="flex flex-col md:flex-row gap-6 mt-10">
+        <div className="flex flex-col md:flex-row gap-6 mt-6 md:mt-10">
             {/* Tree */}
             <div className="w-full md:w-1/3">
                 <TreeView
@@ -172,8 +172,8 @@ export default function ExplorerWithPreview() {
 
             {/* Code preview */}
             <div className="w-full md:w-2/3">
-                <div className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-t-md border-b border-gray-300 dark:border-gray-700">
-                    <span className="inline-flex items-center gap-1 font-mono text-sm font-semibold text-purple-600 dark:text-purple-400">
+                <div className="flex items-center gap-2 px-2 md:px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-t-md border-b border-gray-300 dark:border-gray-700 overflow-x-auto">
+                    <span className="inline-flex items-center gap-1 font-mono text-xs md:text-sm font-semibold text-purple-600 dark:text-purple-400">
                         <svg className="w-4 h-4 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M4 4h16v16H4z" fill="none" />
                             <path d="M4 4h16v16H4z" stroke="currentColor" strokeWidth="1" />
@@ -181,16 +181,17 @@ export default function ExplorerWithPreview() {
                         pages/index.js
                     </span>
                 </div>
-                <div className="bg-white dark:bg-gray-800 rounded-b-md border border-t-0 border-gray-200 dark:border-gray-600">
+                <div className="bg-white dark:bg-gray-800 rounded-b-md border border-t-0 border-gray-200 dark:border-gray-600 overflow-x-auto">
                     <SyntaxHighlighter
                         language="javascript"
                         style={customThemeStyle}
                         customStyle={{
                             margin: 0,
-                            padding: '1rem',
+                            padding: '0.75rem',
                             backgroundColor: 'transparent',
                             borderRadius: '0 0 0.375rem 0.375rem',
-                            fontSize: '0.875rem'
+                            fontSize: '0.8rem',
+                            minWidth: 0,
                         }}
                         codeTagProps={{
                             style: {
