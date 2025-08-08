@@ -89,10 +89,13 @@ export default function ProjectsGrid({ projects }) {
                                             className="flex items-center space-x-2 px-3 py-1 rounded-full border border-gray-300 dark:border-gray-700 text-sm"
                                         >
                                             {icon && (
-                                                <img
+                                                <Image
                                                     src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
                                                     alt={tech}
+                                                    width={16}
+                                                    height={16}
                                                     className="w-4 h-4 filter dark:invert"
+                                                    unoptimized
                                                 />
                                             )}
                                             <span className="text-gray-800 dark:text-gray-200">{tech}</span>

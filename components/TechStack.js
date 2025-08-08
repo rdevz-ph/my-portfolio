@@ -42,10 +42,13 @@ export default function TechStack({ skills }) {
                                 data-aos-delay={index * 50}
                             >
                                 {iconName && (
-                                    <img
+                                    <Image
                                         src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${iconName}.svg`}
                                         alt={skill}
+                                        width={20}
+                                        height={20}
                                         className="w-5 h-5 filter dark:invert"
+                                        unoptimized
                                     />
                                 )}
                                 <span className="text-gray-900 dark:text-white">{skill}</span>
