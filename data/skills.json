@@ -11,5 +11,6 @@
     "TailwindCSS",
     "Bootstrap",
     "React",
-    "Next.js"
+    "Next.js",
+    "Supabase"
 ]
