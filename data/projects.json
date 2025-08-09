@@ -228,6 +228,7 @@
         "technologies": [
             "React",
             "Next.js",
+            "TypeScript",
             "TailwindCSS",
             "Supabase"
         ],

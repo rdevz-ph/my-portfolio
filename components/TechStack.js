@@ -5,6 +5,7 @@ export default function TechStack({ skills }) {
         HTML: 'html5',
         CSS: 'css3',
         JavaScript: 'javascript',
+        TypeScript: 'typescript',
         PHP: 'php',
         Laravel: 'laravel',
         'Vue.js': 'vue-dot-js',
