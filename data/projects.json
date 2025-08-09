@@ -227,7 +227,7 @@
         "image": "/projects/cpms-cover.png",
         "technologies": [
             "React",
-            "NextJS",
+            "Next.js",
             "TailwindCSS",
             "Supabase"
         ],
