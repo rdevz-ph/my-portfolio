@@ -14,7 +14,8 @@ const techIcons = {
     'Tailwind CSS': 'tailwindcss',
     Bootstrap: 'bootstrap',
     React: 'react',
-    'Next.js': 'nextdotjs'
+    'Next.js': 'nextdotjs',
+    Supabase: 'supabase'
 };
 
 export default function ProjectsGrid({ projects }) {

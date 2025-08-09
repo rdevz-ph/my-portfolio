@@ -203,7 +203,8 @@
         "technologies": [
             "React",
             "Next.js",
-            "Tailwind CSS"
+            "Tailwind CSS",
+            "Supabase"
         ],
         "url": "https://rdevz-ph-live-tv.vercel.app/",
         "isPinned": true
@@ -219,5 +220,18 @@
         ],
         "url": null,
         "isPinned": false
+    },
+    {
+        "title": "Client Project Management System",
+        "description": "A responsive admin panel for managing client projects, tracking budgets, monitoring payments, and visualizing income trends with per-user data isolation.",
+        "image": "/projects/cpms-cover.png",
+        "technologies": [
+            "React",
+            "NextJS",
+            "TailwindCSS",
+            "Supabase"
+        ],
+        "url": "https://rdevz-ph-cpms.vercel.app",
+        "isPinned": true
     }
 ]
