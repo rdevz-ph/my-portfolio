@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Full Stack Developer",
+        "company": "Freelance",
+        "start_date": "2023-01-01",
+        "end_date": null,
+        "description": "Built and deployed client systems from scratch using Laravel, Tailwind CSS, and MySQL."
+    },
+    {
+        "title": "IT Intern",
+        "company": "Tech Co.",
+        "start_date": "2022-06-01",
+        "end_date": "2022-12-31",
+        "description": "Assisted in maintaining internal systems and deploying minor features."
+    }
+]

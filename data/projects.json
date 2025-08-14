@@ -1,0 +1,226 @@
+[
+    {
+        "title": "iCare: Family Planning Management System",
+        "description": "iCare is a comprehensive tool designed to streamline family planning services. It enables efficient management of client data, contraceptive methods, and service delivery, helping healthcare providers monitor and improve family planning outcomes.",
+        "image": "/projects/yKHheGTVtQj9MSBXMbjiWLQ1KBHrwWOo1QkmT5Z5.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "REDCROSS E-DONATEMO",
+        "description": "REDCROSS E-DONATEMO is a digital platform for managing blood donors. It simplifies the process of tracking donations, organizing donor drives, and maintaining donor records, ensuring a reliable and efficient blood donation process for both donors and healthcare providers.",
+        "image": "/projects/hsZdV8iw2fRINt8SCGqEjG8fjUmfEEEMB47yCF9e.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "Digital Paws: Animal Health Services Management System",
+        "description": "Digital Paws is a comprehensive platform for managing animal health services, including pet vaccination appointments and wellness check-ups. It simplifies scheduling, tracks vaccination records, and ensures timely care, helping pet owners and veterinarians provide the best possible care for animals.",
+        "image": "/projects/cRfjesLDQTxXoKKerFvZRBTPhBnph7hYbpbBNrLE.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "Municipal Assessor Office: Land and Building Assessment System",
+        "description": "This system is designed for the efficient management of land and building assessments within a municipality. It streamlines the process of property valuation, record-keeping, and generating assessment reports, aiding the Municipal Assessor's Office in ensuring accurate and up-to-date property assessments.",
+        "image": "/projects/vDaNjXw7SY5HMO7yv5za4G1IMvPVwKXyr2LsxanB.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "MHO: Dental Clinic Appointment System",
+        "description": "The MHO Dental Clinic Appointment System is a streamlined platform designed to manage patient appointments efficiently at a municipal health office's dental clinic. It allows for easy scheduling, tracking, and management of dental appointments, ensuring timely and organized patient care.",
+        "image": "/projects/RRLT3GkXWFKnCnY1zc8PaaqfFCmIcDibZrBYcEPv.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "Tailwind Laravel",
+        "description": "A simple admin panel made with Laravel + TailwindCSS.",
+        "image": "/projects/nTMcxzc91HCUrKNsdXzktO0jtc3RxKnOqbR0cABF.png",
+        "technologies": [
+            "Laravel",
+            "Tailwind CSS",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "Service and Stock Management System w/ Qr Code (Calumpit)",
+        "description": "A comprehensive solution designed to streamline service and stock management for businesses in Calumpit. This system allows for efficient tracking of inventory, service requests, and transactions through a user-friendly interface. QR code functionality enhances the experience by enabling quick access to item details and service updates, ensuring smooth operations and improved customer service.",
+        "image": "/projects/aEnyvwjP3WFi40Pxw6FgG01y0QPv1IkZRaGSE62C.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "Bootstrap",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "SABLAYAN WATER DISTRICT RECRUITMENT, SELECTION AND PLACEMENT SYSTEM",
+        "description": "Sablayan Water District Recruitment, Selection, and Placement System\nA streamlined web-based system designed to manage the recruitment, selection, and placement process for Sablayan Water District. It automates job postings, applicant tracking, evaluation, and hiring decisions, ensuring an efficient and transparent hiring process.",
+        "image": "/projects/Vh4lQUxlcRjV29upgECC7jOO4KNaKRgFRMm6SBJF.png",
+        "technologies": [
+            "PHP",
+            "Laravel",
+            "Tailwind CSS",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "Patient Management System with QR Code (Sablayan Municipal Health Office)",
+        "description": "The Patient Management System streamlines patient records and healthcare services for the Sablayan Municipal Health Office. It utilizes QR codes for quick and secure access to patient information, improving efficiency in consultations, check-ups, and medical history tracking. The system enhances data management, reduces paperwork, and ensures seamless patient care.",
+        "image": "/projects/bMPs1I0dZiQ05XhnujnjHoAhfxRTd9ztDuqiwRzV.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "SPPF Freedom Track Management System",
+        "description": "The SPPF Freedom Track Management System is a dedicated platform for tracking prisoners' release status. It streamlines the monitoring process, ensuring accurate record-keeping, timely updates, and seamless coordination of release procedures.",
+        "image": "/projects/YlJfGwDdcpHtHwXspdalJBxkYfXpuBscPafO99Dd.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "PHP",
+            "Laravel",
+            "Bootstrap",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "ETBDOTSMo INTEGRATED MONITORING AND TRACKING SYSTEM",
+        "description": "A streamlined digital solution designed to monitor, track, and manage Enhanced Tuberculosis Directly Observed Treatment, Short-course (ETBDOTS) activities. It ensures efficient data collection, patient tracking, and real-time reporting for better TB program implementation and oversight.",
+        "image": "/projects/ib9kU2gBfzyQdf9JZ5ZdsmncdT8z9MCxZjusKWh1.png",
+        "technologies": [
+            "PHP",
+            "Laravel",
+            "Tailwind CSS",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "MediTrack w/ QR Code Integration",
+        "description": "MediTrack w/ QR Code Integration is a health records management system developed for the Sablayan Municipal Health Office. It streamlines patient tracking, appointment scheduling, and medication monitoring with secure QR code integration for fast and efficient access to patient data.",
+        "image": "/projects/E5TzjLAsguTw9f6jMWGAQEVZIXorT0u53bdTy6n0.png",
+        "technologies": [
+            "PHP",
+            "Laravel",
+            "Tailwind CSS",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "TESDA Data Analysis and Reporting System",
+        "description": "TESDA Data Analysis and Reporting System is an integrated admin platform that streamlines the monitoring and reporting of TESDA-related activities. With real-time dashboards, the system displays vital statistics such as the number of profiled, enrolled, graduated, assessed, certified, and employed individuals. It features interactive charts that visualize client types, training status, employment rates, and assessment competencies. The sidebar navigation makes it easy to manage profiling, trainings, assessments, and user records, ensuring a smooth data management workflow for administrators and decision-makers.",
+        "image": "/projects/gmUfjm595FEsQOryW6QBPivkSezbcLoq76tmw1A2.png",
+        "technologies": [
+            "Laravel",
+            "Tailwind CSS",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "Sangguniang Kabataan System",
+        "description": "Sangguniang Kabataan System is a centralized system designed to manage youth organization activities and member data efficiently. It features user registration tracking, approval workflows, announcements, and transparency reports. Interactive charts provide real-time insights into demographics such as civil status, age group, sectorial affiliation, and approval status—empowering SK leaders to make informed, data-driven decisions.",
+        "image": "/projects/bTQ5dRrhvLb1ffa45xIdnsJYoOMUZ81FT3MVQpSZ.png",
+        "technologies": [
+            "Laravel",
+            "Tailwind CSS",
+            "MySQL"
+        ],
+        "url": null,
+        "isPinned": false
+    },
+    {
+        "title": "Free Live TV PH",
+        "description": "Free Live TV PH is a web-based IPTV browser that lets users stream live television channels from around the world. Users can filter by country, source (iptv-org or Free-TV/IPTV), and video quality (HD/SD), as well as search channel names in real-time. Built with Next.js, it includes dynamic M3U parsing, offline detection, retry handling, and channel count indicators for a responsive, user-friendly viewing experience.",
+        "image": "/projects/live-tv-cover.png",
+        "technologies": [
+            "React",
+            "Next.js",
+            "Tailwind CSS",
+            "Supabase"
+        ],
+        "url": "https://rdevz-ph-live-tv.vercel.app/",
+        "isPinned": true
+    },
+    {
+        "title": "Client Project Management System",
+        "description": "A responsive admin panel for managing client projects, tracking budgets, monitoring payments, and visualizing income trends with per-user data isolation.",
+        "image": "/projects/cpms-cover.png",
+        "technologies": [
+            "React",
+            "Next.js",
+            "TypeScript",
+            "TailwindCSS",
+            "Supabase"
+        ],
+        "url": "https://rdevz-ph-cpms.vercel.app",
+        "isPinned": true
+    }
+]
