@@ -222,5 +222,17 @@
         ],
         "url": "https://rdevz-ph-cpms.vercel.app",
         "isPinned": true
+    },
+    {
+        "title": "TailwindCSS Laravel",
+        "description": "A simple admin panel featuring user authentication, settings management, responsive UI with Tailwind CSS, easy navigation, and dark/light mode support.",
+        "image": "/projects/tailwind-panel.png",
+        "technologies": [
+            "Laravel",
+            "TailwindCSS",
+            "MySQL"
+        ],
+        "url": "",
+        "isPinned": false
     }
 ]
