@@ -224,9 +224,9 @@
         "isPinned": true
     },
     {
-        "title": "TailwindCSS Laravel",
-        "description": "A simple admin panel featuring user authentication, settings management, responsive UI with Tailwind CSS, easy navigation, and dark/light mode support.",
-        "image": "/projects/tailwind-panel.png",
+        "title": "BasecoatUI Laravel PRO",
+        "description": "A responsive Laravel dashboard built with Tailwind v4, Basecoat UI, and Alpine.js. It includes a collapsible sidebar (desktop push, mobile drawer), light/dark mode, a searchable/paginated Users table (DataTables), and simple notifications/toast alerts.",
+        "image": "/projects/basecoat-laravel.png",
         "technologies": [
             "Laravel",
             "TailwindCSS",
