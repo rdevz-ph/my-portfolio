@@ -374,5 +374,44 @@
         "url": "",
         "isPinned": false,
         "year": 2025
+    },
+    {
+        "title": "BUCOR E-Recruitment System",
+        "description": "BUCOR E-Recruitment System is a web-based recruitment platform designed to streamline the hiring process within the Bureau of Corrections. It enables efficient management of applicants, job postings, assessments, and hiring workflows, while providing real-time insights into application statuses and recruitment progress.",
+        "image": "/projects/bucor.png",
+        "technologies": [
+            "Laravel",
+            "TailwindCSS",
+            "MySQL"
+        ],
+        "url": "",
+        "isPinned": false,
+        "year": 2025
+    },
+    {
+        "title": "Cultural Property Information System (Sablayan)",
+        "description": "A web-based cultural asset management system for Sablayan, designed to catalog and monitor cultural properties across multiple categories. Features include mapping forms, data classification, and an analytics dashboard to support heritage preservation and local governance.",
+        "image": "/projects/cpis.png",
+        "technologies": [
+            "Laravel",
+            "TailwindCSS",
+            "MySQL"
+        ],
+        "url": "",
+        "isPinned": false,
+        "year": 2025
+    },
+    {
+        "title": "Sablayan RentHub",
+        "description": "A modern property rental platform built for Sablayan, enabling users to search, filter, and explore available accommodations with ease. It includes listing management, real-time availability, and a clean UI designed for both guests and property owners.",
+        "image": "/projects/renthub.png",
+        "technologies": [
+            "Laravel",
+            "TailwindCSS",
+            "MySQL"
+        ],
+        "url": "",
+        "isPinned": false,
+        "year": 2025
     }
 ]
