@@ -2,6 +2,7 @@
     "HTML",
     "CSS",
     "JavaScript",
+    "TypeScript",
     "PHP",
     "Laravel",
     "Vue.js",
@@ -13,5 +14,10 @@
     "React",
     "Next.js",
     "Supabase",
-    "TypeScript"
+    "Python",
+    "Tkinter",
+    "SSH",
+    "Linux",
+    "Ubuntu",
+    "Nginx"
 ]

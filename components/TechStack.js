@@ -8,16 +8,22 @@ export default function TechStack({ skills }) {
         TypeScript: 'typescript',
         PHP: 'php',
         Laravel: 'laravel',
-        'Vue.js': 'vue-dot-js',
-        'Node.js': 'node-dot-js',
+        'Vue.js': 'vuedotjs',
+        'Node.js': 'nodedotjs',
         MySQL: 'mysql',
         Git: 'git',
-        'TailwindCSS': 'tailwindcss',
+        TailwindCSS: 'tailwindcss',
         'Tailwind CSS': 'tailwindcss',
         Bootstrap: 'bootstrap',
         React: 'react',
         'Next.js': 'nextdotjs',
-        Supabase: 'supabase'
+        Supabase: 'supabase',
+        Python: 'python',
+        Tkinter: 'python',
+        SSH: 'gnubash',
+        Linux: 'linux',
+        Ubuntu: 'ubuntu',
+        Nginx: 'nginx'
     };
 
     return (

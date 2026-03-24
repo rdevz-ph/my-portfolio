@@ -413,5 +413,18 @@
         "url": "",
         "isPinned": false,
         "year": 2025
+    },
+    {
+        "title": "Composer + Artisan SSH Tool",
+        "description": "A lightweight desktop GUI tool for running Composer and Laravel Artisan commands directly over SSH. Built with Python and Tkinter, it helps developers execute common remote commands faster through saved profiles, domain-based targeting, command previews, live logs, and quick access to Composer, Artisan, and custom SSH commands.",
+        "image": "/projects/composer-artisan-ssh-tool.png",
+        "technologies": [
+            "Python",
+            "Tkinter",
+            "SSH"
+        ],
+        "url": "https://github.com/rdevz-ph/composer-artisan-ssh-tool",
+        "isPinned": true,
+        "year": 2026
     }
 ]
