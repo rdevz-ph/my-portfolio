@@ -28,7 +28,7 @@ export default function TechStack({ skills }) {
 
     return (
         <div
-            class="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-10"
+            class="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-xs border border-gray-200 dark:border-gray-700 p-6 mb-10"
             data-aos="fade-up"
             data-aos-delay="100"
         >

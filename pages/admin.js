@@ -101,7 +101,7 @@ export default function AdminPage() {
 
     return (
         <div>
-            <div className="bg-gray-800 shadow-sm border-b border-gray-700">
+            <div className="bg-gray-800 shadow-xs border-b border-gray-700">
                 <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
                     <h1 className="text-lg font-semibold text-white">
                         Portfolio Admin Panel
@@ -115,7 +115,7 @@ export default function AdminPage() {
                         </button>
                         <button
                             onClick={handleLogout}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-sm text-sm transition-colors"
                         >
                             Logout
                         </button>

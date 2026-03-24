@@ -8,7 +8,7 @@ export default function ProfileCard({ settings }) {
             data-aos-delay="100"
         >
             <div className="relative group" data-aos="zoom-in">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-pink-600 rounded-full blur-sm opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                 <Image
                     src={settings.system_logo}
                     alt="Profile Image"

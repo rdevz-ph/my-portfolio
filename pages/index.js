@@ -141,7 +141,7 @@ export default function Home({ projects, settings, experiences, skills }) {
         />
       </Head>
 
-      <main className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white">
+      <main className="bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 pt-24">
           <section id="about">

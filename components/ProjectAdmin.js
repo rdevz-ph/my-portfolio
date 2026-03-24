@@ -351,7 +351,7 @@ export default function ProjectAdmin() {
                                             </p>
                                             <div className="flex flex-wrap gap-1 mb-2">
                                                 {project.technologies?.map((tech, i) => (
-                                                    <span key={i} className="bg-blue-900 text-blue-300 text-xs px-2 py-1 rounded">
+                                                    <span key={i} className="bg-blue-900 text-blue-300 text-xs px-2 py-1 rounded-sm">
                                                         {tech}
                                                     </span>
                                                 ))}
@@ -370,13 +370,13 @@ export default function ProjectAdmin() {
                                         <div className="flex gap-2 ml-4">
                                             <button
                                                 onClick={() => handleEdit(project.originalIndex)}
-                                                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                                                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm text-sm transition-colors"
                                             >
                                                 Edit
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(project.originalIndex)}
-                                                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                                                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-sm text-sm transition-colors"
                                             >
                                                 Delete
                                             </button>

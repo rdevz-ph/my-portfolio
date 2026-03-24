@@ -8,7 +8,7 @@ import CountUp from 'react-countup';
 
 const StatCard = ({ icon, label, value, color, suffix, aos, delay }) => (
     <div
-        class="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+        class="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-xs border border-gray-200 dark:border-gray-700 p-6"
         data-aos={aos}
         data-aos-delay={delay}
     >

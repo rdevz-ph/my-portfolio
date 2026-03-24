@@ -343,18 +343,18 @@ export default function SkillsAdmin() {
                                                     type="text"
                                                     value={editValue}
                                                     onChange={(e) => setEditValue(e.target.value)}
-                                                    className="flex-1 px-2 py-1 text-sm border border-gray-600 rounded bg-gray-800 text-white focus:ring-1 focus:ring-purple-500"
+                                                    className="flex-1 px-2 py-1 text-sm border border-gray-600 rounded-sm bg-gray-800 text-white focus:ring-1 focus:ring-purple-500"
                                                     autoFocus
                                                 />
                                                 <button
                                                     onClick={() => handleEditSkill(index)}
-                                                    className="bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded text-xs transition-colors"
+                                                    className="bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
                                                 >
                                                     ✓
                                                 </button>
                                                 <button
                                                     onClick={cancelEditing}
-                                                    className="bg-gray-600 hover:bg-gray-700 text-white px-2 py-1 rounded text-xs transition-colors"
+                                                    className="bg-gray-600 hover:bg-gray-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
                                                 >
                                                     ✕
                                                 </button>
@@ -365,13 +365,13 @@ export default function SkillsAdmin() {
                                                 <div className="flex gap-1">
                                                     <button
                                                         onClick={() => startEditing(index, skill)}
-                                                        className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs transition-colors"
+                                                        className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
                                                     >
                                                         Edit
                                                     </button>
                                                     <button
                                                         onClick={() => handleDeleteSkill(index)}
-                                                        className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs transition-colors"
+                                                        className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
                                                     >
                                                         Delete
                                                     </button>

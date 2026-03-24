@@ -7,7 +7,7 @@ export default function CodeShowcase() {
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                     About This Portfolio
                 </h2>
-                <div data-aos="fade-up" className="mt-2 mx-auto w-24 h-1 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
+                <div data-aos="fade-up" className="mt-2 mx-auto w-24 h-1 bg-linear-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
             </div>
 
             <p
@@ -23,7 +23,7 @@ export default function CodeShowcase() {
                     href="https://github.com/rdevz-ph/my-portfolio"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-md shadow hover:shadow-lg transition"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-md shadow-sm hover:shadow-lg transition"
                 >
                     <i className="fab fa-github text-lg"></i>
                     View Source on GitHub
