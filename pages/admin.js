@@ -15,9 +15,15 @@ export default function AdminPage() {
     const router = useRouter();
 
     useEffect(() => {
-        // Automatically "authenticate" and finish loading
+        // Redirect to home in production
+        if (process.env.NODE_ENV === 'production') {
+            router.push('/');
+            return;
+        }
+
+        // Automatically "authenticate" and finish loading in development
         setLoading(false);
-    }, []);
+    }, [router]);
 
     const handleLogout = () => {
         router.push('/');
