@@ -1,297 +1,131 @@
-# 🚀 Modern Portfolio with Admin Panel
+# Professional Portfolio with Admin Panel
 
-A comprehensive **Next.js portfolio website** featuring a powerful admin panel for content management. Built with modern web technologies and designed for developers who want full control over their portfolio content.
+A comprehensive Next.js portfolio website featuring a professional admin panel for content management. Built with modern web technologies and optimized for performance, accessibility, and clean design.
 
-## ✨ Features
+## Features
 
-### 🎨 **Portfolio Website**
-- **Responsive Design** - Looks great on all devices
-- **Dark/Light Theme** - Automatic theme switching with toggle
-- **Smooth Animations** - AOS (Animate On Scroll) integration
-- **Project Showcase** - Grid layout with pinned projects
-- **Work Timeline** - Professional work experience display
-- **Skills Section** - Technical skills with modern design
-- **Contact Form** - Integrated with Formspree
-- **Analytics** - GoatCounter integration for visitor tracking
-- **SEO Optimized** - Meta tags and optimized structure
+### Portfolio Website
+- Responsive Design: Fully optimized for mobile, tablet, and desktop environments.
+- Modern Dark Mode: Refined Zinc-based deep charcoal palette with smooth transitions.
+- High-Performance UI: Powered by shadcn/ui components for consistency and accessibility.
+- Project Showcase: Advanced grid layout with support for pinned featured projects and tech stacks.
+- Professional Timeline: Detailed work experience display with automatic formatting.
+- Interactive Skills: Dynamic skill showcase using modern badges and icons.
+- Integrated Contact: Functional contact form powered by Formspree.
+- Visitor Analytics: Integration with GoatCounter for privacy-friendly tracking.
+- Search Engine Optimization: Comprehensive meta tags and structured data for better visibility.
 
-### 🛠️ **Admin Panel** (Development Only)
-- **Projects Management** - CRUD operations with image/tech management
-- **Work Experience** - Timeline management with current position support
-- **Skills Management** - Add/edit/delete skills with bulk operations
-- **Portfolio Settings** - Personal info, statistics, and file paths
-- **Password Protection** - Simple authentication for local development
-- **Auto-scroll Forms** - Smooth UX when editing content
-- **Real-time Updates** - Changes reflect immediately
+### Admin Panel (Development Mode)
+- Unified Dashboard: Centralized management using a tabbed interface.
+- Project Management: Full CRUD operations with image and technology metadata.
+- Career History: Timeline management with support for current and past positions.
+- Skill Inventory: Individual and bulk operations for technical competency management.
+- Configuration: Real-time updates for personal information, statistics, and system paths.
+- Local Access: Direct access during development without complex authentication requirements.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-### **Frontend**
-- **[Next.js 15.3.5](https://nextjs.org/)** - React framework with SSG
-- **[React 19](https://react.dev/)** - Latest React with modern hooks
-- **[Tailwind CSS 3.4.17](https://tailwindcss.com/)** - Utility-first CSS framework
-- **[Lucide React](https://lucide.dev/)** - Beautiful modern icons
+### Core Frameworks
+- Next.js 15.3.5: React framework with Server-Side Rendering and Static Site Generation.
+- React 19: Latest version utilizing modern hooks and patterns.
+- Tailwind CSS 4: Next-generation utility-first CSS framework.
+- shadcn/ui: Accessible and customizable component primitives.
 
-### **Libraries & Integrations**
-- **[AOS 2.3.4](https://michalsnik.github.io/aos/)** - Animate On Scroll library
-- **[SweetAlert2](https://sweetalert2.github.io/)** - Beautiful alert/modal system
-- **[Formspree](https://formspree.io/)** - Contact form backend
-- **[GoatCounter](https://www.goatcounter.com/)** - Privacy-friendly analytics
+### Libraries and Integrations
+- Lucide React: Modern and consistent icon set.
+- AOS: Animate On Scroll for subtle entry effects.
+- SweetAlert2: Professional feedback and confirmation modals.
+- Formspree: Reliable contact form backend services.
+- GoatCounter: Privacy-first web analytics.
 
-### **Development Tools**
-- **[ESLint](https://eslint.org/)** - Code linting and formatting
-- **[PostCSS](https://postcss.org/)** - CSS processing
-- **Node.js File System** - JSON-based content management
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 my-portfolio/
-├── components/           # React components
-│   ├── CodeShowcase.js  # Code display component
-│   ├── ContactSection.js # Contact form
-│   ├── FolderTreeView.js # File tree display
-│   ├── Footer.js        # Site footer
-│   ├── Loader.js        # Loading animation
-│   ├── Navbar.js        # Navigation header
-│   ├── ProfileCard.js   # Profile information
-│   ├── ProjectsGrid.js  # Projects showcase
-│   ├── ScrollToTop.js   # Scroll utility
-│   ├── StatsBox.js      # Statistics display
-│   ├── TechStack.js     # Skills showcase
-│   ├── ThemeToggle.js   # Dark/light mode
-│   ├── WorkTimeline.js  # Work experience
-│   ├── ProjectAdmin.js  # Projects management
-│   ├── SettingsAdmin.js # Settings management
-│   ├── WorkAdmin.js     # Work experience management
-│   └── SkillsAdmin.js   # Skills management
-├── data/                # JSON data files
-│   ├── projects.json    # Portfolio projects
-│   ├── settings.json    # Site configuration
-│   ├── skills.json      # Technical skills
-│   └── work.json        # Work experience
-├── lib/                 # Utility functions
-│   └── getGoatCounterViews.js # Analytics helper
-├── pages/               # Next.js pages
-│   ├── _app.js         # App configuration
-│   ├── _document.js    # HTML document structure
-│   ├── index.js        # Homepage
-│   ├── admin.js        # Admin panel
-│   └── api/            # API endpoints
-│       ├── hello.js    # Example API
-│       ├── projects.js # Projects CRUD API
-│       ├── settings.js # Settings API
-│       ├── work.js     # Work experience API
-│       └── skills.js   # Skills API
-├── public/             # Static assets
-│   ├── images/         # Profile and UI images
-│   └── projects/       # Project screenshots
+├── components/           # UI and Feature components
+│   ├── ui/               # shadcn/ui primitives
+│   ├── CodeShowcase.js   # Project architecture display
+│   ├── ContactSection.js # Contact implementation
+│   ├── Navbar.js         # Navigation with Sheet (mobile)
+│   ├── ProjectsGrid.js   # Advanced project display
+│   └── ...               # Additional feature components
+├── data/                 # JSON-based content storage
+│   ├── projects.json     # Project metadata
+│   ├── settings.json     # Configuration and profile data
+│   └── work.json         # Career history
+├── lib/                  # Utilities and helpers
+│   ├── utils.js          # Tailwind class merging
+│   └── seo.js            # Metadata generation
+├── pages/                # Next.js routing
+│   ├── index.js          # Main portfolio
+│   ├── admin.js          # Management dashboard
+│   └── api/              # Local content APIs
 └── styles/
-    └── globals.css     # Global styles
+    └── globals.css       # Core theme and shadcn variables
 ```
 
-## 🚀 Getting Started
+## Installation and Setup
 
-### **Prerequisites**
-- Node.js 18+ installed
-- npm, yarn, pnpm, or bun package manager
+### Prerequisites
+- Node.js 18 or higher
+- Package manager (npm, yarn, pnpm, or bun)
 
-### **Installation**
+### Development Environment
 
-1. **Clone the repository**
+1. Clone the repository:
    ```bash
    git clone https://github.com/rdevz-ph/my-portfolio.git
    cd my-portfolio
    ```
 
-2. **Install dependencies**
+2. Install dependencies:
    ```bash
    npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   # or
-   bun install
    ```
 
-3. **Run the development server**
+3. Start the development server:
    ```bash
    npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   # or
-   bun dev
    ```
 
-4. **Open your browser**
-   - Portfolio: [http://localhost:3000](http://localhost:3000)
-   - Admin Panel: [http://localhost:3000/admin](http://localhost:3000/admin)
+4. Access points:
+   - Portfolio: http://localhost:3000
+   - Admin Panel: http://localhost:3000/admin
 
-### **Admin Panel Access**
-- **Password**: `admin123` (change in `pages/admin.js`)
-- **Development Only**: Admin panel only works in development mode
-- **Features**: Manage projects, work experience, skills, and settings
+## Deployment
 
-## 📝 Content Management
+### Vercel (Recommended)
+1. Push your repository to GitHub.
+2. Connect your repository to Vercel.
+3. The platform will automatically detect Next.js settings and deploy.
 
-### **Portfolio Data Files**
+### Static Export
+- Use `npm run build` followed by `npm run export` for static hosting providers.
 
-#### **`data/projects.json`**
-```json
-{
-  "title": "Project Name",
-  "description": "Project description",
-  "image": "/projects/screenshot.png",
-  "technologies": ["React", "Next.js", "Tailwind"],
-  "url": "https://project-url.com",
-  "isPinned": false
-}
-```
+## Content Configuration
 
-#### **`data/settings.json`**
-```json
-{
-  "full_name": "Your Name",
-  "position": "Your Title",
-  "description": "Your bio",
-  "system_logo": "/images/profile.jpg",
-  "system_cv_path": "/files/cv.pdf",
-  "years_of_experience": 2,
-  "visitor_count": 156,
-  "client_count": 13
-}
-```
+### Portfolio Data
+Content is managed via JSON files in the `data/` directory. While these can be edited manually, the Admin Panel provides a visual interface for all operations during development.
 
-#### **`data/work.json`**
-```json
-{
-  "title": "Job Title",
-  "company": "Company Name",
-  "start_date": "2023-01-01",
-  "end_date": null,
-  "description": "Job description and achievements"
-}
-```
+### Services Setup
+- Contact Form: Update the endpoint in `ContactSection.js` with your Formspree ID.
+- Analytics: Configure your GoatCounter code in `lib/getGoatCounterViews.js`.
 
-#### **`data/skills.json`**
-```json
-["HTML", "CSS", "JavaScript", "React", "Next.js"]
-```
+## Contributing
+Contributions are welcome. Please follow the standard workflow:
+1. Fork the project.
+2. Create a feature branch.
+3. Commit your changes.
+4. Open a pull request.
 
-## 🎨 Customization
+## License
+This project is licensed under the [MIT License](LICENSE).
 
-### **Colors & Theme**
-- **Primary**: Purple (`#8b5cf6`)
-- **Dark Mode**: Gray scale palette
-- **Customize**: Edit `tailwind.config.js` and `globals.css`
-
-### **Adding Projects**
-1. Use admin panel at `/admin`
-2. Or manually edit `data/projects.json`
-3. Add project images to `public/projects/`
-
-### **Contact Form**
-- **Setup**: Create account at [Formspree](https://formspree.io/)
-- **Configure**: Update form action in `ContactSection.js`
-
-### **Analytics**
-- **Setup**: Create account at [GoatCounter](https://www.goatcounter.com/)
-- **Configure**: Update settings in `lib/getGoatCounterViews.js`
-
-## 🚀 Deployment
-
-### **Vercel (Recommended)**
-1. Push code to GitHub
-2. Import project to [Vercel](https://vercel.com/)
-3. Deploy automatically
-
-### **Other Platforms**
-- **Netlify**: `npm run build` + `npm run export`
-- **GitHub Pages**: Static export with `next export`
-
-### **Production Notes**
-- Admin panel is **development-only** (disabled in production)
-- Content updates require redeployment
-- Static files are served from CDN
-
-## 🔧 Configuration
-
-### **Package Scripts**
-```json
-{
-  "dev": "next dev",           # Development server
-  "build": "next build",       # Production build
-  "start": "next start",       # Production server
-  "lint": "next lint",         # Code linting
-  "export": "next export"      # Static export
-}
-```
-
-## 📊 Admin Panel Features
-
-### **Projects Management**
-- ✅ Add/Edit/Delete projects
-- ✅ Pin important projects (appear first)
-- ✅ Image and technology management
-- ✅ URL validation and previews
-
-### **Work Experience**
-- ✅ Timeline management
-- ✅ Current position support (no end date)
-- ✅ Company and role descriptions
-- ✅ Date validation
-
-### **Skills Management**
-- ✅ Individual skill addition
-- ✅ Bulk add multiple skills
-- ✅ Inline editing
-- ✅ Duplicate prevention
-
-### **Portfolio Settings**
-- ✅ Personal information
-- ✅ File paths (images, CV)
-- ✅ Statistics (experience, visitors, clients)
-- ✅ Real-time change detection
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Romel Brosas**
-- Portfolio: [Visit here](https://romel-portfolio.vercel.app)
-- GitHub: [@rdevz-ph](https://github.com/rdevz-ph)
+## Author
+Romel Brosas
+- Portfolio: https://romel-portfolio.vercel.app
+- GitHub: @rdevz-ph
 - Email: brosasromel01@gmail.com
 
-## 🙏 Acknowledgments
-
-- **Next.js Team** - Amazing React framework
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vercel** - Hosting and deployment platform
-- **Open Source Community** - All the amazing libraries used
-
-## ☕ Buy Me a Coffee
-
-<div align="center">
-  <a href="https://ko-fi.com/romelbrosas" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20Me-yellow?style=for-the-badge&logo=ko-fi" alt="Buy Me a Coffee" />
-  </a>
-  <br /><br />
-  <strong>❤️ Support the project: <a href="https://ko-fi.com/romelbrosas" target="_blank">Buy me a coffee</a></strong>
-</div>
-
 ---
-
-⭐ **Star this repository if you found it helpful!**
+Star this repository if you find it useful.

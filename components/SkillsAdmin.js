@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Loader2, Plus, ListFilter, Pencil, Trash2, Check, X, Lightbulb, Library } from "lucide-react";
 
 export default function SkillsAdmin() {
     const [skills, setSkills] = useState([]);
@@ -8,7 +14,6 @@ export default function SkillsAdmin() {
     const [editValue, setEditValue] = useState('');
     const [loading, setLoading] = useState(true);
 
-    // Load skills on component mount
     useEffect(() => {
         fetchSkills();
     }, []);
@@ -38,7 +43,6 @@ export default function SkillsAdmin() {
             return;
         }
 
-        // Check for duplicates (case insensitive)
         if (skills.some(skill => skill.toLowerCase() === newSkill.trim().toLowerCase())) {
             Swal.fire({
                 icon: 'error',
@@ -94,7 +98,6 @@ export default function SkillsAdmin() {
             return;
         }
 
-        // Check for duplicates (excluding current skill)
         if (skills.some((skill, i) => i !== index && skill.toLowerCase() === editValue.trim().toLowerCase())) {
             Swal.fire({
                 icon: 'error',
@@ -205,9 +208,9 @@ export default function SkillsAdmin() {
                     class="swal2-textarea" 
                     placeholder="Enter skills separated by commas&#10;Example: React, Vue.js, Angular, Node.js"
                     rows="4"
-                    style="width: 100%; margin: 10px 0;"
+                    style="width: 100%; margin: 10px 0; font-family: monospace;"
                 ></textarea>
-                <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                <p style="font-size: 12px; color: #666; margin-top: 10px; text-align: left;">
                     💡 Tip: Separate each skill with a comma. Duplicates will be automatically filtered out.
                 </p>
             `,
@@ -271,132 +274,147 @@ export default function SkillsAdmin() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-900 py-8">
-                <div className="max-w-7xl mx-auto px-4">
-                    <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-                        <div className="flex items-center justify-center py-8">
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
-                            <span className="ml-3 text-gray-400">Loading skills...</span>
-                        </div>
-                    </div>
-                </div>
+            <div className="container py-12 flex flex-col items-center justify-center space-y-4">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                <p className="text-muted-foreground font-medium">Loading your skillset...</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gray-900 py-8">
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                    <div className="flex justify-between items-center mb-6">
-                        <h1 className="text-3xl font-bold text-white">
-                            Skills Admin
-                        </h1>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={handleBulkAdd}
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
-                            >
-                                Bulk Add
-                            </button>
+        <div className="space-y-8">
+            <Card className="border-muted shadow-xl overflow-hidden">
+                <CardHeader className="bg-muted/20 border-b">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-primary/10 rounded-lg">
+                                <Library className="w-6 h-6 text-primary" />
+                            </div>
+                            <div>
+                                <CardTitle className="text-2xl">Skills Inventory</CardTitle>
+                                <CardDescription>Manage your technical expertise and tech stack</CardDescription>
+                            </div>
                         </div>
+                        <Button
+                            onClick={handleBulkAdd}
+                            variant="outline"
+                            className="w-full sm:w-auto gap-2 border-primary/20"
+                        >
+                            <ListFilter className="w-4 h-4" />
+                            Bulk Add
+                        </Button>
                     </div>
+                </CardHeader>
 
+                <CardContent className="p-6 space-y-8">
                     {/* Add New Skill Form */}
-                    <form onSubmit={handleAddSkill} className="bg-gray-900 p-4 rounded-lg mb-6">
-                        <h2 className="text-lg font-semibold text-white mb-3">Add New Skill</h2>
-                        <div className="flex gap-3">
-                            <input
-                                type="text"
-                                value={newSkill}
-                                onChange={(e) => setNewSkill(e.target.value)}
-                                placeholder="Enter skill name (e.g., React, Python, etc.)"
-                                className="flex-1 px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                            <button
-                                type="submit"
-                                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
-                            >
-                                Add Skill
-                            </button>
-                        </div>
-                    </form>
+                    <Card className="bg-muted/30 border-dashed">
+                        <CardContent className="p-4">
+                            <form onSubmit={handleAddSkill} className="space-y-4">
+                                <Label htmlFor="new-skill" className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Add New Competency</Label>
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <Input
+                                        id="new-skill"
+                                        value={newSkill}
+                                        onChange={(e) => setNewSkill(e.target.value)}
+                                        placeholder="Enter skill name (e.g., React, Python, AWS)"
+                                        className="flex-1 h-11 border-muted-foreground/20"
+                                    />
+                                    <Button type="submit" className="h-11 px-6 gap-2 min-w-[140px]">
+                                        <Plus className="w-4 h-4" />
+                                        Add Skill
+                                    </Button>
+                                </div>
+                            </form>
+                        </CardContent>
+                    </Card>
 
                     {/* Skills List */}
-                    <div>
-                        <h2 className="text-xl font-semibold text-white mb-4">
-                            Technical Skills ({skills.length})
-                        </h2>
+                    <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-lg font-bold flex items-center gap-2">
+                                Technical Stack
+                                <Badge variant="secondary" className="rounded-full">{skills.length}</Badge>
+                            </h2>
+                        </div>
 
                         {skills.length === 0 ? (
-                            <div className="text-center py-8">
-                                <p className="text-gray-400">No skills added yet.</p>
-                                <p className="text-gray-500 text-sm mt-1">Add your first skill above!</p>
+                            <div className="text-center py-12 border-2 border-dashed border-muted rounded-xl">
+                                <p className="text-muted-foreground italic">No skills added yet.</p>
+                                <p className="text-sm text-muted-foreground/60 mt-2">Start building your stack above!</p>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                                 {skills.map((skill, index) => (
-                                    <div key={index} className="bg-gray-900 p-3 rounded-lg border border-gray-700">
-                                        {editingSkill === index ? (
-                                            <div className="flex gap-2">
-                                                <input
-                                                    type="text"
-                                                    value={editValue}
-                                                    onChange={(e) => setEditValue(e.target.value)}
-                                                    className="flex-1 px-2 py-1 text-sm border border-gray-600 rounded-sm bg-gray-800 text-white focus:ring-1 focus:ring-purple-500"
-                                                    autoFocus
-                                                />
-                                                <button
-                                                    onClick={() => handleEditSkill(index)}
-                                                    className="bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
-                                                >
-                                                    ✓
-                                                </button>
-                                                <button
-                                                    onClick={cancelEditing}
-                                                    className="bg-gray-600 hover:bg-gray-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
-                                                >
-                                                    ✕
-                                                </button>
-                                            </div>
-                                        ) : (
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-white font-medium">{skill}</span>
-                                                <div className="flex gap-1">
-                                                    <button
-                                                        onClick={() => startEditing(index, skill)}
-                                                        className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
+                                    <Card key={index} className="group border-muted/60 transition-all hover:border-primary/40 hover:shadow-md">
+                                        <CardContent className="p-3">
+                                            {editingSkill === index ? (
+                                                <div className="flex gap-1.5 items-center">
+                                                    <Input
+                                                        value={editValue}
+                                                        onChange={(e) => setEditValue(e.target.value)}
+                                                        className="h-8 py-0 px-2 text-sm border-primary/40"
+                                                        autoFocus
+                                                    />
+                                                    <Button
+                                                        size="icon"
+                                                        className="h-8 w-8 shrink-0 bg-green-600 hover:bg-green-700"
+                                                        onClick={() => handleEditSkill(index)}
                                                     >
-                                                        Edit
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDeleteSkill(index)}
-                                                        className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded-sm text-xs transition-colors"
+                                                        <Check className="h-4 w-4" />
+                                                    </Button>
+                                                    <Button
+                                                        size="icon"
+                                                        variant="ghost"
+                                                        className="h-8 w-8 shrink-0"
+                                                        onClick={cancelEditing}
                                                     >
-                                                        Delete
-                                                    </button>
+                                                        <X className="h-4 w-4" />
+                                                    </Button>
                                                 </div>
-                                            </div>
-                                        )}
-                                    </div>
+                                            ) : (
+                                                <div className="flex justify-between items-center group-hover:translate-x-0.5 transition-transform">
+                                                    <span className="font-semibold text-sm pl-1">{skill}</span>
+                                                    <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <Button
+                                                            size="icon"
+                                                            variant="ghost"
+                                                            className="h-7 w-7 text-blue-500 hover:text-blue-600 hover:bg-blue-500/10"
+                                                            onClick={() => startEditing(index, skill)}
+                                                        >
+                                                            <Pencil className="h-3.5 w-3.5" />
+                                                        </Button>
+                                                        <Button
+                                                            size="icon"
+                                                            variant="ghost"
+                                                            className="h-7 w-7 text-red-500 hover:text-red-600 hover:bg-red-500/10"
+                                                            onClick={() => handleDeleteSkill(index)}
+                                                        >
+                                                            <Trash2 className="h-3.5 w-3.5" />
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </CardContent>
+                                    </Card>
                                 ))}
                             </div>
                         )}
                     </div>
+                </CardContent>
 
-                    {skills.length > 0 && (
-                        <div className="mt-6 p-4 bg-blue-900 bg-opacity-50 rounded-lg border border-blue-700">
-                            <h3 className="text-blue-300 font-medium mb-2">💡 Quick Tips:</h3>
-                            <ul className="text-blue-200 text-sm space-y-1">
-                                <li>• Use &quot;Bulk Add&quot; to quickly add multiple skills at once</li>
-                                <li>• Skills are automatically sorted and displayed in your portfolio</li>
-                                <li>• Click &quot;Edit&quot; to rename any skill inline</li>
-                                <li>• Duplicate skills are automatically prevented</li>
-                            </ul>
+                {skills.length > 0 && (
+                    <CardFooter className="bg-primary/5 border-t p-4 flex items-start gap-3">
+                        <div className="p-1 bg-primary/20 rounded-md">
+                            <Lightbulb className="w-4 h-4 text-primary" />
                         </div>
-                    )}
-                </div>
-            </div>
+                        <div className="text-xs space-y-1">
+                            <p className="font-bold text-primary uppercase tracking-tighter">Pro Tips</p>
+                            <p className="text-muted-foreground font-medium">Use Bulk Add to paste comma-separated lists. Hover over skills to see edit and delete actions.</p>
+                        </div>
+                    </CardFooter>
+                )}
+            </Card>
         </div>
     );
 }

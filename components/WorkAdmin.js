@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { Loader2, Plus, Pencil, Trash2, Calendar, Building2, Briefcase, ChevronUp } from "lucide-react";
 
 export default function WorkAdmin() {
     const [workExperience, setWorkExperience] = useState([]);
@@ -13,7 +20,6 @@ export default function WorkAdmin() {
         description: ''
     });
 
-    // Load work experience on component mount
     useEffect(() => {
         fetchWorkExperience();
     }, []);
@@ -39,7 +45,6 @@ export default function WorkAdmin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate dates
         if (formData.start_date && formData.end_date) {
             if (new Date(formData.start_date) > new Date(formData.end_date)) {
                 Swal.fire({
@@ -55,7 +60,7 @@ export default function WorkAdmin() {
         try {
             const submitData = {
                 ...formData,
-                end_date: formData.end_date || null // Convert empty string to null for current position
+                end_date: formData.end_date || null
             };
 
             const response = await fetch('/api/work', {
@@ -104,12 +109,11 @@ export default function WorkAdmin() {
         const work = workExperience[index];
         setFormData({
             ...work,
-            end_date: work.end_date || '' // Convert null to empty string for form
+            end_date: work.end_date || ''
         });
         setEditingWork(index);
         setIsAdding(false);
 
-        // Scroll to top where the form is located
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -178,201 +182,221 @@ export default function WorkAdmin() {
     };
 
     const sortedWorkExperience = [...workExperience].sort((a, b) => {
-        // Sort by start date descending (most recent first)
         return new Date(b.start_date) - new Date(a.start_date);
     });
 
     return (
-        <div className="min-h-screen bg-gray-900 py-8">
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                    <div className="flex justify-between items-center mb-6">
-                        <h1 className="text-3xl font-bold text-white">
-                            Work Experience Admin
-                        </h1>
-                        <button
+        <div className="space-y-8">
+            <Card className="border-muted shadow-xl overflow-hidden">
+                <CardHeader className="bg-muted/20 border-b">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-primary/10 rounded-lg">
+                                <Briefcase className="w-6 h-6 text-primary" />
+                            </div>
+                            <div>
+                                <CardTitle className="text-2xl">Work Experience</CardTitle>
+                                <CardDescription>Manage your professional career history</CardDescription>
+                            </div>
+                        </div>
+                        <Button
                             onClick={() => {
                                 setIsAdding(true);
                                 setEditingWork(null);
-
-                                // Scroll to top where the form will appear
-                                window.scrollTo({
-                                    top: 0,
-                                    behavior: 'smooth'
-                                });
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
-                            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
+                            className="w-full sm:w-auto gap-2"
                         >
-                            Add New Position
-                        </button>
+                            <Plus className="w-4 h-4" />
+                            Add Position
+                        </Button>
                     </div>
+                </CardHeader>
 
+                <CardContent className="p-6 space-y-8">
                     {/* Form */}
                     {(isAdding || editingWork !== null) && (
-                        <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded-lg mb-8">
-                            <h2 className="text-xl font-semibold text-white mb-4">
-                                {isAdding ? 'Add New Work Experience' : 'Edit Work Experience'}
-                            </h2>
+                        <Card className="border-primary/20 bg-primary/5 shadow-inner">
+                            <CardHeader className="pb-4">
+                                <CardTitle className="text-lg flex items-center gap-2">
+                                    {isAdding ? <Plus className="w-5 h-5" /> : <Pencil className="w-5 h-5" />}
+                                    {isAdding ? 'Add New Work Experience' : 'Edit Work Experience'}
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="title">Job Title *</Label>
+                                            <Input
+                                                id="title"
+                                                name="title"
+                                                value={formData.title}
+                                                onChange={handleInputChange}
+                                                required
+                                                placeholder="Full Stack Developer"
+                                                className="border-muted-foreground/20"
+                                            />
+                                        </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Job Title *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        value={formData.title}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="Full Stack Developer"
-                                        className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                    />
-                                </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="company">Company *</Label>
+                                            <Input
+                                                id="company"
+                                                name="company"
+                                                value={formData.company}
+                                                onChange={handleInputChange}
+                                                required
+                                                placeholder="Tech Company Inc."
+                                                className="border-muted-foreground/20"
+                                            />
+                                        </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Company *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="company"
-                                        value={formData.company}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="Tech Company Inc."
-                                        className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                    />
-                                </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="start_date">Start Date *</Label>
+                                            <Input
+                                                id="start_date"
+                                                type="date"
+                                                name="start_date"
+                                                value={formData.start_date}
+                                                onChange={handleInputChange}
+                                                required
+                                                className="border-muted-foreground/20"
+                                            />
+                                        </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Start Date *
-                                    </label>
-                                    <input
-                                        type="date"
-                                        name="start_date"
-                                        value={formData.start_date}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                    />
-                                </div>
+                                        <div className="space-y-2">
+                                            <div className="flex items-center justify-between">
+                                                <Label htmlFor="end_date">End Date</Label>
+                                                <span className="text-[10px] text-muted-foreground font-bold uppercase">Leave empty for Present</span>
+                                            </div>
+                                            <Input
+                                                id="end_date"
+                                                type="date"
+                                                name="end_date"
+                                                value={formData.end_date}
+                                                onChange={handleInputChange}
+                                                className="border-muted-foreground/20"
+                                            />
+                                        </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        End Date
-                                        <span className="text-gray-500 text-xs ml-1">(Leave empty for current position)</span>
-                                    </label>
-                                    <input
-                                        type="date"
-                                        name="end_date"
-                                        value={formData.end_date}
-                                        onChange={handleInputChange}
-                                        className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                    />
-                                </div>
+                                        <div className="md:col-span-2 space-y-2">
+                                            <Label htmlFor="description">Description *</Label>
+                                            <Textarea
+                                                id="description"
+                                                name="description"
+                                                value={formData.description}
+                                                onChange={handleInputChange}
+                                                required
+                                                rows={4}
+                                                placeholder="Describe your responsibilities, achievements, and technologies used..."
+                                                className="border-muted-foreground/20 resize-none"
+                                            />
+                                        </div>
+                                    </div>
 
-                                <div className="md:col-span-2">
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Description *
-                                    </label>
-                                    <textarea
-                                        name="description"
-                                        value={formData.description}
-                                        onChange={handleInputChange}
-                                        required
-                                        rows="4"
-                                        placeholder="Describe your responsibilities, achievements, and technologies used..."
-                                        className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex gap-4 mt-6">
-                                <button
-                                    type="submit"
-                                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    {isAdding ? 'Add Position' : 'Update Position'}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={handleCancel}
-                                    className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
+                                    <div className="flex flex-wrap gap-4 pt-4">
+                                        <Button type="submit" className="bg-green-600 hover:bg-green-700 h-11 px-8">
+                                            {isAdding ? 'Add Position' : 'Update Position'}
+                                        </Button>
+                                        <Button type="button" variant="outline" onClick={handleCancel} className="h-11 px-8">
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </form>
+                            </CardContent>
+                        </Card>
                     )}
 
                     {/* Work Experience List */}
                     <div className="space-y-4">
-                        <h2 className="text-xl font-semibold text-white">
-                            Work Experience ({workExperience.length})
-                        </h2>
+                        <div className="flex items-center justify-between border-b pb-2">
+                            <h2 className="text-lg font-bold flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
+                                Career History
+                                <Badge variant="secondary" className="rounded-full">{workExperience.length}</Badge>
+                            </h2>
+                        </div>
 
-                        {sortedWorkExperience.map((work, index) => {
-                            // Find original index for edit/delete operations
-                            const originalIndex = workExperience.findIndex(w =>
-                                w.title === work.title &&
-                                w.company === work.company &&
-                                w.start_date === work.start_date
-                            );
-
-                            return (
-                                <div key={originalIndex} className="bg-gray-900 p-4 rounded-lg border border-gray-700">
-                                    <div className="flex justify-between items-start">
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <h3 className="text-lg font-medium text-white">
-                                                    {work.title}
-                                                </h3>
-                                                <span className="text-purple-400 font-medium">
-                                                    @ {work.company}
-                                                </span>
-                                                {!work.end_date && (
-                                                    <span className="bg-green-600 text-green-100 text-xs px-2 py-1 rounded-full font-medium">
-                                                        Current
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <p className="text-gray-400 text-sm mb-2">
-                                                📅 {formatDate(work.start_date)} - {formatDate(work.end_date)}
-                                            </p>
-                                            <p className="text-gray-300 text-sm">
-                                                {work.description}
-                                            </p>
-                                        </div>
-                                        <div className="flex gap-2 ml-4">
-                                            <button
-                                                onClick={() => handleEdit(originalIndex)}
-                                                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm text-sm transition-colors"
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(originalIndex)}
-                                                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-sm text-sm transition-colors"
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </div>
+                        {sortedWorkExperience.length === 0 ? (
+                            <div className="text-center py-16 border-2 border-dashed border-muted rounded-xl bg-muted/5">
+                                <div className="p-4 bg-muted/20 rounded-full w-fit mx-auto mb-4">
+                                    <Building2 className="w-8 h-8 text-muted-foreground" />
                                 </div>
-                            );
-                        })}
+                                <p className="text-muted-foreground italic">No work experience added yet.</p>
+                                <Button
+                                    variant="link"
+                                    onClick={() => { setIsAdding(true); setEditingWork(null); }}
+                                    className="mt-2 text-primary"
+                                >
+                                    Add your first position
+                                </Button>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 gap-4">
+                                {sortedWorkExperience.map((work, index) => {
+                                    const originalIndex = workExperience.findIndex(w =>
+                                        w.title === work.title &&
+                                        w.company === work.company &&
+                                        w.start_date === work.start_date
+                                    );
 
-                        {workExperience.length === 0 && (
-                            <div className="text-center py-8">
-                                <p className="text-gray-400">No work experience added yet.</p>
-                                <p className="text-gray-500 text-sm mt-1">Click &quot;Add New Position&quot; to get started!</p>
+                                    return (
+                                        <Card key={originalIndex} className="group border-muted/60 transition-all hover:border-primary/40 hover:shadow-md">
+                                            <CardContent className="p-6">
+                                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                                    <div className="flex-1 space-y-3">
+                                                        <div className="flex flex-wrap items-center gap-3">
+                                                            <h3 className="text-xl font-bold text-foreground">
+                                                                {work.title}
+                                                            </h3>
+                                                            <div className="flex items-center gap-1.5 text-primary font-bold bg-primary/5 px-3 py-1 rounded-full text-sm border border-primary/10">
+                                                                <Building2 className="w-3.5 h-3.5" />
+                                                                {work.company}
+                                                            </div>
+                                                            {!work.end_date && (
+                                                                <Badge className="bg-green-500 hover:bg-green-600 font-bold uppercase tracking-widest text-[10px]">
+                                                                    Current
+                                                                </Badge>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex items-center gap-2 text-muted-foreground text-sm font-medium">
+                                                            <Calendar className="w-4 h-4" />
+                                                            {formatDate(work.start_date)} - {formatDate(work.end_date)}
+                                                        </div>
+                                                        <p className="text-muted-foreground text-sm leading-relaxed max-w-4xl">
+                                                            {work.description}
+                                                        </p>
+                                                    </div>
+                                                    <div className="flex flex-row md:flex-col gap-2 shrink-0 self-end md:self-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <Button
+                                                            size="sm"
+                                                            variant="secondary"
+                                                            onClick={() => handleEdit(originalIndex)}
+                                                            className="gap-2 h-9 px-4"
+                                                        >
+                                                            <Pencil className="h-3.5 w-3.5" />
+                                                            Edit
+                                                        </Button>
+                                                        <Button
+                                                            size="sm"
+                                                            variant="destructive"
+                                                            onClick={() => handleDelete(originalIndex)}
+                                                            className="gap-2 h-9 px-4"
+                                                        >
+                                                            <Trash2 className="h-3.5 w-3.5" />
+                                                            Delete
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    );
+                                })}
                             </div>
                         )}
                     </div>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
     );
 }

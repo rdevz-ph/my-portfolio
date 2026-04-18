@@ -1,49 +1,58 @@
 import { format } from 'date-fns';
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Briefcase } from "lucide-react";
 
 export default function WorkTimeline({ experiences }) {
     return (
-        <div className="mb-16">
-            <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <div className="mb-24 px-4">
+            <div className="text-center mb-16">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                     Work Experience
                 </h2>
-                <div data-aos="fade-up" className="mt-2 mx-auto w-24 h-1 bg-linear-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
+                <div data-aos="fade-up" className="mt-4 mx-auto w-24 h-1 bg-primary rounded-full" />
             </div>
 
-            <ol className="relative border-s border-gray-300 dark:border-gray-700">
+            <div className="relative border-l-2 border-muted max-w-3xl mx-auto pl-8 space-y-12">
                 {experiences.map((exp, index) => (
-                    <li
+                    <div
                         key={index}
-                        className="mb-10 ms-6"
+                        className="relative"
                     >
-                        <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -inset-s-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                            <svg className="w-3 h-3 text-blue-800 dark:text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M21 6h-4V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v2H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2ZM9 4h6v2H9V4ZM3 20V8h18v12H3Z" />
-                            </svg>
-                        </span>
-                        <div
-                            className="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-xs border border-gray-200 dark:border-gray-700 p-6"
-                            data-aos="fade-up"
-                            data-aos-delay={index * 100}
-                            data-aos-duration="600"
-                        >
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
-                                {exp.title}
-                                {index === 0 && (
-                                    <span className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-xs dark:bg-blue-900 dark:text-blue-300 ms-3">
-                                        Latest
-                                    </span>
-                                )}
-                            </h3>
-                            <p className="text-purple-600 dark:text-purple-400 font-medium">{exp.company}</p>
-                            <time className="block mb-2 text-sm text-gray-400 dark:text-gray-500">
-                                {format(new Date(exp.start_date), 'MMM yyyy')} – {exp.end_date ? format(new Date(exp.end_date), 'MMM yyyy') : 'Present'}
-                            </time>
-                            <p className="text-gray-600 dark:text-gray-400">{exp.description}</p>
+                        <div className="absolute -left-[41px] top-0 flex items-center justify-center w-5 h-5 bg-background border-2 border-primary rounded-full z-10">
+                            <div className="w-2 h-2 bg-primary rounded-full" />
                         </div>
-                    </li>
+                        
+                        <Card
+                            className="border-muted transition-all duration-300 hover:shadow-lg"
+                            data-aos="fade-left"
+                            data-aos-delay={index * 100}
+                        >
+                            <CardContent className="p-6">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                                    <div className="space-y-1">
+                                        <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                                            {exp.title}
+                                            {index === 0 && (
+                                                <Badge variant="default" className="bg-primary text-primary-foreground font-semibold">
+                                                    Current
+                                                </Badge>
+                                            )}
+                                        </h3>
+                                        <p className="text-lg font-medium text-primary/80">{exp.company}</p>
+                                    </div>
+                                    <Badge variant="secondary" className="w-fit h-fit font-mono text-xs px-3 py-1">
+                                        {format(new Date(exp.start_date), 'MMM yyyy')} – {exp.end_date ? format(new Date(exp.end_date), 'MMM yyyy') : 'Present'}
+                                    </Badge>
+                                </div>
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {exp.description}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
                 ))}
-            </ol>
+            </div>
         </div>
     );
 }

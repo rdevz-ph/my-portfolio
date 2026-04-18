@@ -141,20 +141,23 @@ export default function Home({ projects, settings, experiences, skills }) {
         />
       </Head>
 
-      <main className="bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white">
+      <main className="min-h-screen bg-background text-foreground transition-colors duration-500">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 pt-24">
-          <section id="about">
-            <ProfileCard settings={settings} />
-            <StatsBox settings={settings} />
-            <TechStack skills={skills} />
-            <section id="about">
+          <section id="about" className="space-y-24">
+            <div>
+              <ProfileCard settings={settings} />
+              <StatsBox settings={settings} />
+              <TechStack skills={skills} />
+            </div>
+            
+            <div className="space-y-24">
               <CodeShowcase />
               <WorkTimeline experiences={experiences} />
-            </section>
+            </div>
           </section>
 
-          <section id="projects">
+          <section id="projects" className="py-24">
             <ProjectsGrid projects={projects} />
           </section>
         </div>

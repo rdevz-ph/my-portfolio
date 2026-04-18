@@ -5,179 +5,112 @@ import SettingsAdmin from '@/components/SettingsAdmin';
 import WorkAdmin from '@/components/WorkAdmin';
 import SkillsAdmin from '@/components/SkillsAdmin';
 import Swal from 'sweetalert2';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Loader2, LayoutDashboard, LogOut, Eye, FolderHeart, Briefcase, Wrench, Settings } from "lucide-react";
 
 export default function AdminPage() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('projects');
     const router = useRouter();
 
     useEffect(() => {
-        // Simple password protection for local development
-        const checkAuth = () => {
-            const password = localStorage.getItem('admin-auth');
-            if (password === 'admin123') { // Change this password
-                setIsAuthenticated(true);
-            } else {
-                promptPassword();
-            }
-            setLoading(false);
-        };
-
-        const promptPassword = async () => {
-            const { value: password } = await Swal.fire({
-                title: 'Admin Access',
-                text: 'Enter admin password:',
-                input: 'password',
-                inputAttributes: {
-                    autocapitalize: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Login',
-                cancelButtonText: 'Go Back',
-                confirmButtonColor: '#8b5cf6'
-            });
-
-            if (password === 'admin123') { // Change this password
-                localStorage.setItem('admin-auth', password);
-                setIsAuthenticated(true);
-            } else if (password) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Wrong Password',
-                    text: 'Access denied',
-                    confirmButtonColor: '#ef4444'
-                }).then(() => {
-                    router.push('/');
-                });
-            } else {
-                router.push('/');
-            }
-        };
-
-        // Check if we're in development mode
-        if (process.env.NODE_ENV === 'production') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Not Available',
-                text: 'Admin panel is only available in development mode',
-                confirmButtonColor: '#ef4444'
-            }).then(() => {
-                router.push('/');
-            });
-            return;
-        }
-
-        checkAuth();
-    }, [router]);
+        // Automatically "authenticate" and finish loading
+        setLoading(false);
+    }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('admin-auth');
-        setIsAuthenticated(false);
         router.push('/');
     };
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-400">Loading...</p>
-                </div>
-            </div>
-        );
-    }
-
-    if (!isAuthenticated) {
-        return (
-            <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-                <div className="text-center">
-                    <h1 className="text-2xl font-bold text-white">Access Denied</h1>
-                    <p className="text-gray-400 mt-2">Please authenticate to access the admin panel</p>
-                </div>
+            <div className="min-h-screen bg-background flex flex-col items-center justify-center space-y-4">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                <p className="text-muted-foreground font-mono">Loading Admin Panel...</p>
             </div>
         );
     }
 
     return (
-        <div>
-            <div className="bg-gray-800 shadow-xs border-b border-gray-700">
-                <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-                    <h1 className="text-lg font-semibold text-white">
-                        Portfolio Admin Panel
-                    </h1>
-                    <div className="flex gap-4">
-                        <button
+        <div className="min-h-screen bg-background">
+            {/* Header */}
+            <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <div className="p-1.5 bg-primary rounded-lg text-primary-foreground">
+                            <LayoutDashboard className="w-5 h-5" />
+                        </div>
+                        <h1 className="text-xl font-bold tracking-tight hidden sm:block">
+                            Portfolio <span className="text-primary">Admin</span>
+                        </h1>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                        <Button 
+                            variant="ghost" 
+                            size="sm" 
                             onClick={() => router.push('/')}
-                            className="text-purple-400 hover:text-purple-300"
+                            className="hidden sm:flex gap-2"
                         >
+                            <Eye className="w-4 h-4" />
                             View Portfolio
-                        </button>
-                        <button
+                        </Button>
+                        <Button 
+                            variant="destructive" 
+                            size="sm" 
                             onClick={handleLogout}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-sm text-sm transition-colors"
+                            className="gap-2"
                         >
+                            <LogOut className="w-4 h-4" />
                             Logout
-                        </button>
+                        </Button>
                     </div>
                 </div>
-            </div>
+            </header>
 
-            {/* Tab Navigation */}
-            <div className="bg-gray-900 border-b border-gray-700">
-                <div className="max-w-7xl mx-auto px-4">
-                    <nav className="flex space-x-8">
-                        <button
-                            onClick={() => setActiveTab('projects')}
-                            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'projects'
-                                ? 'border-purple-500 text-purple-400'
-                                : 'border-transparent text-gray-400 hover:text-gray-300'
-                                }`}
-                        >
-                            📁 Projects Management
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('work')}
-                            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'work'
-                                ? 'border-purple-500 text-purple-400'
-                                : 'border-transparent text-gray-400 hover:text-gray-300'
-                                }`}
-                        >
-                            💼 Work Experience
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('skills')}
-                            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'skills'
-                                ? 'border-purple-500 text-purple-400'
-                                : 'border-transparent text-gray-400 hover:text-gray-300'
-                                }`}
-                        >
-                            🛠️ Skills Management
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('settings')}
-                            className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'settings'
-                                ? 'border-purple-500 text-purple-400'
-                                : 'border-transparent text-gray-400 hover:text-gray-300'
-                                }`}
-                        >
-                            ⚙️ Portfolio Settings
-                        </button>
-                    </nav>
-                </div>
-            </div>
-
-            {/* Tab Content */}
-            <div className="min-h-screen bg-gray-900">
-                {activeTab === 'projects' && <ProjectAdmin />}
-                {activeTab === 'work' && <WorkAdmin />}
-                {activeTab === 'skills' && <SkillsAdmin />}
-                {activeTab === 'settings' && (
-                    <div className="max-w-7xl mx-auto px-4 py-8">
-                        <SettingsAdmin />
+            <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-8">
+                    <div className="flex justify-center sm:justify-start overflow-x-auto pb-2">
+                        <TabsList className="bg-muted/50 p-1 h-auto">
+                            <TabsTrigger value="projects" className="gap-2 py-2 px-4 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                                <FolderHeart className="w-4 h-4" />
+                                <span className="hidden sm:inline">Projects</span>
+                            </TabsTrigger>
+                            <TabsTrigger value="work" className="gap-2 py-2 px-4 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                                <Briefcase className="w-4 h-4" />
+                                <span className="hidden sm:inline">Experience</span>
+                            </TabsTrigger>
+                            <TabsTrigger value="skills" className="gap-2 py-2 px-4 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                                <Wrench className="w-4 h-4" />
+                                <span className="hidden sm:inline">Skills</span>
+                            </TabsTrigger>
+                            <TabsTrigger value="settings" className="gap-2 py-2 px-4 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                                <Settings className="w-4 h-4" />
+                                <span className="hidden sm:inline">Settings</span>
+                            </TabsTrigger>
+                        </TabsList>
                     </div>
-                )}
-            </div>
+
+                    <TabsContent value="projects" className="mt-0 focus-visible:outline-none">
+                        <ProjectAdmin />
+                    </TabsContent>
+                    
+                    <TabsContent value="work" className="mt-0 focus-visible:outline-none">
+                        <WorkAdmin />
+                    </TabsContent>
+                    
+                    <TabsContent value="skills" className="mt-0 focus-visible:outline-none">
+                        <SkillsAdmin />
+                    </TabsContent>
+                    
+                    <TabsContent value="settings" className="mt-0 focus-visible:outline-none">
+                        <div className="max-w-4xl mx-auto">
+                            <SettingsAdmin />
+                        </div>
+                    </TabsContent>
+                </Tabs>
+            </main>
         </div>
     );
 }

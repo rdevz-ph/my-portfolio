@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Loader2, Save, RotateCcw, User, FileText, BarChart3 } from "lucide-react";
 
 export default function SettingsAdmin() {
     const [settings, setSettings] = useState({
@@ -16,7 +22,6 @@ export default function SettingsAdmin() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
-    // Load settings on component mount
     useEffect(() => {
         fetchSettings();
     }, []);
@@ -89,194 +94,197 @@ export default function SettingsAdmin() {
 
     if (loading) {
         return (
-            <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-                <div className="flex items-center justify-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
-                    <span className="ml-3 text-gray-400">Loading settings...</span>
-                </div>
-            </div>
+            <Card className="border-muted">
+                <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    <span className="text-muted-foreground font-medium">Loading settings...</span>
+                </CardContent>
+            </Card>
         );
     }
 
     return (
-        <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-white">
-                    Portfolio Settings
-                </h2>
-                {hasChanges && (
-                    <span className="bg-yellow-600 text-yellow-100 text-xs px-2 py-1 rounded-full">
-                        Unsaved Changes
-                    </span>
-                )}
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Personal Information Section */}
-                <div className="bg-gray-900 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-white mb-4">Personal Information</h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Full Name
-                            </label>
-                            <input
-                                type="text"
-                                name="full_name"
-                                value={settings.full_name}
-                                onChange={handleInputChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Position/Title
-                            </label>
-                            <input
-                                type="text"
-                                name="position"
-                                value={settings.position}
-                                onChange={handleInputChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Description
-                            </label>
-                            <textarea
-                                name="description"
-                                value={settings.description}
-                                onChange={handleInputChange}
-                                required
-                                rows="3"
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
+        <Card className="border-muted shadow-lg">
+            <CardHeader className="border-b bg-muted/20">
+                <div className="flex justify-between items-center">
+                    <div>
+                        <CardTitle className="text-2xl">Portfolio Settings</CardTitle>
+                        <CardDescription>Manage your personal information and portfolio configuration</CardDescription>
                     </div>
-                </div>
-
-                {/* File Paths Section */}
-                <div className="bg-gray-900 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-white mb-4">File Paths</h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Profile Image Path
-                            </label>
-                            <input
-                                type="text"
-                                name="system_logo"
-                                value={settings.system_logo}
-                                onChange={handleInputChange}
-                                placeholder="/images/profile.jpg"
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                CV/Resume Path
-                            </label>
-                            <input
-                                type="text"
-                                name="system_cv_path"
-                                value={settings.system_cv_path}
-                                onChange={handleInputChange}
-                                placeholder="/files/cv.pdf"
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Statistics Section */}
-                <div className="bg-gray-900 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold text-white mb-4">Statistics</h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Years of Experience
-                            </label>
-                            <input
-                                type="number"
-                                name="years_of_experience"
-                                value={settings.years_of_experience}
-                                onChange={handleInputChange}
-                                min="0"
-                                max="50"
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Visitor Count
-                            </label>
-                            <input
-                                type="number"
-                                name="visitor_count"
-                                value={settings.visitor_count}
-                                onChange={handleInputChange}
-                                min="0"
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Client Count
-                            </label>
-                            <input
-                                type="number"
-                                name="client_count"
-                                value={settings.client_count}
-                                onChange={handleInputChange}
-                                min="0"
-                                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-4 pt-4">
-                    <button
-                        type="submit"
-                        disabled={!hasChanges || saving}
-                        className={`px-6 py-2 rounded-lg font-medium transition-colors ${hasChanges && !saving
-                                ? 'bg-green-600 hover:bg-green-700 text-white'
-                                : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                            }`}
-                    >
-                        {saving ? (
-                            <div className="flex items-center">
-                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                Saving...
-                            </div>
-                        ) : (
-                            'Save Changes'
-                        )}
-                    </button>
-
                     {hasChanges && (
-                        <button
-                            type="button"
-                            onClick={handleReset}
-                            className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-                        >
-                            Reset
-                        </button>
+                        <div className="bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-yellow-500/20 uppercase tracking-wider">
+                            Unsaved Changes
+                        </div>
                     )}
                 </div>
+            </CardHeader>
+
+            <form onSubmit={handleSubmit}>
+                <CardContent className="space-y-8 p-6">
+                    {/* Personal Information Section */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-2 text-primary font-bold border-b pb-2">
+                            <User className="w-5 h-5" />
+                            <h3>Personal Information</h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="full_name">Full Name</Label>
+                                <Input
+                                    id="full_name"
+                                    name="full_name"
+                                    value={settings.full_name}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="border-muted-foreground/20"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="position">Position/Title</Label>
+                                <Input
+                                    id="position"
+                                    name="position"
+                                    value={settings.position}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="border-muted-foreground/20"
+                                />
+                            </div>
+
+                            <div className="md:col-span-2 space-y-2">
+                                <Label htmlFor="description">Description</Label>
+                                <Textarea
+                                    id="description"
+                                    name="description"
+                                    value={settings.description}
+                                    onChange={handleInputChange}
+                                    required
+                                    rows={4}
+                                    className="border-muted-foreground/20 resize-none"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* File Paths Section */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-2 text-primary font-bold border-b pb-2">
+                            <FileText className="w-5 h-5" />
+                            <h3>Assets & Links</h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="system_logo">Profile Image Path</Label>
+                                <Input
+                                    id="system_logo"
+                                    name="system_logo"
+                                    value={settings.system_logo}
+                                    onChange={handleInputChange}
+                                    placeholder="/images/profile.jpg"
+                                    className="border-muted-foreground/20"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="system_cv_path">CV/Resume Path</Label>
+                                <Input
+                                    id="system_cv_path"
+                                    name="system_cv_path"
+                                    value={settings.system_cv_path}
+                                    onChange={handleInputChange}
+                                    placeholder="/files/cv.pdf"
+                                    className="border-muted-foreground/20"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Statistics Section */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-2 text-primary font-bold border-b pb-2">
+                            <BarChart3 className="w-5 h-5" />
+                            <h3>Portfolio Statistics</h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="years_of_experience">Years of Experience</Label>
+                                <Input
+                                    id="years_of_experience"
+                                    type="number"
+                                    name="years_of_experience"
+                                    value={settings.years_of_experience}
+                                    onChange={handleInputChange}
+                                    min="0"
+                                    max="50"
+                                    className="border-muted-foreground/20"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="visitor_count">Visitor Count</Label>
+                                <Input
+                                    id="visitor_count"
+                                    type="number"
+                                    name="visitor_count"
+                                    value={settings.visitor_count}
+                                    onChange={handleInputChange}
+                                    min="0"
+                                    className="border-muted-foreground/20"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="client_count">Client Count</Label>
+                                <Input
+                                    id="client_count"
+                                    type="number"
+                                    name="client_count"
+                                    value={settings.client_count}
+                                    onChange={handleInputChange}
+                                    min="0"
+                                    className="border-muted-foreground/20"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </CardContent>
+
+                <CardFooter className="border-t bg-muted/10 p-6 flex flex-wrap gap-4">
+                    <Button
+                        type="submit"
+                        disabled={!hasChanges || saving}
+                        className="h-11 px-8 min-w-[140px]"
+                    >
+                        {saving ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Saving...
+                            </>
+                        ) : (
+                            <>
+                                <Save className="mr-2 h-4 w-4" />
+                                Save Changes
+                            </>
+                        )}
+                    </Button>
+
+                    {hasChanges && (
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleReset}
+                            className="h-11 px-8"
+                        >
+                            <RotateCcw className="mr-2 h-4 w-4" />
+                            Reset
+                        </Button>
+                    )}
+                </CardFooter>
             </form>
-        </div>
+        </Card>
     );
 }

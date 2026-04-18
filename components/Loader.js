@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Progress } from "@/components/ui/progress";
 
 export default function Loader() {
     const [progress, setProgress] = useState(0);
@@ -22,27 +23,25 @@ export default function Loader() {
 
                 return next;
             });
-        }, 75); // 1.5 seconds (20 iterations * 75ms = 1500ms)
+        }, 75);
 
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-gray-900 flex flex-col items-center justify-center px-4 text-center">
-            <h1 className="text-lg sm:text-xl md:text-2xl font-mono text-purple-600 dark:text-purple-400 mb-6">
-                {status}
-            </h1>
+        <div className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center px-6 text-center">
+            <div className="w-full max-w-md space-y-8">
+                <h1 className="text-xl md:text-2xl font-mono font-bold tracking-tight text-primary animate-pulse">
+                    {status}
+                </h1>
 
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-                <div className="loader-wrapper">
-                    <div
-                        className="loader-fill"
-                        style={{ width: `${progress}%` }}
-                    ></div>
+                <div className="space-y-4">
+                    <Progress value={progress} className="h-2 w-full bg-muted shadow-xs" />
+                    <div className="flex justify-between items-center px-1 font-mono text-sm">
+                        <span className="text-muted-foreground">Progress</span>
+                        <span className="text-primary font-bold">{progress}%</span>
+                    </div>
                 </div>
-                <p className="mt-4 text-sm text-gray-600 dark:text-gray-300 font-mono">
-                    {progress}%
-                </p>
             </div>
         </div>
     );

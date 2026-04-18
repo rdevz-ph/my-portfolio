@@ -1,5 +1,9 @@
 import { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Star } from "lucide-react";
 
 const techIcons = {
     HTML: 'html5',
@@ -27,33 +31,27 @@ const techIcons = {
 };
 
 export default function ProjectsGrid({ projects }) {
-    // Build list of years (descending)
     const years = useMemo(() => {
         const set = new Set(
             (projects ?? [])
                 .map((p) => Number(p.year))
                 .filter((y) => Number.isFinite(y))
         );
-
         return Array.from(set).sort((a, b) => b - a);
     }, [projects]);
 
-    // default active year = latest year
-    const [activeYear, setActiveYear] = useState(years[0] ?? null);
+    const [activeYear, setActiveYear] = useState(null);
 
-    // if projects load/update later, ensure activeYear remains valid
     useEffect(() => {
-        if (!activeYear && years.length) setActiveYear(years[0]);
-        if (activeYear && years.length && !years.includes(activeYear)) setActiveYear(years[0]);
+        if (!activeYear && years.length) setActiveYear(String(years[0]));
+        if (activeYear && years.length && !years.map(String).includes(activeYear)) setActiveYear(String(years[0]));
     }, [years, activeYear]);
 
-    // Filter by year
     const filteredProjects = useMemo(() => {
         if (!activeYear) return projects ?? [];
-        return (projects ?? []).filter((p) => Number(p.year) === Number(activeYear));
+        return (projects ?? []).filter((p) => String(p.year) === activeYear);
     }, [projects, activeYear]);
 
-    // Sort projects: pinned first, then unpinned
     const sortedProjects = useMemo(() => {
         return [...filteredProjects].sort((a, b) => {
             if (a.isPinned && !b.isPinned) return -1;
@@ -64,139 +62,133 @@ export default function ProjectsGrid({ projects }) {
 
     return (
         <div className="py-12">
-            <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                     Projects
                 </h2>
                 <div
                     data-aos="fade-up"
-                    className="mt-2 mx-auto w-24 h-1 bg-linear-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"
+                    className="mt-4 mx-auto w-24 h-1 bg-primary rounded-full"
                 />
             </div>
 
-            {/* Year Tabs */}
             {years.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-2 mb-8">
-                    {years.map((y) => {
-                        const isActive = y === activeYear;
-                        const count = (projects ?? []).filter((p) => Number(p.year) === y).length;
-
-                        return (
-                            <button
-                                key={y}
-                                type="button"
-                                onClick={() => setActiveYear(y)}
-                                className={[
-                                    "px-4 py-2 rounded-full text-sm border transition",
-                                    isActive
-                                        ? "bg-purple-600 text-white border-purple-600"
-                                        : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:border-purple-400"
-                                ].join(" ")}
-                            >
-                                {y} <span className="opacity-80 ml-1">({count})</span>
-                            </button>
-                        );
-                    })}
-                </div>
+                <Tabs value={activeYear} onValueChange={setActiveYear} className="w-full mb-12">
+                    <div className="flex justify-center">
+                        <TabsList className="h-auto p-1 bg-muted/50 flex-wrap justify-center">
+                            {years.map((y) => {
+                                const count = (projects ?? []).filter((p) => Number(p.year) === y).length;
+                                return (
+                                    <TabsTrigger
+                                        key={y}
+                                        value={String(y)}
+                                        className="rounded-full px-6 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                                    >
+                                        {y} <span className="ml-2 text-xs opacity-70">({count})</span>
+                                    </TabsTrigger>
+                                );
+                            })}
+                        </TabsList>
+                    </div>
+                </Tabs>
             )}
 
-            {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {sortedProjects.map((project, index) => (
-                    <div
+                    <Card
                         key={`${project.title}-${project.year}-${index}`}
-                        className="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-xs border border-gray-200 dark:border-gray-700 p-6"
+                        className="group relative overflow-hidden border-muted transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                         data-aos="zoom-in-up"
                         data-aos-delay={index * 100}
                     >
-                        <div className="relative">
+                        <div className="relative aspect-video overflow-hidden">
                             {project.isPinned && (
-                                <div className="absolute top-3 right-3 z-10 bg-linear-to-r from-purple-500 to-purple-600 text-white p-2 rounded-full shadow-lg backdrop-blur-xs border border-white/20 hover:shadow-xl transition-all duration-300">
-                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
+                                <div className="absolute top-3 right-3 z-20">
+                                    <Badge className="bg-primary/90 hover:bg-primary text-primary-foreground px-2 py-1 gap-1">
+                                        <Star className="w-3 h-3 fill-current" />
+                                        Pinned
+                                    </Badge>
                                 </div>
                             )}
 
-                            <a href={project.image} data-lightbox="projects" data-title={project.title}>
+                            <a href={project.image} data-lightbox="projects" data-title={project.title} className="block cursor-pointer">
                                 <Image
                                     src={project.image}
                                     alt={project.title}
                                     width={600}
                                     height={300}
-                                    className="w-full h-48 object-cover cursor-pointer"
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <span className="text-white text-sm font-medium border border-white/40 px-4 py-2 rounded-full backdrop-blur-sm">
+                                        View Image
+                                    </span>
+                                </div>
                             </a>
                         </div>
 
-                        <div className="p-6">
-                            <div className="flex items-center justify-between mb-2">
-                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        <CardHeader className="pb-2">
+                            <div className="flex items-start justify-between gap-2">
+                                <CardTitle className="text-lg md:text-xl font-bold leading-tight break-words">
                                     {project.title}
-                                </h3>
-
-                                {/* optional year badge */}
-                                <span className="text-xs px-2 py-1 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200">
+                                </CardTitle>
+                                <Badge variant="outline" className="shrink-0 font-mono text-[10px] h-5 mt-1">
                                     {project.year}
-                                </span>
+                                </Badge>
                             </div>
+                        </CardHeader>
 
-                            <p className="text-gray-600 dark:text-gray-300 mb-4">
+                        <CardContent className="space-y-4">
+                            <p className="text-muted-foreground text-sm leading-relaxed min-h-[4.5rem]">
                                 {project.description}
                             </p>
 
-                            <div className="flex flex-wrap gap-2 mb-4">
+                            <div className="flex flex-wrap gap-2">
                                 {(project.technologies ?? []).map((tech, i) => {
                                     const icon = techIcons[tech] ?? null;
-
                                     return (
-                                        <span
+                                        <Badge
                                             key={i}
-                                            className="flex items-center space-x-2 px-3 py-1 rounded-full border border-gray-300 dark:border-gray-700 text-sm"
+                                            variant="secondary"
+                                            className="px-2 py-0.5 text-[10px] sm:text-xs font-medium flex items-center gap-1.5"
                                         >
                                             {icon && (
                                                 <Image
                                                     src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
                                                     alt={tech}
-                                                    width={16}
-                                                    height={16}
-                                                    className="w-4 h-4 filter dark:invert"
+                                                    width={12}
+                                                    height={12}
+                                                    className="w-3 h-3 dark:invert"
                                                     unoptimized
                                                 />
                                             )}
-                                            <span className="text-gray-800 dark:text-gray-200">{tech}</span>
-                                        </span>
+                                            {tech}
+                                        </Badge>
                                     );
                                 })}
                             </div>
+                        </CardContent>
 
+                        <CardFooter className="pt-0 border-none bg-transparent">
                             {project.url && (
                                 <a
                                     href={project.url}
-                                    className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 transition-colors"
+                                    className="inline-flex items-center text-sm font-bold text-primary hover:underline gap-1 transition-all"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     Live Preview
-                                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                        />
-                                    </svg>
+                                    <ExternalLink className="size-4" />
                                 </a>
                             )}
-                        </div>
-                    </div>
+                        </CardFooter>
+                    </Card>
                 ))}
             </div>
 
-            {/* Empty state */}
             {sortedProjects.length === 0 && (
-                <div className="text-center text-gray-500 dark:text-gray-300 mt-10">
-                    No projects found for {activeYear}.
+                <div className="text-center py-20 border-2 border-dashed border-muted rounded-3xl mt-10">
+                    <p className="text-muted-foreground">No projects found for {activeYear}.</p>
                 </div>
             )}
         </div>

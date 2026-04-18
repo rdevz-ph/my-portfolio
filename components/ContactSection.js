@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Github, Linkedin, Facebook, Send, Loader2 } from "lucide-react";
 
 export default function ContactSection() {
     const [loading, setLoading] = useState(false);
@@ -37,98 +42,95 @@ export default function ContactSection() {
     };
 
     return (
-        <section id="contact" className="py-16 bg-gray-100 dark:bg-gray-900">
-            <div className="max-w-3xl mx-auto text-center px-4" data-aos="fade-up">
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <section id="contact" className="py-24 bg-muted/30">
+            <div className="max-w-3xl mx-auto px-4">
+                <div className="text-center mb-12" data-aos="fade-up">
+                    <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                         Contact Me
                     </h2>
-                    <div data-aos="fade-up" className="mt-2 mx-auto w-24 h-1 bg-linear-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full"></div>
+                    <div className="mt-4 mx-auto w-24 h-1 bg-primary rounded-full" />
+                    <p className="mt-6 text-lg text-muted-foreground">
+                        Want to work together or have a question? Feel free to reach out!
+                    </p>
                 </div>
 
-                <p className="text-gray-600 dark:text-gray-300 mb-8" data-aos="fade-up" data-aos-delay="100">
-                    Want to work together or have a question? Feel free to reach out!
-                </p>
-
-                <form
-                    onSubmit={handleSubmit}
-                    className="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-xs border border-gray-200 dark:border-gray-700 p-6 space-y-6"
-                    data-aos="fade-up"
-                    data-aos-delay="200"
-                >
-                    <input
-                        type="text"
-                        name="name"
-                        required
-                        placeholder="Your Name"
-                        className="w-full px-4 py-3 rounded-md border bg-white text-gray-900 border-gray-300 placeholder-gray-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        required
-                        placeholder="Your Email"
-                        className="w-full px-4 py-3 rounded-md border bg-white text-gray-900 border-gray-300 placeholder-gray-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    />
-                    <textarea
-                        name="message"
-                        required
-                        rows="5"
-                        placeholder="Your Message"
-                        className="w-full px-4 py-3 rounded-md border bg-white text-gray-900 border-gray-300 placeholder-gray-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-vertical"
-                    ></textarea>
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-md shadow-md transition transform hover:scale-105"
-                    >
-                        {loading ? 'Sending...' : 'Send Message'}
-                    </button>
-                </form>
+                <Card className="border-muted shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <CardContent className="p-8">
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Input
+                                        type="text"
+                                        name="name"
+                                        required
+                                        placeholder="Your Name"
+                                        className="h-12 border-muted-foreground/20 focus-visible:ring-primary"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Input
+                                        type="email"
+                                        name="email"
+                                        required
+                                        placeholder="Your Email"
+                                        className="h-12 border-muted-foreground/20 focus-visible:ring-primary"
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Textarea
+                                    name="message"
+                                    required
+                                    rows={5}
+                                    placeholder="Your Message"
+                                    className="min-h-[150px] border-muted-foreground/20 focus-visible:ring-primary resize-none"
+                                />
+                            </div>
+                            <Button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full sm:w-auto h-12 px-8 text-sm md:text-base font-semibold transition-all hover:scale-105 active:scale-95"
+                            >
+                                {loading ? (
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Sending...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Send className="mr-2 h-4 w-4" />
+                                        Send Message
+                                    </>
+                                )}
+                            </Button>
+                        </form>
+                    </CardContent>
+                </Card>
 
                 {/* Social Links */}
                 <div
-                    className="space-y-3 mt-10 text-left"
+                    className="flex flex-wrap justify-center gap-6 mt-12"
                     data-aos="fade-up"
                     data-aos-delay="300"
                 >
-                    <p className="flex items-center gap-3 justify-center">
-                        <i className="fab fa-github text-gray-700 dark:text-gray-400"></i>
+                    {[
+                        { href: "https://github.com/rdevz-ph", icon: Github, label: "GitHub" },
+                        { href: "https://linkedin.com/in/romel-brosas-b547572a8", icon: Linkedin, label: "LinkedIn" },
+                        { href: "https://facebook.com/rdevzph.dev", icon: Facebook, label: "Facebook" },
+                    ].map((social) => (
                         <a
-                            href="https://github.com/rdevz-ph"
+                            key={social.label}
+                            href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
                         >
-                            GitHub
+                            <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                            <span className="font-medium">{social.label}</span>
                         </a>
-                    </p>
-                    <p className="flex items-center gap-3 justify-center">
-                        <i className="fab fa-linkedin text-gray-700 dark:text-gray-400"></i>
-                        <a
-                            href="https://linkedin.com/in/romel-brosas-b547572a8"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                        >
-                            LinkedIn
-                        </a>
-                    </p>
-                    <p className="flex items-center gap-3 justify-center">
-                        <i className="fab fa-facebook text-gray-700 dark:text-gray-400"></i>
-                        <a
-                            href="https://facebook.com/rdevzph.dev"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                        >
-                            Facebook
-                        </a>
-                    </p>
+                    ))}
                 </div>
-
             </div>
         </section>
     );
-
 }

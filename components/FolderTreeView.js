@@ -4,6 +4,9 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { FiFolder } from 'react-icons/fi';
 import { SiJavascript } from 'react-icons/si';
 import { VscJson } from 'react-icons/vsc';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { FileCode, FileJson, Folder, Terminal } from "lucide-react";
 
 const indexJsCode = `import fs from 'fs';
 import path from 'path';
@@ -35,7 +38,6 @@ export default function ExplorerWithPreview() {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
-        // Check initial theme
         const checkTheme = () => {
             if (typeof window !== 'undefined') {
                 setIsDarkMode(document.documentElement.classList.contains('dark'));
@@ -44,7 +46,6 @@ export default function ExplorerWithPreview() {
 
         checkTheme();
 
-        // Listen for theme changes
         const observer = new MutationObserver(checkTheme);
         if (typeof window !== 'undefined') {
             observer.observe(document.documentElement, {
@@ -56,153 +57,159 @@ export default function ExplorerWithPreview() {
         return () => observer.disconnect();
     }, []);
 
-    // Custom theme style that works for both light and dark modes
     const customThemeStyle = {
         'code[class*="language-"]': {
-            color: isDarkMode ? '#e5e7eb' : '#1f2937', // gray-200 for dark, gray-800 for light
+            color: isDarkMode ? '#e5e7eb' : '#1f2937',
             background: 'transparent',
         },
         'pre[class*="language-"]': {
-            color: isDarkMode ? '#e5e7eb' : '#1f2937', // gray-200 for dark, gray-800 for light
+            color: isDarkMode ? '#e5e7eb' : '#1f2937',
             background: 'transparent',
         },
-        'comment': { color: isDarkMode ? '#6b7280' : '#6b7280' }, // gray-500 for both
-        'string': { color: isDarkMode ? '#10b981' : '#059669' }, // emerald-500/600
-        'keyword': { color: '#8b5cf6' }, // purple-500 for both (matches your theme)
-        'function': { color: isDarkMode ? '#3b82f6' : '#2563eb' }, // blue-500/600
-        'number': { color: isDarkMode ? '#f59e0b' : '#d97706' }, // amber-500/600
-        'operator': { color: isDarkMode ? '#e5e7eb' : '#1f2937' }, // gray-200/800
-        'punctuation': { color: isDarkMode ? '#9ca3af' : '#6b7280' }, // gray-400/500
-        'property': { color: isDarkMode ? '#06b6d4' : '#0891b2' }, // cyan-500/600
-        'boolean': { color: isDarkMode ? '#f59e0b' : '#d97706' }, // amber-500/600
-        'constant': { color: isDarkMode ? '#f59e0b' : '#d97706' }, // amber-500/600
-        'class-name': { color: '#8b5cf6' }, // purple-500 for both (matches your theme)
+        'comment': { color: '#6b7280' },
+        'string': { color: isDarkMode ? '#10b981' : '#059669' },
+        'keyword': { color: 'hsl(var(--primary))' },
+        'function': { color: isDarkMode ? '#3b82f6' : '#2563eb' },
+        'number': { color: isDarkMode ? '#f59e0b' : '#d97706' },
+        'operator': { color: isDarkMode ? '#e5e7eb' : '#1f2937' },
+        'punctuation': { color: isDarkMode ? '#9ca3af' : '#6b7280' },
+        'property': { color: isDarkMode ? '#06b6d4' : '#0891b2' },
+        'boolean': { color: isDarkMode ? '#f59e0b' : '#d97706' },
+        'constant': { color: isDarkMode ? '#f59e0b' : '#d97706' },
+        'class-name': { color: 'hsl(var(--primary))' },
     };
 
     return (
-        <div className="flex flex-col md:flex-row gap-6 mt-6 md:mt-10">
+        <div className="flex flex-col lg:flex-row gap-6 mt-6">
             {/* Tree */}
-            <div className="w-full md:w-1/3">
-                <TreeView
-                    nodeLabel={
-                        <span className="inline-flex items-center gap-2 font-medium">
-                            <FiFolder className="text-yellow-500" />
-                            my-portfolio
-                        </span>
-                    }
-                    defaultCollapsed={false}
-                >
+            <Card className="w-full lg:w-1/3 border-muted bg-muted/10">
+                <CardHeader className="py-3 px-4 border-b">
+                    <CardTitle className="text-sm font-bold flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
+                        <Folder className="w-4 h-4" />
+                        Explorer
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="p-4 overflow-x-auto">
                     <TreeView
                         nodeLabel={
-                            <span className="inline-flex items-center gap-2">
-                                <FiFolder className="text-yellow-500" />
-                                components
-                            </span>
-                        }
-                        defaultCollapsed={true}
-                    >
-                        <div className="pl-6 flex items-center gap-2 text-yellow-500">
-                            <SiJavascript className="text-sm" />
-                            Navbar.js
-                        </div>
-                        <div className="pl-6 flex items-center gap-2 text-yellow-500">
-                            <SiJavascript className="text-sm" />
-                            Footer.js
-                        </div>
-                    </TreeView>
-
-                    <TreeView
-                        nodeLabel={
-                            <span className="inline-flex items-center gap-2">
-                                <FiFolder className="text-yellow-500" />
-                                data
-                            </span>
-                        }
-                        defaultCollapsed={true}
-                    >
-                        <div className="pl-6 flex items-center gap-2 text-green-600">
-                            <VscJson className="text-sm" />
-                            work.json
-                        </div>
-                        <div className="pl-6 flex items-center gap-2 text-green-600">
-                            <VscJson className="text-sm" />
-                            skills.json
-                        </div>
-                    </TreeView>
-
-                    <TreeView
-                        nodeLabel={
-                            <span className="inline-flex items-center gap-2">
-                                <FiFolder className="text-yellow-500" />
-                                pages
+                            <span className="inline-flex items-center gap-2 font-bold text-primary">
+                                <Folder className="w-4 h-4 fill-primary/20" />
+                                my-portfolio
                             </span>
                         }
                         defaultCollapsed={false}
                     >
-                        <div className="pl-6 flex items-center gap-2 text-purple-500">
-                            <SiJavascript className="text-sm" />
-                            index.js
-                        </div>
+                        <TreeView
+                            nodeLabel={
+                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
+                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                    components
+                                </span>
+                            }
+                            defaultCollapsed={true}
+                        >
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
+                                <FileCode className="w-4 h-4 text-blue-400" />
+                                Navbar.js
+                            </div>
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
+                                <FileCode className="w-4 h-4 text-blue-400" />
+                                Footer.js
+                            </div>
+                        </TreeView>
 
-                        <div className="pl-6 flex items-center gap-2 text-yellow-500">
-                            <SiJavascript className="text-sm" />
-                            _app.js
+                        <TreeView
+                            nodeLabel={
+                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
+                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                    data
+                                </span>
+                            }
+                            defaultCollapsed={true}
+                        >
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
+                                <FileJson className="w-4 h-4 text-orange-400" />
+                                work.json
+                            </div>
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
+                                <FileJson className="w-4 h-4 text-orange-400" />
+                                skills.json
+                            </div>
+                        </TreeView>
+
+                        <TreeView
+                            nodeLabel={
+                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
+                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                    pages
+                                </span>
+                            }
+                            defaultCollapsed={false}
+                        >
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 text-primary font-bold bg-primary/5 rounded px-2 cursor-default">
+                                <FileCode className="w-4 h-4" />
+                                index.js
+                            </div>
+
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
+                                <FileCode className="w-4 h-4 text-blue-400" />
+                                _app.js
+                            </div>
+                        </TreeView>
+
+                        <TreeView
+                            nodeLabel={
+                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
+                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                    public
+                                </span>
+                            }
+                            defaultCollapsed={true}
+                        >
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 cursor-default opacity-70">projects/</div>
+                            <div className="pl-6 flex items-center gap-2 text-sm py-1 cursor-default opacity-70">images/</div>
+                        </TreeView>
+
+                        <div className="pl-6 inline-flex items-center gap-2 text-sm py-1 text-muted-foreground hover:text-primary transition-colors cursor-default">
+                            <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                            styles
                         </div>
                     </TreeView>
-
-                    <TreeView
-                        nodeLabel={
-                            <span className="inline-flex items-center gap-2">
-                                <FiFolder className="text-yellow-500" />
-                                public
-                            </span>
-                        }
-                        defaultCollapsed={true}
-                    >
-                        <div className="pl-6">projects/</div>
-                        <div className="pl-6">images/</div>
-                    </TreeView>
-
-                    <div className="pl-6 inline-flex items-center gap-2">
-                        <FiFolder className="text-yellow-500" />
-                        styles
-                    </div>
-                </TreeView>
-            </div>
+                </CardContent>
+            </Card>
 
             {/* Code preview */}
-            <div className="w-full md:w-2/3">
-                <div className="flex items-center gap-2 px-2 md:px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-t-md border-b border-gray-300 dark:border-gray-700 overflow-x-auto">
-                    <span className="inline-flex items-center gap-1 font-mono text-xs md:text-sm font-semibold text-purple-600 dark:text-purple-400">
-                        <svg className="w-4 h-4 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M4 4h16v16H4z" fill="none" />
-                            <path d="M4 4h16v16H4z" stroke="currentColor" strokeWidth="1" />
-                        </svg>
-                        pages/index.js
-                    </span>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-b-md border border-t-0 border-gray-200 dark:border-gray-600 overflow-x-auto">
+            <Card className="w-full lg:w-2/3 border-muted bg-background shadow-xl overflow-hidden">
+                <CardHeader className="py-2 px-4 bg-muted/50 border-b flex flex-row items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <div className="flex gap-1.5 mr-4">
+                            <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                            <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                        </div>
+                        <Badge variant="secondary" className="font-mono text-[10px] md:text-xs py-0 gap-1.5 text-primary">
+                            <Terminal className="w-3 h-3" />
+                            pages/index.js
+                        </Badge>
+                    </div>
+                </CardHeader>
+                <CardContent className="p-0 overflow-x-auto">
                     <SyntaxHighlighter
                         language="javascript"
                         style={customThemeStyle}
                         customStyle={{
                             margin: 0,
-                            padding: '0.75rem',
+                            padding: '1.5rem',
                             backgroundColor: 'transparent',
-                            borderRadius: '0 0 0.375rem 0.375rem',
-                            fontSize: '0.8rem',
+                            fontSize: '0.85rem',
+                            lineHeight: '1.6',
                             minWidth: 0,
-                        }}
-                        codeTagProps={{
-                            style: {
-                                backgroundColor: 'transparent'
-                            }
                         }}
                     >
                         {indexJsCode}
                     </SyntaxHighlighter>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
     );
 }

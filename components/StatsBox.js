@@ -2,46 +2,61 @@ import {
     EyeIcon,
     UsersIcon,
     BriefcaseIcon,
-} from '@heroicons/react/24/outline'; // Make sure this is installed via `@heroicons/react`
-
+} from '@heroicons/react/24/outline';
 import CountUp from 'react-countup';
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-const StatCard = ({ icon, label, value, color, suffix, aos, delay }) => (
-    <div
-        class="bg-white dark:bg-gray-900 rounded-lg transition duration-500 shadow-xs border border-gray-200 dark:border-gray-700 p-6"
-        data-aos={aos}
-        data-aos-delay={delay}
-    >
-        <div className="flex flex-col items-center space-y-1">
-            <div className={`text-${color}-500 dark:text-${color}-400`}>
-                {icon}
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {label}
-            </h3>
-        </div>
-        <p className={`text-4xl font-bold text-${color}-600 dark:text-${color}-400 flex items-center justify-center gap-1`}>
-            <CountUp end={parseInt(value)} duration={2} />
-            {suffix && <span className="text-lg font-medium">{suffix}</span>}
-        </p>
-    </div>
-);
+const StatCard = ({ icon, label, value, color, suffix, aos, delay }) => {
+    // Mapping colors to shadcn-friendly classes if needed, 
+    // but keeping the original logic for compatibility.
+    const colorClasses = {
+        green: "text-emerald-500",
+        purple: "text-primary",
+        blue: "text-blue-500"
+    };
+
+    return (
+        <Card
+            className="border-muted shadow-sm transition-all duration-500 hover:shadow-md"
+            data-aos={aos}
+            data-aos-delay={delay}
+        >
+            <CardContent className="p-6">
+                <div className="flex flex-col items-center space-y-4">
+                    <div className={cn("p-3 rounded-full bg-muted", colorClasses[color] || `text-${color}-500`)}>
+                        {icon}
+                    </div>
+                    <div className="text-center space-y-1">
+                        <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                            {label}
+                        </h3>
+                        <p className={cn("text-4xl font-bold tracking-tight flex items-center justify-center gap-1", colorClasses[color] || `text-${color}-600`)}>
+                            <CountUp end={parseInt(value)} duration={2.5} separator="," />
+                            {suffix && <span className="text-sm font-medium opacity-80 uppercase ml-1">{suffix}</span>}
+                        </p>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+};
 
 export default function StatsBox({ settings }) {
     return (
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-16">
             <StatCard
                 icon={<BriefcaseIcon className="w-8 h-8" />}
                 label="Experience"
                 value={settings.years_of_experience}
                 color="green"
-                suffix="+ years"
+                suffix="Years"
                 aos="fade-up"
                 delay="0"
             />
 
             <StatCard
-                icon={<EyeIcon className="w-6 h-6" />}
+                icon={<EyeIcon className="w-8 h-8" />}
                 label="Total Visitors"
                 value={settings.visitor_count}
                 color="purple"
@@ -50,7 +65,7 @@ export default function StatsBox({ settings }) {
             />
 
             <StatCard
-                icon={<UsersIcon className="w-6 h-6" />}
+                icon={<UsersIcon className="w-8 h-8" />}
                 label="Total Clients"
                 value={settings.client_count}
                 color="blue"
