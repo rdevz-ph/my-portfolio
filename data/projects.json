@@ -426,5 +426,31 @@
         "url": "https://github.com/rdevz-ph/composer-artisan-ssh-tool",
         "isPinned": true,
         "year": 2026
+    },
+    {
+        "title": "QMS Document Archiving",
+        "description": "A specialized document archiving system for the Municipal Government of Sablayan, featuring a secure dashboard with role-based access for managing administrative, incoming, and outgoing records.",
+        "image": "/projects/qms.png",
+        "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+        "url": "https://storyboard-qms.vercel.app",
+        "isPinned": false,
+        "year": 2026
+    },
+    {
+        "title": "Sablayan Water District Mobile Portal",
+        "description": "A mobile-optimized gateway for the Sablayan Water District, providing users with convenient digital access to water utility services, account information, and essential updates.",
+        "image": "/projects/water-district-mobile-portal.jpg",
+        "technologies": [
+            "React",
+            "Next.js",
+            "TailwindCSS"
+        ],
+        "url": "https://sablayan-water-district.vercel.app",
+        "isPinned": false,
+        "year": 2026
     }
 ]
