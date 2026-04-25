@@ -452,5 +452,21 @@
         "url": "https://sablayan-water-district.vercel.app",
         "isPinned": false,
         "year": 2026
+    },
+    {
+        "title": "PyAMPP",
+        "description": "PyAMPP is a portable web development stack manager for Windows that automates the deployment and management of Apache, MySQL, PHP, and phpMyAdmin. It features a modern graphical interface, intelligent service orchestration, automated lifecycle management, and global CLI integration, ensuring a zero-configuration, truly portable local development environment.",
+        "image": "/projects/pyampp.png",
+        "technologies": [
+            "Python",
+            "CustomTkinter",
+            "PowerShell",
+            "Apache",
+            "MySQL",
+            "PHP"
+        ],
+        "url": "https://github.com/rdevz-ph/PyAMPP-Windows",
+        "isPinned": true,
+        "year": 2026
     }
 ]

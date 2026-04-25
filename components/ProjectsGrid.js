@@ -27,7 +27,10 @@ const techIcons = {
     SSH: 'gnubash',
     Linux: 'linux',
     Ubuntu: 'ubuntu',
-    Nginx: 'nginx'
+    Nginx: 'nginx',
+    CustomTkinter: 'python',
+    PowerShell: 'powershell',
+    Apache: 'apache'
 };
 
 export default function ProjectsGrid({ projects }) {

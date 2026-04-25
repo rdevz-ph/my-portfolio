@@ -26,7 +26,10 @@ export default function TechStack({ skills }) {
         SSH: 'gnubash',
         Linux: 'linux',
         Ubuntu: 'ubuntu',
-        Nginx: 'nginx'
+        Nginx: 'nginx',
+        CustomTkinter: 'python',
+        PowerShell: 'powershell',
+        Apache: 'apache'
     };
 
     return (
