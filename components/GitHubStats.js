@@ -50,8 +50,8 @@ export default function GitHubStats() {
     const textColor = isDarkMode ? "94a3b8" : "475569";    // Slate-400 in dark, Slate-600 in light
     const titleColor = isDarkMode ? "7c3aed" : "6d28d9";
 
-    const currentTheme = isDarkMode ? 'transparent' : 'default';
-    const githubTheme = isDarkMode ? 'transparent' : 'default'; 
+    const currentTheme = isDarkMode ? 'dark' : 'default';
+    const githubTheme = isDarkMode ? 'dark' : 'default'; 
     const streakTheme = isDarkMode ? 'dark' : 'default'; 
 
     const statsUrl = `https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${githubTheme}&hide_border=true&title_color=${titleColor}&icon_color=${primaryColor}&text_color=${textColor}&rank_icon=github&count_private=true`;
