@@ -34,7 +34,7 @@ export default function TechStack({ skills }) {
 
     return (
         <Card
-            className="border-muted shadow-sm transition-all duration-500 mb-10 overflow-hidden"
+            className="border-muted shadow-sm transition-all duration-500 overflow-hidden"
             data-aos="fade-up"
             data-aos-delay="100"
         >

@@ -44,7 +44,7 @@ const StatCard = ({ icon, label, value, color, suffix, aos, delay }) => {
 
 export default function StatsBox({ settings }) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <StatCard
                 icon={<BriefcaseIcon className="w-8 h-8" />}
                 label="Experience"

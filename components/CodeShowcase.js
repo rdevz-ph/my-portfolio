@@ -5,7 +5,7 @@ import { Github, FolderTree } from "lucide-react";
 
 export default function CodeShowcase() {
     return (
-        <div className="max-w-5xl mx-auto px-4 mb-24">
+        <div className="max-w-5xl mx-auto px-4">
             <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                     About This Portfolio
@@ -22,21 +22,20 @@ export default function CodeShowcase() {
             </p>
 
             <div className="flex justify-center mb-12" data-aos="zoom-in">
-                <Button 
-                    asChild 
-                    variant="outline" 
-                    size="lg" 
+                <Button
+                    render={
+                        <a
+                            href="https://github.com/rdevz-ph/my-portfolio"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        />
+                    }
+                    variant="outline"
+                    size="lg"
                     className="h-12 px-10 border-primary/20 hover:border-primary/50 hover:bg-primary/5 transition-all shadow-sm hover:shadow-md group text-sm md:text-base font-bold text-foreground"
                 >
-                    <a
-                        href="https://github.com/rdevz-ph/my-portfolio"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        View Source on GitHub
-                    </a>
-                </Button>
-            </div>
+                    View Source on GitHub
+                </Button>            </div>
 
             <Card
                 className="border-muted shadow-lg overflow-hidden"

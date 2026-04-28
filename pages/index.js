@@ -10,6 +10,7 @@ import StatsBox from '@/components/StatsBox';
 import ScrollToTop from '@/components/ScrollToTop';
 import WorkTimeline from '@/components/WorkTimeline';
 import TechStack from '@/components/TechStack';
+import GitHubStats from '@/components/GitHubStats';
 import { getGoatCounterViews } from '@/lib/getGoatCounterViews';
 import { generateSEO, siteConfig } from '@/lib/seo';
 import CodeShowcase from '@/components/CodeShowcase';
@@ -144,20 +145,21 @@ export default function Home({ projects, settings, experiences, skills }) {
       <main className="min-h-screen bg-background text-foreground transition-colors duration-500">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 pt-24">
-          <section id="about" className="space-y-24">
-            <div>
+          <section id="about" className="space-y-12 md:space-y-24">
+            <div className="space-y-12 md:space-y-24">
               <ProfileCard settings={settings} />
               <StatsBox settings={settings} />
               <TechStack skills={skills} />
+              <GitHubStats />
             </div>
             
-            <div className="space-y-24">
+            <div className="space-y-12 md:space-y-24">
               <CodeShowcase />
               <WorkTimeline experiences={experiences} />
             </div>
           </section>
 
-          <section id="projects" className="py-24">
+          <section id="projects" className="py-12 md:py-24">
             <ProjectsGrid projects={projects} />
           </section>
         </div>

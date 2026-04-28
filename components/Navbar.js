@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ThemeToggle from './ThemeToggle';
-import { Menu, X, User, FolderHeart, MessageSquare, ChevronRight } from 'lucide-react';
+import { Menu, X, User, FolderHeart, MessageSquare, ChevronRight, Github } from 'lucide-react';
 import { Link as ScrollLink, Events, scrollSpy } from 'react-scroll';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
@@ -40,6 +40,7 @@ export default function Navbar() {
 
     const navLinks = [
         { to: 'about', label: 'About', icon: User },
+        { to: 'github', label: 'GitHub', icon: Github },
         { to: 'projects', label: 'Projects', icon: FolderHeart },
         { to: 'contact', label: 'Contact', icon: MessageSquare },
     ];
@@ -75,10 +76,10 @@ export default function Navbar() {
                 <div className="flex items-center space-x-2 md:hidden">
                     <ThemeToggle />
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-                                <Menu size={24} />
-                            </Button>
+                        <SheetTrigger 
+                            render={<Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10" />}
+                        >
+                            <Menu size={24} />
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[300px] border-l border-muted">
                             <SheetHeader className="text-left pb-6 border-b">

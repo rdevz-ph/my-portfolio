@@ -6,7 +6,7 @@ import { Download } from "lucide-react";
 export default function ProfileCard({ settings }) {
     return (
         <div
-            className="flex flex-col items-center space-y-8 mb-16"
+            className="flex flex-col items-center space-y-8"
             data-aos="fade-up"
             data-aos-delay="100"
         >
@@ -22,7 +22,7 @@ export default function ProfileCard({ settings }) {
                 <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
                     {settings.full_name}
                 </h1>
-                <p className="text-xl sm:text-2xl text-primary font-semibold tracking-wide uppercase italic">
+                <p className="text-lg sm:text-xl text-primary font-medium tracking-[0.3em] uppercase">
                     {settings.position}
                 </p>
             </div>
@@ -32,10 +32,8 @@ export default function ProfileCard({ settings }) {
                     {settings.description}
                 </p>
                 <div className="flex justify-center">
-                    <Button asChild size="lg" className="rounded-full px-10 h-12 text-sm md:text-base font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
-                        <a href={settings.system_cv_path} download>
-                            Download CV
-                        </a>
+                    <Button render={<a href={settings.system_cv_path} download />} size="lg" className="rounded-full px-10 h-12 text-sm md:text-base font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
+                        Download CV
                     </Button>
                 </div>
             </div>
