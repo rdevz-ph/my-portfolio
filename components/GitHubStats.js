@@ -44,17 +44,17 @@ export default function GitHubStats() {
     }, []);
 
     const username = "rdevz-ph";
-    
+
     // Dynamic colors based on theme
     const primaryColor = isDarkMode ? "7c3aed" : "6d28d9"; // Violet-600 in light, Violet-500 in dark
     const textColor = isDarkMode ? "94a3b8" : "475569";    // Slate-400 in dark, Slate-600 in light
     const titleColor = isDarkMode ? "7c3aed" : "6d28d9";
 
     const currentTheme = isDarkMode ? 'dark' : 'default';
-    const githubTheme = isDarkMode ? 'dark' : 'default'; 
-    const streakTheme = isDarkMode ? 'dark' : 'default'; 
+    const githubTheme = isDarkMode ? 'dark' : 'default';
+    const streakTheme = isDarkMode ? 'dark' : 'default';
 
-    const statsUrl = `https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${githubTheme}&hide_border=true&title_color=${titleColor}&icon_color=${primaryColor}&text_color=${textColor}&rank_icon=github&count_private=true`;
+    const statsUrl = `https://rdevzph-github-stats.vercel.app/api?username=${username}&show_icons=true&theme=${githubTheme}&hide_border=true&title_color=${titleColor}&icon_color=${primaryColor}&text_color=${textColor}&rank_icon=github&count_private=true`;
     const langsUrl = `https://github-top-langs-api.vercel.app/api?username=${username}&theme=${currentTheme}&hide_border=true`;
     const streakUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=${streakTheme}&hide_border=true&stroke=${primaryColor}&ring=${primaryColor}&fire=${primaryColor}&currStreakLabel=${primaryColor}&currStreakNum=${textColor}&sideLabels=${textColor}&sideNums=${textColor}&dates=${textColor}`;
 
