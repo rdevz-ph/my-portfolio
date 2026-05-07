@@ -68,13 +68,33 @@ const formatResponse = (text) => {
     const lines = normalizedText.split('\n');
 
     return lines.map((line, i) => {
-        // Detect bullet points
-        const bulletMatch = line.match(/^(\s*[*•]\s+)(.*)/);
-        if (bulletMatch) {
+        // Detect Headers (e.g., ### Backend)
+        const headerMatch = line.match(/^(#{1,6})\s+(.*)/);
+        if (headerMatch) {
+            const level = headerMatch[1].length;
+            const content = headerMatch[2];
+            // Style based on header level
+            const headerClasses = cn(
+                "font-bold text-foreground mt-4 mb-2 first:mt-0",
+                level === 1 && "text-xl",
+                level === 2 && "text-lg",
+                level >= 3 && "text-base"
+            );
             return (
-                <div key={i} className="flex gap-2 ml-2 my-1.5 leading-relaxed">
+                <div key={i} className={headerClasses}>
+                    {renderInline(content)}
+                </div>
+            );
+        }
+
+        // Detect bullet points
+        const bulletMatch = line.match(/^(\s*[*•]\s+)(.*)/) || line.match(/^(\s*[*•]\s*)$/);
+        if (bulletMatch) {
+            const content = bulletMatch[2] || "";
+            return (
+                <div key={i} className="flex gap-2 ml-2 my-1 leading-relaxed">
                     <span className="text-primary shrink-0 mt-1">•</span>
-                    <div className="flex-1">{renderInline(bulletMatch[2])}</div>
+                    <div className="flex-1">{renderInline(content)}</div>
                 </div>
             );
         }
@@ -85,7 +105,7 @@ const formatResponse = (text) => {
         }
 
         return (
-            <div key={i} className="mb-2 last:mb-0 leading-relaxed">
+            <div key={i} className="mb-2 last:mb-0 leading-relaxed text-muted-foreground">
                 {renderInline(line)}
             </div>
         );
