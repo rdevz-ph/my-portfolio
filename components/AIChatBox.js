@@ -8,35 +8,53 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
 const formatResponse = (text) => {
-    // Regex for URLs
+    // Regex for URLs, Emails, and Bold text
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    // Regex for bold text **text**
+    const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
     const boldRegex = /\*\*(.*?)\*\*/g;
 
+    // First split by URLs
     const parts = text.split(urlRegex);
 
     return parts.map((part, i) => {
+        // If it's a URL
         if (part.match(urlRegex)) {
             return (
                 <a 
-                    key={i} 
+                    key={`url-${i}`} 
                     href={part} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-primary-foreground underline break-all hover:opacity-80 transition-opacity"
+                    className="text-blue-500 hover:text-blue-600 underline break-all transition-colors"
                 >
                     {part}
                 </a>
             );
         }
 
-        // Handle bolding within non-URL parts
-        const boldParts = part.split(boldRegex);
-        return boldParts.map((boldPart, j) => {
-            if (j % 2 === 1) {
-                return <strong key={`${i}-${j}`} className="font-bold">{boldPart}</strong>;
+        // Split non-URL parts by Emails
+        const emailParts = part.split(emailRegex);
+        return emailParts.map((ePart, k) => {
+            if (ePart.match(emailRegex)) {
+                return (
+                    <a 
+                        key={`email-${i}-${k}`} 
+                        href={`mailto:${ePart}`}
+                        className="text-blue-500 hover:text-blue-600 underline break-all transition-colors"
+                    >
+                        {ePart}
+                    </a>
+                );
             }
-            return boldPart;
+
+            // Handle bolding within remaining text
+            const boldParts = ePart.split(boldRegex);
+            return boldParts.map((boldPart, j) => {
+                if (j % 2 === 1) {
+                    return <strong key={`bold-${i}-${k}-${j}`} className="font-bold">{boldPart}</strong>;
+                }
+                return boldPart;
+            });
         });
     });
 };
