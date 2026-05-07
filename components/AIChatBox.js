@@ -7,6 +7,40 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
+const formatResponse = (text) => {
+    // Regex for URLs
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    // Regex for bold text **text**
+    const boldRegex = /\*\*(.*?)\*\*/g;
+
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, i) => {
+        if (part.match(urlRegex)) {
+            return (
+                <a 
+                    key={i} 
+                    href={part} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-primary-foreground underline break-all hover:opacity-80 transition-opacity"
+                >
+                    {part}
+                </a>
+            );
+        }
+
+        // Handle bolding within non-URL parts
+        const boldParts = part.split(boldRegex);
+        return boldParts.map((boldPart, j) => {
+            if (j % 2 === 1) {
+                return <strong key={`${i}-${j}`} className="font-bold">{boldPart}</strong>;
+            }
+            return boldPart;
+        });
+    });
+};
+
 const TypingText = ({ text, onComplete }) => {
     const [displayedText, setDisplayedText] = useState('');
     const [index, setIndex] = useState(0);
@@ -16,20 +50,43 @@ const TypingText = ({ text, onComplete }) => {
             const timeout = setTimeout(() => {
                 setDisplayedText((prev) => prev + text[index]);
                 setIndex((prev) => prev + 1);
-            }, 15); // Adjust speed here (lower = faster)
+            }, 10); // Slightly faster for long responses
             return () => clearTimeout(timeout);
         } else if (onComplete) {
             onComplete();
         }
     }, [index, text, onComplete]);
 
-    return <span>{displayedText}</span>;
+    return <span>{formatResponse(displayedText)}</span>;
 };
 
 export default function AIChatBox() {
     const [isOpen, setIsOpen] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [input, setInput] = useState('');
+    const [isOnline, setIsOnline] = useState(false);
+
+    useEffect(() => {
+        const checkHealth = async () => {
+            try {
+                // Construct health URL from base API URL
+                const apiUrl = process.env.NEXT_PUBLIC_AI_API_URL;
+                if (!apiUrl) return;
+                
+                const healthUrl = apiUrl.replace('/api/chat', '/api/health');
+                const response = await fetch(healthUrl);
+                const data = await response.json();
+                setIsOnline(data.status === 'online');
+            } catch (error) {
+                console.error('Health check failed:', error);
+                setIsOnline(false);
+            }
+        };
+
+        checkHealth();
+        const interval = setInterval(checkHealth, 30000); // Check every 30s
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -105,9 +162,17 @@ export default function AIChatBox() {
             {isOpen && (
                 <Card className="mb-4 w-[350px] sm:w-[400px] h-[500px] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300 p-0 gap-0 border-none ring-1 ring-primary/20">
                     <CardHeader className="bg-primary text-primary-foreground p-4 flex flex-row items-center justify-between space-y-0 rounded-b-none">
-                        <div className="flex items-center gap-2">
-                            <Bot className="w-5 h-5" />
-                            <CardTitle className="text-lg font-bold">AI Assistant</CardTitle>
+                        <div className="flex flex-col">
+                            <div className="flex items-center gap-2">
+                                <Bot className="w-5 h-5" />
+                                <CardTitle className="text-lg font-bold">AI Assistant</CardTitle>
+                            </div>
+                            <div className="flex items-center gap-1.5 ml-7">
+                                <div className={cn("w-2 h-2 rounded-full", isOnline ? "bg-green-400 animate-pulse" : "bg-red-400")} />
+                                <span className="text-[10px] uppercase tracking-wider font-semibold opacity-90">
+                                    {isOnline ? "Online" : "Offline"}
+                                </span>
+                            </div>
                         </div>
                         <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-primary-foreground hover:bg-primary-foreground/10 h-8 w-8">
                             <X className="w-5 h-5" />
