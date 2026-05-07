@@ -8,6 +8,7 @@ import ProjectsGrid from '@/components/ProjectsGrid';
 import ProfileCard from '@/components/ProfileCard';
 import StatsBox from '@/components/StatsBox';
 import ScrollToTop from '@/components/ScrollToTop';
+import AIChatBox from '@/components/AIChatBox';
 import WorkTimeline from '@/components/WorkTimeline';
 import TechStack from '@/components/TechStack';
 import GitHubStats from '@/components/GitHubStats';
@@ -169,6 +170,7 @@ export default function Home({ projects, settings, experiences, skills }) {
         </section>
         <Footer />
         <ScrollToTop />
+        <AIChatBox />
       </main>
     </>
   );

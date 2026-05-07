@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Github, BarChart3, Code2, Flame, Info, Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
@@ -102,16 +103,18 @@ export default function GitHubStats() {
                                             <p className="text-sm text-muted-foreground animate-pulse relative z-10">Fetching activity data...</p>
                                         </div>
                                     )}
-                                    <img
+                                    <Image
                                         key={`stats-${isDarkMode}`}
                                         src={statsUrl}
                                         alt="GitHub Stats"
+                                        width={600}
+                                        height={195}
+                                        unoptimized={true}
                                         className={cn(
                                             "w-full max-w-2xl h-auto transition-opacity duration-500",
                                             loading.stats ? "opacity-0" : "opacity-100"
                                         )}
-                                        loading="lazy"
-                                        onLoad={() => handleImageLoad('stats')}
+                                        onLoadingComplete={() => handleImageLoad('stats')}
                                     />
                                 </CardContent>
                             </Card>
@@ -127,16 +130,18 @@ export default function GitHubStats() {
                                             <p className="text-sm text-muted-foreground animate-pulse relative z-10">Analyzing top languages...</p>
                                         </div>
                                     )}
-                                    <img
+                                    <Image
                                         key={`langs-${isDarkMode}`}
                                         src={langsUrl}
                                         alt="Top Languages"
+                                        width={600}
+                                        height={300}
+                                        unoptimized={true}
                                         className={cn(
                                             "w-full max-w-2xl h-auto transition-opacity duration-500",
                                             loading.languages ? "opacity-0" : "opacity-100"
                                         )}
-                                        loading="lazy"
-                                        onLoad={() => handleImageLoad('languages')}
+                                        onLoadingComplete={() => handleImageLoad('languages')}
                                     />
                                     {!loading.languages && (
                                         <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground italic transition-opacity duration-500">
@@ -158,16 +163,18 @@ export default function GitHubStats() {
                                             <p className="text-sm text-muted-foreground animate-pulse relative z-10">Calculating streak...</p>
                                         </div>
                                     )}
-                                    <img
+                                    <Image
                                         key={`streak-${isDarkMode}`}
                                         src={streakUrl}
                                         alt="GitHub Streak"
+                                        width={600}
+                                        height={195}
+                                        unoptimized={true}
                                         className={cn(
                                             "w-full max-w-2xl h-auto transition-opacity duration-500",
                                             loading.streak ? "opacity-0" : "opacity-100"
                                         )}
-                                        loading="lazy"
-                                        onLoad={() => handleImageLoad('streak')}
+                                        onLoadingComplete={() => handleImageLoad('streak')}
                                     />
                                 </CardContent>
                             </Card>
