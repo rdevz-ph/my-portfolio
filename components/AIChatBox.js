@@ -7,17 +7,18 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
-const formatResponse = (text) => {
+const renderInline = (text) => {
+    if (typeof text !== 'string') return text;
+
     // Regex for URLs, Emails, and Bold text
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
     const boldRegex = /\*\*(.*?)\*\*/g;
 
-    // First split by URLs
+    // Split by URLs first
     const parts = text.split(urlRegex);
 
     return parts.map((part, i) => {
-        // If it's a URL
         if (part.match(urlRegex)) {
             return (
                 <a 
@@ -32,7 +33,6 @@ const formatResponse = (text) => {
             );
         }
 
-        // Split non-URL parts by Emails
         const emailParts = part.split(emailRegex);
         return emailParts.map((ePart, k) => {
             if (ePart.match(emailRegex)) {
@@ -47,15 +47,48 @@ const formatResponse = (text) => {
                 );
             }
 
-            // Handle bolding within remaining text
             const boldParts = ePart.split(boldRegex);
             return boldParts.map((boldPart, j) => {
                 if (j % 2 === 1) {
-                    return <strong key={`bold-${i}-${k}-${j}`} className="font-bold">{boldPart}</strong>;
+                    return <strong key={`bold-${i}-${k}-${j}`} className="font-bold text-foreground">{boldPart}</strong>;
                 }
                 return boldPart;
             });
         });
+    });
+};
+
+const formatResponse = (text) => {
+    if (!text) return null;
+
+    // Normalize: Add newlines before bullet points if they are missing
+    // and handle both * and • characters
+    const normalizedText = text.replace(/ ([*•]) /g, '\n$1 ');
+    
+    const lines = normalizedText.split('\n');
+
+    return lines.map((line, i) => {
+        // Detect bullet points
+        const bulletMatch = line.match(/^(\s*[*•]\s+)(.*)/);
+        if (bulletMatch) {
+            return (
+                <div key={i} className="flex gap-2 ml-2 my-1.5 leading-relaxed">
+                    <span className="text-primary shrink-0 mt-1">•</span>
+                    <div className="flex-1">{renderInline(bulletMatch[2])}</div>
+                </div>
+            );
+        }
+
+        // Regular text line
+        if (line.trim() === '') {
+            return <div key={i} className="h-2" />;
+        }
+
+        return (
+            <div key={i} className="mb-2 last:mb-0 leading-relaxed">
+                {renderInline(line)}
+            </div>
+        );
     });
 };
 
@@ -75,7 +108,7 @@ const TypingText = ({ text, onComplete }) => {
         }
     }, [index, text, onComplete]);
 
-    return <span>{formatResponse(displayedText)}</span>;
+    return <div className="w-full">{formatResponse(displayedText)}</div>;
 };
 
 export default function AIChatBox() {
