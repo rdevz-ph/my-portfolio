@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Send, User, Bot, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, User, Bot, Loader2, History, Info } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const renderInline = (text) => {
     if (typeof text !== 'string') return text;
@@ -115,6 +122,7 @@ const formatResponse = (text) => {
 const TypingText = ({ text, onComplete }) => {
     const [displayedText, setDisplayedText] = useState('');
     const [index, setIndex] = useState(0);
+    const hasCompleted = useRef(false);
 
     useEffect(() => {
         if (index < text.length) {
@@ -123,7 +131,8 @@ const TypingText = ({ text, onComplete }) => {
                 setIndex((prev) => prev + 1);
             }, 10); // Slightly faster for long responses
             return () => clearTimeout(timeout);
-        } else if (onComplete) {
+        } else if (onComplete && !hasCompleted.current) {
+            hasCompleted.current = true;
             onComplete();
         }
     }, [index, text, onComplete]);
@@ -136,6 +145,49 @@ export default function AIChatBox() {
     const [showNotification, setShowNotification] = useState(false);
     const [input, setInput] = useState('');
     const [isOnline, setIsOnline] = useState(false);
+    const [rememberChat, setRememberChat] = useState(true);
+
+    const [messages, setMessages] = useState([
+        { role: 'assistant', content: 'Hello! How can I help you today?', isTyped: true, timestamp: new Date().toISOString() }
+    ]);
+
+    // Load persistence settings and history
+    useEffect(() => {
+        const savedRemember = localStorage.getItem('ai_chat_remember');
+        if (savedRemember !== null) {
+            setRememberChat(savedRemember === 'true');
+        }
+
+        if (savedRemember === 'true' || savedRemember === null) {
+            const savedHistory = localStorage.getItem('ai_chat_history');
+            if (savedHistory) {
+                try {
+                    const parsed = JSON.parse(savedHistory);
+                    // Ensure all historical messages are marked as typed
+                    setMessages(parsed.map(msg => ({ ...msg, isTyped: true })));
+                } catch (e) {
+                    console.error('Failed to parse history', e);
+                }
+            }
+        }
+    }, []);
+
+    // Save history when messages change
+    useEffect(() => {
+        if (rememberChat) {
+            localStorage.setItem('ai_chat_history', JSON.stringify(messages));
+        } else {
+            localStorage.removeItem('ai_chat_history');
+        }
+    }, [messages, rememberChat]);
+
+    // Save remember setting
+    useEffect(() => {
+        localStorage.setItem('ai_chat_remember', rememberChat);
+        if (!rememberChat) {
+            localStorage.removeItem('ai_chat_history');
+        }
+    }, [rememberChat]);
 
     useEffect(() => {
         const checkHealth = async () => {
@@ -165,9 +217,7 @@ export default function AIChatBox() {
         }, 1000);
         return () => clearTimeout(timer);
     }, []);
-    const [messages, setMessages] = useState([
-        { role: 'assistant', content: 'Hello! How can I help you today?' }
-    ]);
+
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef(null);
 
@@ -181,8 +231,10 @@ export default function AIChatBox() {
         e.preventDefault();
         if (!input.trim() || isLoading) return;
 
-        const userMessage = { role: 'user', content: input };
-        setMessages(prev => [...prev, userMessage]);
+        const timestamp = new Date().toISOString();
+        const userMessage = { role: 'user', content: input, timestamp };
+        const newMessages = [...messages, userMessage];
+        setMessages(newMessages);
         setInput('');
         setIsLoading(true);
 
@@ -192,10 +244,21 @@ export default function AIChatBox() {
                 throw new Error("AI API URL is not defined in environment variables.");
             }
 
+            // Construct history (all messages EXCEPT the one we just sent)
+            const historyContext = messages.map(msg => 
+                `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content} (Timestamp: ${msg.timestamp})`
+            ).join('\n');
+
+            // Construct final prompt matching your sample
+            const prompt = `${historyContext}\n\n[System Note: The above is a chat history. Use it for context but focus on the latest user message.]\nCurrent User Message: ${input} (Timestamp: ${timestamp})`;
+
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: input }),
+                body: JSON.stringify({ 
+                    message: prompt,
+                    raw_message: input
+                }),
             });
 
             if (!response.ok) {
@@ -203,10 +266,21 @@ export default function AIChatBox() {
             }
 
             const data = await response.json();
+            const assistantTimestamp = new Date().toISOString();
             if (data.response) {
-                setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
+                setMessages(prev => [...prev, { 
+                    role: 'assistant', 
+                    content: data.response, 
+                    isTyped: false, 
+                    timestamp: assistantTimestamp 
+                }]);
             } else {
-                setMessages(prev => [...prev, { role: 'assistant', content: "I received an unexpected response format from the server." }]);
+                setMessages(prev => [...prev, { 
+                    role: 'assistant', 
+                    content: "I received an unexpected response format from the server.", 
+                    isTyped: false, 
+                    timestamp: assistantTimestamp 
+                }]);
             }
         } catch (error) {
             console.error('Chat Error Details:', error);
@@ -216,7 +290,12 @@ export default function AIChatBox() {
                 errorMessage = "Connection error. This might be a CORS issue or the server is down. Please check the console for details.";
             }
             
-            setMessages(prev => [...prev, { role: 'assistant', content: errorMessage }]);
+            setMessages(prev => [...prev, { 
+                role: 'assistant', 
+                content: errorMessage, 
+                isTyped: false, 
+                timestamp: new Date().toISOString() 
+            }]);
         } finally {
             setIsLoading(false);
         }
@@ -245,9 +324,30 @@ export default function AIChatBox() {
                                 </span>
                             </div>
                         </div>
-                        <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-primary-foreground hover:bg-primary-foreground/10 h-8 w-8">
-                            <X className="w-5 h-5" />
-                        </Button>
+                        <div className="flex items-center gap-1">
+                            <TooltipProvider>
+                                <Tooltip>
+                                   <TooltipTrigger 
+                                       render={
+                                           <div className="flex items-center gap-2 px-2 py-1 bg-primary-foreground/10 rounded-md mr-2 cursor-help">
+                                               <Checkbox 
+                                                   id="remember" 
+                                                   checked={rememberChat} 
+                                                   onCheckedChange={setRememberChat}
+                                                   className="border-primary-foreground/50 data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary"
+                                               />
+                                               <History className="w-3.5 h-3.5" />
+                                           </div>
+                                       }
+                                   />
+                                   <TooltipContent side="bottom" className="max-w-[200px] text-xs">                                        <p>When enabled, your chat history is saved locally on your browser so you can continue later.</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-primary-foreground hover:bg-primary-foreground/10 h-8 w-8">
+                                <X className="w-5 h-5" />
+                            </Button>
+                        </div>
                     </CardHeader>
                     
                     <CardContent className="flex-1 overflow-y-auto p-4 space-y-4" ref={scrollRef}>
@@ -270,16 +370,29 @@ export default function AIChatBox() {
                                         : "bg-muted text-muted-foreground rounded-tl-none border"
                                 )}>
                                     {msg.role === 'assistant' ? (
-                                        <TypingText 
-                                            text={msg.content} 
-                                            onComplete={() => {
-                                                if (scrollRef.current) {
-                                                    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-                                                }
-                                            }} 
-                                        />
+                                        msg.isTyped ? (
+                                            <div className="w-full">{formatResponse(msg.content)}</div>
+                                        ) : (
+                                            <TypingText 
+                                                text={msg.content} 
+                                                onComplete={() => {
+                                                    setMessages(prev => prev.map((m, i) => i === index ? { ...m, isTyped: true } : m));
+                                                    if (scrollRef.current) {
+                                                        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+                                                    }
+                                                }} 
+                                            />
+                                        )
                                     ) : (
                                         msg.content
+                                    )}
+                                    {msg.timestamp && (
+                                        <div className={cn(
+                                            "text-[10px] mt-1 opacity-50",
+                                            msg.role === 'user' ? "text-right" : "text-left"
+                                        )}>
+                                            {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </div>
                                     )}
                                 </div>
                             </div>
