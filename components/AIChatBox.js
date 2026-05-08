@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
+import Swal from 'sweetalert2';
 import {
     Tooltip,
     TooltipContent,
@@ -306,6 +307,35 @@ export default function AIChatBox() {
         if (showNotification) setShowNotification(false);
     };
 
+    const handleRememberToggle = async (checked) => {
+        if (!checked) {
+            const result = await Swal.fire({
+                title: 'Clear Chat History?',
+                text: "Disabling 'Remember Chat' will immediately clear your current conversation and saved history.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--primary)',
+                cancelButtonColor: 'var(--destructive)',
+                confirmButtonText: 'Yes, clear it!',
+                cancelButtonText: 'No, keep it',
+                background: 'var(--card)',
+                color: 'var(--foreground)'
+            });
+
+            if (!result.isConfirmed) return;
+
+            // Immediately clear history from state and storage
+            setMessages([{ 
+                role: 'assistant', 
+                content: 'Hello! How can I help you today?', 
+                isTyped: true, 
+                timestamp: new Date().toISOString() 
+            }]);
+            localStorage.removeItem('ai_chat_history');
+        }
+        setRememberChat(checked);
+    };
+
     return (
         <div className="fixed bottom-24 right-8 z-50 flex flex-col items-end">
             {/* Chat Window */}
@@ -333,7 +363,7 @@ export default function AIChatBox() {
                                                <Checkbox 
                                                    id="remember" 
                                                    checked={rememberChat} 
-                                                   onCheckedChange={setRememberChat}
+                                                   onCheckedChange={handleRememberToggle}
                                                    className="border-primary-foreground/50 data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary"
                                                />
                                                <History className="w-3.5 h-3.5" />
