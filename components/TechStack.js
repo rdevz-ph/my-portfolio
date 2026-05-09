@@ -29,7 +29,8 @@ export default function TechStack({ skills }) {
         Nginx: 'nginx',
         CustomTkinter: 'python',
         PowerShell: 'powershell',
-        Apache: 'apache'
+        Apache: 'apache',
+        'Tesseract OCR': 'googlelens'
     };
 
     return (

@@ -220,8 +220,8 @@
             "Tailwind CSS",
             "Supabase"
         ],
-        "url": "https://rdevz-ph-live-tv.vercel.app/",
-        "isPinned": true,
+        "url": "",
+        "isPinned": false,
         "year": 2025
     },
     {
@@ -235,8 +235,8 @@
             "TailwindCSS",
             "Supabase"
         ],
-        "url": "https://rdevz-ph-cpms.vercel.app",
-        "isPinned": true,
+        "url": "",
+        "isPinned": false,
         "year": 2025
     },
     {
@@ -424,12 +424,12 @@
             "SSH"
         ],
         "url": "https://github.com/rdevz-ph/composer-artisan-ssh-tool",
-        "isPinned": true,
+        "isPinned": false,
         "year": 2026
     },
     {
         "title": "QMS Document Archiving",
-        "description": "A specialized document archiving system for the Municipal Government of Sablayan, featuring a secure dashboard with role-based access for managing administrative, incoming, and outgoing records.",
+        "description": "A specialized document archiving system for the Municipal Government of Sablayan, featuring a secure dashboard with role-based access for managing administrative, incoming, and outgoing records. (Preview is prototype only)",
         "image": "/projects/qms.png",
         "technologies": [
             "HTML",
@@ -442,7 +442,7 @@
     },
     {
         "title": "Sablayan Water District Mobile Portal",
-        "description": "A mobile-optimized gateway for the Sablayan Water District, providing users with convenient digital access to water utility services, account information, and essential updates.",
+        "description": "A mobile-optimized gateway for the Sablayan Water District, providing users with convenient digital access to water utility services, account information, and essential updates. (Preview is prototype only)",
         "image": "/projects/water-district-mobile-portal.jpg",
         "technologies": [
             "React",
@@ -467,6 +467,37 @@
         ],
         "url": "https://github.com/rdevz-ph/PyAMPP-Windows",
         "isPinned": true,
+        "year": 2026
+    },
+    {
+        "title": "COOP 2026: Cooperative Management and Loan System",
+        "description": "A comprehensive cooperative management and loan system featuring a multi-role architecture for Administrators, Staff, and Members. It streamlines the entire loan lifecycle—from application and document verification to automated interest computation, payment tracking via GCash/PayMaya, and real-time notifications. (Preview is prototype only)",
+        "image": "/projects/coop-2026.png",
+        "technologies": [
+            "Laravel",
+            "TailwindCSS",
+            "MySQL",
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+        "url": "https://coop-sablayan.vercel.app/",
+        "isPinned": false,
+        "year": 2026
+    },
+    {
+        "title": "OMSC-ARAS: Automated Records Archiving System with OCR",
+        "description": "A specialized document management platform for institutional record-keeping across multiple campuses. It features automated OCR text extraction from scanned records, manual metadata entry fallback, document retention period tracking, and comprehensive reporting and activity logging for different campus levels. (Preview is prototype only)",
+        "image": "/projects/omsc-aras-ocr.png",
+        "technologies": [
+            "Laravel",
+            "TailwindCSS",
+            "MySQL",
+            "Tesseract OCR",
+            "JavaScript"
+        ],
+        "url": "https://omsc-aras-ocr.vercel.app/",
+        "isPinned": false,
         "year": 2026
     }
 ]

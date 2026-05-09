@@ -30,7 +30,8 @@ const techIcons = {
     Nginx: 'nginx',
     CustomTkinter: 'python',
     PowerShell: 'powershell',
-    Apache: 'apache'
+    Apache: 'apache',
+    'Tesseract OCR': 'googlelens'
 };
 
 export default function ProjectsGrid({ projects }) {
