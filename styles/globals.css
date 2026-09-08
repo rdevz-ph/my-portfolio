@@ -97,26 +97,27 @@ html, body {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   @apply min-h-screen;
 }
 
 .loader-wrapper {
   width: 100%;
-  height: 22px;
-  border-radius: 20px;
-  border: 2px solid #7c3aed; /* Tailwind purple-600 */
+  height: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--muted);
   position: relative;
   overflow: hidden;
 }
 
 .loader-fill {
   position: absolute;
-  top: 2px;
-  bottom: 2px;
-  left: 2px;
+  top: 0;
+  bottom: 0;
+  left: 0;
   border-radius: inherit;
-  background: #7c3aed;
+  background: var(--primary);
   transition: width 0.2s linear;
 }
 
@@ -131,40 +132,40 @@ body {
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.448 0.119 266.588); /* Modern Indigo/Purple */
+  --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.003 264.542);
+  --secondary: oklch(0.967 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.967 0.003 264.542);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.003 264.542);
+  --muted: oklch(0.967 0 0);
+  --muted-foreground: oklch(0.552 0 0);
+  --accent: oklch(0.967 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.448 0.119 266.588);
-  --radius: 0.75rem;
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.708 0 0);
+  --radius: 0.625rem;
 }
 
 .dark {
-  --background: oklch(0.129 0.005 285.823); /* Zinc 950 */
-  --foreground: oklch(0.985 0 0); /* Zinc 50 */
-  --card: oklch(0.165 0.005 285.823); /* Zinc 900 */
+  --background: oklch(0.12 0 0); /* Pure Zinc 950 */
+  --foreground: oklch(0.985 0 0); /* Pure Zinc 50 */
+  --card: oklch(0.15 0 0); /* Pure Zinc 900 */
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.129 0.005 285.823);
+  --popover: oklch(0.15 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.7 0.12 260); /* Vibrant Indigo */
-  --primary-foreground: oklch(0.129 0.005 285.823);
-  --secondary: oklch(0.208 0.005 285.823); /* Zinc 800 */
+  --primary: oklch(0.985 0 0); /* Crisp white */
+  --primary-foreground: oklch(0.145 0 0); /* Near black */
+  --secondary: oklch(0.23 0 0); /* Zinc 800 */
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.208 0.005 285.823);
-  --muted-foreground: oklch(0.706 0.012 285.823); /* Zinc 400 */
-  --accent: oklch(0.208 0.005 285.823);
+  --muted: oklch(0.23 0 0);
+  --muted-foreground: oklch(0.708 0 0); /* Zinc 400 */
+  --accent: oklch(0.23 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.396 0.141 25.723);
-  --border: oklch(0.271 0.005 285.823); /* Zinc 700 */
-  --input: oklch(0.271 0.005 285.823);
-  --ring: oklch(0.7 0.12 260);
+  --border: oklch(0.24 0 0); /* Clean Zinc 800 border */
+  --input: oklch(0.24 0 0);
+  --ring: oklch(0.5 0 0);
 }
 
 @layer base {
@@ -177,7 +178,21 @@ body {
   }
 }
 
-/* Subtle background grain/mesh for Dark Mode */
+/* Subtle background dot grid texture (Strictly Monochrome / No RGB) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle 1px at 1px 1px, oklch(0 0 0 / 0.035) 1px, transparent 0);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .dark body::before {
   content: "";
   position: fixed;
@@ -186,8 +201,9 @@ body {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(at 0% 0%, oklch(0.25 0.05 260 / 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, oklch(0.3 0.08 300 / 0.1) 0px, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, oklch(1 0 0 / 0.05), transparent 70%),
+    radial-gradient(circle 1px at 1px 1px, oklch(1 0 0 / 0.04) 1px, transparent 0);
+  background-size: 100% 100%, 28px 28px;
   pointer-events: none;
   z-index: -1;
 }

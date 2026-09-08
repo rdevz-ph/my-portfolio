@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import ThemeToggle from './ThemeToggle';
-import { Menu, X, User, FolderHeart, MessageSquare, ChevronRight, Github } from 'lucide-react';
+import { Menu, User, FolderHeart, MessageSquare, ChevronRight, Github } from 'lucide-react';
 import { Link as ScrollLink, Events, scrollSpy } from 'react-scroll';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
@@ -23,10 +24,10 @@ export default function Navbar() {
 
     const linkClasses = (id) =>
         cn(
-            "relative px-4 py-2 block transition-all duration-200 text-sm font-medium hover:text-primary cursor-pointer",
+            "relative px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer",
             activeSection === id
-                ? "text-primary font-bold after:absolute after:bottom-0 after:left-4 after:right-4 after:h-0.5 after:bg-primary"
-                : "text-muted-foreground"
+                ? "bg-secondary text-secondary-foreground font-semibold shadow-xs"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
         );
 
     const commonProps = {
@@ -46,47 +47,65 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="fixed top-0 w-full z-50 border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-            <div className="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
-                <h1 
-                    className="text-xl font-bold bg-linear-to-r from-primary to-purple-400 bg-clip-text text-transparent cursor-pointer"
+        <nav className="fixed top-0 w-full z-50 border-b border-border bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex justify-between items-center">
+                {/* Brand / Logo */}
+                <div 
+                    className="flex items-center gap-2.5 cursor-pointer group select-none"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                    Romel&apos;s Portfolio
-                </h1>
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground font-mono text-xs font-bold tracking-tighter shadow-xs">
+                        RB
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold tracking-tight text-foreground transition-colors group-hover:text-muted-foreground">
+                            Romel Brosas
+                        </span>
+                        <Badge variant="outline" className="hidden sm:inline-flex text-[10px] font-mono py-0 px-1.5 border-border text-muted-foreground">
+                            dev
+                        </Badge>
+                    </div>
+                </div>
 
                 {/* Desktop Nav */}
-                <div className="hidden md:flex space-x-1 items-center">
-                    {navLinks.map((link) => (
-                        <ScrollLink
-                            key={link.to}
-                            to={link.to}
-                            className={linkClasses(link.to)}
-                            {...commonProps}
-                        >
-                            {link.label}
-                        </ScrollLink>
-                    ))}
-                    <div className="ml-4 pl-4 border-l">
+                <div className="hidden md:flex items-center gap-1">
+                    <div className="flex items-center gap-1 p-1 bg-muted/30 border border-border/50 rounded-lg">
+                        {navLinks.map((link) => (
+                            <ScrollLink
+                                key={link.to}
+                                to={link.to}
+                                className={linkClasses(link.to)}
+                                {...commonProps}
+                            >
+                                {link.label}
+                            </ScrollLink>
+                        ))}
+                    </div>
+                    <div className="ml-3 pl-3 border-l border-border">
                         <ThemeToggle />
                     </div>
                 </div>
 
                 {/* Mobile nav */}
-                <div className="flex items-center space-x-2 md:hidden">
+                <div className="flex items-center gap-2 md:hidden">
                     <ThemeToggle />
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
                         <SheetTrigger 
-                            render={<Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10" />}
+                            render={<Button variant="ghost" size="icon" className="text-foreground hover:bg-muted" />}
                         >
-                            <Menu size={24} />
+                            <Menu className="w-5 h-5" />
                         </SheetTrigger>
-                        <SheetContent side="right" className="w-[300px] border-l border-muted">
-                            <SheetHeader className="text-left pb-6 border-b">
-                                <SheetTitle className="text-primary font-bold text-2xl">Navigation</SheetTitle>
-                                <SheetDescription className="text-muted-foreground">Quick access to sections</SheetDescription>
+                        <SheetContent side="right" className="w-[300px] border-l border-border bg-background">
+                            <SheetHeader className="text-left pb-4 border-b border-border">
+                                <div className="flex items-center gap-2">
+                                    <div className="flex h-6 w-6 items-center justify-center rounded bg-primary text-primary-foreground font-mono text-xs font-bold">
+                                        RB
+                                    </div>
+                                    <SheetTitle className="text-base font-semibold text-foreground">Navigation</SheetTitle>
+                                </div>
+                                <SheetDescription className="text-xs text-muted-foreground">Quick access to portfolio sections</SheetDescription>
                             </SheetHeader>
-                            <div className="mt-6 flex flex-col gap-2">
+                            <div className="mt-6 flex flex-col gap-1.5">
                                 {navLinks.map((link) => (
                                     <ScrollLink
                                         key={link.to}
@@ -95,31 +114,31 @@ export default function Navbar() {
                                         {...commonProps}
                                     >
                                         <div className={cn(
-                                            "flex items-center justify-between w-full p-4 rounded-xl transition-all duration-200 group cursor-pointer",
+                                            "flex items-center justify-between w-full p-3 rounded-lg text-sm transition-colors cursor-pointer",
                                             activeSection === link.to 
-                                                ? "bg-primary text-primary-foreground shadow-md" 
+                                                ? "bg-primary text-primary-foreground font-medium shadow-xs" 
                                                 : "hover:bg-muted text-muted-foreground hover:text-foreground"
                                         )}>
-                                            <div className="flex items-center gap-4">
+                                            <div className="flex items-center gap-3">
                                                 <link.icon className={cn(
-                                                    "w-5 h-5",
-                                                    activeSection === link.to ? "text-primary-foreground" : "text-primary"
+                                                    "w-4 h-4",
+                                                    activeSection === link.to ? "text-primary-foreground" : "text-muted-foreground"
                                                 )} />
-                                                <span className="text-lg font-bold tracking-tight">{link.label}</span>
+                                                <span>{link.label}</span>
                                             </div>
                                             <ChevronRight className={cn(
-                                                "w-5 h-5 transition-transform group-hover:translate-x-1",
-                                                activeSection === link.to ? "text-primary-foreground/50" : "text-muted-foreground/30"
+                                                "w-4 h-4 transition-transform",
+                                                activeSection === link.to ? "text-primary-foreground/70" : "text-muted-foreground/40"
                                             )} />
                                         </div>
                                     </ScrollLink>
                                 ))}
                             </div>
                             
-                            <div className="absolute bottom-8 left-0 right-0 px-6">
-                                <div className="p-6 rounded-2xl bg-muted/50 border border-muted flex flex-col items-center text-center space-y-2">
-                                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Version 2.0</p>
-                                    <p className="text-[10px] text-muted-foreground/60 italic">Built with Next.js & shadcn/ui</p>
+                            <div className="absolute bottom-6 left-0 right-0 px-6">
+                                <div className="p-4 rounded-lg bg-muted/40 border border-border flex flex-col items-center text-center space-y-1">
+                                    <p className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">v2.0 • shadcn/ui</p>
+                                    <p className="text-[10px] text-muted-foreground/70">Clean & Modern Portfolio</p>
                                 </div>
                             </div>
                         </SheetContent>

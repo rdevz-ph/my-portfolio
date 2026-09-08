@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import TreeView from 'react-treeview';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { FiFolder } from 'react-icons/fi';
-import { SiJavascript } from 'react-icons/si';
-import { VscJson } from 'react-icons/vsc';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FileCode, FileJson, Folder, Terminal } from "lucide-react";
@@ -57,43 +54,46 @@ export default function ExplorerWithPreview() {
         return () => observer.disconnect();
     }, []);
 
+    // Clean, neutral monochrome syntax styling (Zero RGB)
     const customThemeStyle = {
         'code[class*="language-"]': {
-            color: isDarkMode ? '#e5e7eb' : '#1f2937',
+            color: isDarkMode ? '#e4e4e7' : '#18181b',
             background: 'transparent',
+            fontFamily: 'var(--font-geist-mono), monospace',
         },
         'pre[class*="language-"]': {
-            color: isDarkMode ? '#e5e7eb' : '#1f2937',
+            color: isDarkMode ? '#e4e4e7' : '#18181b',
             background: 'transparent',
+            fontFamily: 'var(--font-geist-mono), monospace',
         },
-        'comment': { color: '#6b7280' },
-        'string': { color: isDarkMode ? '#10b981' : '#059669' },
-        'keyword': { color: 'hsl(var(--primary))' },
-        'function': { color: isDarkMode ? '#3b82f6' : '#2563eb' },
-        'number': { color: isDarkMode ? '#f59e0b' : '#d97706' },
-        'operator': { color: isDarkMode ? '#e5e7eb' : '#1f2937' },
-        'punctuation': { color: isDarkMode ? '#9ca3af' : '#6b7280' },
-        'property': { color: isDarkMode ? '#06b6d4' : '#0891b2' },
-        'boolean': { color: isDarkMode ? '#f59e0b' : '#d97706' },
-        'constant': { color: isDarkMode ? '#f59e0b' : '#d97706' },
-        'class-name': { color: 'hsl(var(--primary))' },
+        'comment': { color: isDarkMode ? '#71717a' : '#a1a1aa' },
+        'string': { color: isDarkMode ? '#d4d4d8' : '#3f3f46' },
+        'keyword': { color: isDarkMode ? '#fafafa' : '#09090b', fontWeight: '600' },
+        'function': { color: isDarkMode ? '#f4f4f5' : '#27272a' },
+        'number': { color: isDarkMode ? '#d4d4d8' : '#52525b' },
+        'operator': { color: isDarkMode ? '#a1a1aa' : '#71717a' },
+        'punctuation': { color: isDarkMode ? '#71717a' : '#a1a1aa' },
+        'property': { color: isDarkMode ? '#e4e4e7' : '#18181b' },
+        'boolean': { color: isDarkMode ? '#fafafa' : '#09090b', fontWeight: '600' },
+        'constant': { color: isDarkMode ? '#e4e4e7' : '#27272a' },
+        'class-name': { color: isDarkMode ? '#fafafa' : '#09090b', fontWeight: '600' },
     };
 
     return (
-        <div className="flex flex-col lg:flex-row gap-6 mt-6">
+        <div className="flex flex-col lg:flex-row gap-4">
             {/* Tree */}
-            <Card className="w-full lg:w-1/3 border-muted bg-muted/10">
-                <CardHeader className="py-3 px-4 border-b">
-                    <CardTitle className="text-sm font-bold flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
-                        <Folder className="w-4 h-4" />
-                        Explorer
+            <Card className="w-full lg:w-1/3 border border-border bg-background/50 shadow-none">
+                <CardHeader className="py-2.5 px-3.5 border-b border-border bg-muted/20">
+                    <CardTitle className="text-xs font-mono font-medium flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
+                        <Folder className="w-3.5 h-3.5 text-foreground" />
+                        Directory
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="p-4 overflow-x-auto">
+                <CardContent className="p-3 overflow-x-auto text-xs font-mono">
                     <TreeView
                         nodeLabel={
-                            <span className="inline-flex items-center gap-2 font-bold text-primary">
-                                <Folder className="w-4 h-4 fill-primary/20" />
+                            <span className="inline-flex items-center gap-1.5 font-semibold text-foreground">
+                                <Folder className="w-3.5 h-3.5 text-foreground" />
                                 my-portfolio
                             </span>
                         }
@@ -101,77 +101,77 @@ export default function ExplorerWithPreview() {
                     >
                         <TreeView
                             nodeLabel={
-                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
-                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                <span className="inline-flex items-center gap-1.5 text-muted-foreground font-medium hover:text-foreground transition-colors">
+                                    <Folder className="w-3.5 h-3.5" />
                                     components
                                 </span>
                             }
                             defaultCollapsed={true}
                         >
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
-                                <FileCode className="w-4 h-4 text-blue-400" />
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-muted-foreground hover:text-foreground transition-colors cursor-default">
+                                <FileCode className="w-3.5 h-3.5" />
                                 Navbar.js
                             </div>
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
-                                <FileCode className="w-4 h-4 text-blue-400" />
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-muted-foreground hover:text-foreground transition-colors cursor-default">
+                                <FileCode className="w-3.5 h-3.5" />
                                 Footer.js
                             </div>
                         </TreeView>
 
                         <TreeView
                             nodeLabel={
-                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
-                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                <span className="inline-flex items-center gap-1.5 text-muted-foreground font-medium hover:text-foreground transition-colors">
+                                    <Folder className="w-3.5 h-3.5" />
                                     data
                                 </span>
                             }
                             defaultCollapsed={true}
                         >
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
-                                <FileJson className="w-4 h-4 text-orange-400" />
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-muted-foreground hover:text-foreground transition-colors cursor-default">
+                                <FileJson className="w-3.5 h-3.5" />
                                 work.json
                             </div>
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
-                                <FileJson className="w-4 h-4 text-orange-400" />
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-muted-foreground hover:text-foreground transition-colors cursor-default">
+                                <FileJson className="w-3.5 h-3.5" />
                                 skills.json
                             </div>
                         </TreeView>
 
                         <TreeView
                             nodeLabel={
-                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
-                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                <span className="inline-flex items-center gap-1.5 text-muted-foreground font-medium hover:text-foreground transition-colors">
+                                    <Folder className="w-3.5 h-3.5" />
                                     pages
                                 </span>
                             }
                             defaultCollapsed={false}
                         >
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 text-primary font-bold bg-primary/5 rounded px-2 cursor-default">
-                                <FileCode className="w-4 h-4" />
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-foreground font-medium bg-secondary/50 rounded px-1.5 cursor-default">
+                                <FileCode className="w-3.5 h-3.5" />
                                 index.js
                             </div>
 
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 hover:text-primary transition-colors cursor-default">
-                                <FileCode className="w-4 h-4 text-blue-400" />
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-muted-foreground hover:text-foreground transition-colors cursor-default">
+                                <FileCode className="w-3.5 h-3.5" />
                                 _app.js
                             </div>
                         </TreeView>
 
                         <TreeView
                             nodeLabel={
-                                <span className="inline-flex items-center gap-2 text-muted-foreground font-medium">
-                                    <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                                <span className="inline-flex items-center gap-1.5 text-muted-foreground font-medium hover:text-foreground transition-colors">
+                                    <Folder className="w-3.5 h-3.5" />
                                     public
                                 </span>
                             }
                             defaultCollapsed={true}
                         >
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 cursor-default opacity-70">projects/</div>
-                            <div className="pl-6 flex items-center gap-2 text-sm py-1 cursor-default opacity-70">images/</div>
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-muted-foreground/70 cursor-default">projects/</div>
+                            <div className="pl-5 flex items-center gap-1.5 py-1 text-muted-foreground/70 cursor-default">images/</div>
                         </TreeView>
 
-                        <div className="pl-6 inline-flex items-center gap-2 text-sm py-1 text-muted-foreground hover:text-primary transition-colors cursor-default">
-                            <Folder className="w-4 h-4 fill-yellow-500/20 text-yellow-500" />
+                        <div className="pl-5 inline-flex items-center gap-1.5 py-1 text-muted-foreground hover:text-foreground transition-colors cursor-default">
+                            <Folder className="w-3.5 h-3.5" />
                             styles
                         </div>
                     </TreeView>
@@ -179,16 +179,16 @@ export default function ExplorerWithPreview() {
             </Card>
 
             {/* Code preview */}
-            <Card className="w-full lg:w-2/3 border-muted bg-background shadow-xl overflow-hidden">
-                <CardHeader className="py-2 px-4 bg-muted/50 border-b flex flex-row items-center justify-between">
+            <Card className="w-full lg:w-2/3 border border-border bg-background shadow-none overflow-hidden">
+                <CardHeader className="py-2.5 px-4 bg-muted/20 border-b border-border flex flex-row items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div className="flex gap-1.5 mr-4">
-                            <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                            <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                        <div className="flex gap-1.5 mr-2">
+                            <div className="w-2.5 h-2.5 rounded-full border border-border bg-muted" />
+                            <div className="w-2.5 h-2.5 rounded-full border border-border bg-muted" />
+                            <div className="w-2.5 h-2.5 rounded-full border border-border bg-muted" />
                         </div>
-                        <Badge variant="secondary" className="font-mono text-[10px] md:text-xs py-0 gap-1.5 text-primary">
-                            <Terminal className="w-3 h-3" />
+                        <Badge variant="outline" className="font-mono text-[11px] py-0 gap-1.5 text-foreground border-border bg-background">
+                            <Terminal className="w-3 h-3 text-muted-foreground" />
                             pages/index.js
                         </Badge>
                     </div>
@@ -199,9 +199,9 @@ export default function ExplorerWithPreview() {
                         style={customThemeStyle}
                         customStyle={{
                             margin: 0,
-                            padding: '1.5rem',
+                            padding: '1.25rem',
                             backgroundColor: 'transparent',
-                            fontSize: '0.85rem',
+                            fontSize: '0.8rem',
                             lineHeight: '1.6',
                             minWidth: 0,
                         }}

@@ -499,5 +499,17 @@
         "url": "https://omsc-aras-ocr.vercel.app/",
         "isPinned": false,
         "year": 2026
+    },
+    {
+        "title": "FPS Meter: Android Performance & Thermal Overlay",
+        "description": "A high-performance, lightweight frame rate and thermal overlay for Android inspired by Samsung Perf Z. Monitor true game FPS, Vulkan/OpenGL ES graphics APIs, battery temperature, CPU, and GPU thermals in real-time.",
+        "image": "/projects/fps-meter-android.png",
+        "technologies": [
+            "Kotlin",
+            "Android"
+        ],
+        "url": "https://rdevz-ph.github.io/FPS-Meter-Android/",
+        "isPinned": true,
+        "year": 2026
     }
 ]

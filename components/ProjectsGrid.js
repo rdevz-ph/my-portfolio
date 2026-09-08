@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, Pin, FolderGit2, Eye } from "lucide-react";
 
 const techIcons = {
     HTML: 'html5',
@@ -31,7 +32,9 @@ const techIcons = {
     CustomTkinter: 'python',
     PowerShell: 'powershell',
     Apache: 'apache',
-    'Tesseract OCR': 'googlelens'
+    'Tesseract OCR': 'googlelens',
+    Kotlin: 'kotlin',
+    Android: 'android'
 };
 
 export default function ProjectsGrid({ projects }) {
@@ -65,30 +68,35 @@ export default function ProjectsGrid({ projects }) {
     }, [filteredProjects]);
 
     return (
-        <div className="py-12">
-            <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                    Projects
+        <div className="py-6 sm:py-10 max-w-6xl mx-auto w-full px-2 sm:px-4">
+            <div className="text-center mb-10" data-aos="fade-up">
+                <div className="flex justify-center mb-2">
+                    <div className="p-2 rounded-lg bg-secondary text-foreground">
+                        <FolderGit2 className="w-5 h-5" />
+                    </div>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                    Featured Work
                 </h2>
-                <div
-                    data-aos="fade-up"
-                    className="mt-4 mx-auto w-24 h-1 bg-primary rounded-full"
-                />
+                <p className="text-muted-foreground text-sm max-w-xl mx-auto mt-2">
+                    A curated archive of client solutions, web applications, and production systems.
+                </p>
             </div>
 
             {years.length > 0 && (
-                <Tabs value={activeYear} onValueChange={setActiveYear} className="w-full mb-12">
+                <Tabs value={activeYear} onValueChange={setActiveYear} className="w-full mb-8">
                     <div className="flex justify-center">
-                        <TabsList className="h-auto p-1 bg-muted/50 flex-wrap justify-center">
+                        <TabsList className="bg-muted/40 border border-border p-1 h-auto rounded-lg flex-wrap justify-center">
                             {years.map((y) => {
                                 const count = (projects ?? []).filter((p) => Number(p.year) === y).length;
                                 return (
                                     <TabsTrigger
                                         key={y}
                                         value={String(y)}
-                                        className="rounded-full px-6 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                                        className="rounded-md px-3.5 py-1.5 text-xs font-mono data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-xs transition-colors"
                                     >
-                                        {y} <span className="ml-2 text-xs opacity-70">({count})</span>
+                                        <span>{y}</span>
+                                        <span className="ml-1.5 text-[10px] text-muted-foreground">({count})</span>
                                     </TabsTrigger>
                                 );
                             })}
@@ -97,93 +105,108 @@ export default function ProjectsGrid({ projects }) {
                 </Tabs>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sortedProjects.map((project, index) => (
                     <Card
                         key={`${project.title}-${project.year}-${index}`}
-                        className="group relative overflow-hidden border-muted transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                        data-aos="zoom-in-up"
-                        data-aos-delay={index * 100}
+                        className="group relative overflow-hidden border border-border bg-card/60 transition-all duration-200 hover:border-foreground/20 hover:bg-card shadow-xs flex flex-col justify-between"
+                        data-aos="fade-up"
+                        data-aos-delay={index * 50}
                     >
-                        <div className="relative aspect-video overflow-hidden">
-                            {project.isPinned && (
-                                <div className="absolute top-3 right-3 z-20">
-                                    <Badge className="bg-primary/90 hover:bg-primary text-primary-foreground px-2 py-1 gap-1">
-                                        <Star className="w-3 h-3 fill-current" />
-                                        Pinned
+                        <div>
+                            {/* Card Image */}
+                            <div className="relative aspect-video overflow-hidden border-b border-border bg-muted">
+                                {project.isPinned && (
+                                    <div className="absolute top-2.5 right-2.5 z-20">
+                                        <Badge variant="outline" className="bg-background/90 backdrop-blur-xs border-border text-foreground px-2 py-0.5 text-[10px] font-mono gap-1 shadow-xs">
+                                            <Pin className="w-3 h-3 text-muted-foreground" />
+                                            Featured
+                                        </Badge>
+                                    </div>
+                                )}
+
+                                <a href={project.image} data-lightbox="projects" data-title={project.title} className="block w-full h-full cursor-pointer relative group/img">
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        width={600}
+                                        height={340}
+                                        className="w-full h-full object-cover transition-transform duration-300 group-hover/img:scale-105"
+                                    />
+                                    <div className="absolute inset-0 bg-background/60 opacity-0 group-hover/img:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                                        <span className="text-xs font-mono font-medium border border-border bg-background px-3 py-1.5 rounded-md text-foreground flex items-center gap-1.5 shadow-xs">
+                                            <Eye className="w-3.5 h-3.5 text-muted-foreground" />
+                                            Preview Image
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            {/* Header */}
+                            <CardHeader className="p-4 pb-2">
+                                <div className="flex items-start justify-between gap-2">
+                                    <CardTitle className="text-base font-bold leading-snug tracking-tight text-foreground">
+                                        {project.title}
+                                    </CardTitle>
+                                    <Badge variant="outline" className="shrink-0 font-mono text-[10px] border-border text-muted-foreground">
+                                        {project.year}
                                     </Badge>
                                 </div>
-                            )}
+                            </CardHeader>
 
-                            <a href={project.image} data-lightbox="projects" data-title={project.title} className="block cursor-pointer">
-                                <Image
-                                    src={project.image}
-                                    alt={project.title}
-                                    width={600}
-                                    height={300}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span className="text-white text-sm font-medium border border-white/40 px-4 py-2 rounded-full backdrop-blur-sm">
-                                        View Image
-                                    </span>
+                            {/* Description & Tech */}
+                            <CardContent className="p-4 pt-1 space-y-3">
+                                <p className="text-muted-foreground text-xs leading-relaxed line-clamp-3">
+                                    {project.description}
+                                </p>
+
+                                <div className="flex flex-wrap gap-1.5 pt-1">
+                                    {(project.technologies ?? []).map((tech, i) => {
+                                        const icon = techIcons[tech] ?? null;
+                                        return (
+                                            <Badge
+                                                key={i}
+                                                variant="outline"
+                                                className="px-2 py-0.5 text-[10px] font-mono border-border/70 bg-secondary/40 text-muted-foreground hover:text-foreground flex items-center gap-1"
+                                            >
+                                                {icon && (
+                                                    <Image
+                                                        src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
+                                                        alt={tech}
+                                                        width={10}
+                                                        height={10}
+                                                        className="w-2.5 h-2.5 dark:invert opacity-70"
+                                                        unoptimized
+                                                    />
+                                                )}
+                                                <span>{tech}</span>
+                                            </Badge>
+                                        );
+                                    })}
                                 </div>
-                            </a>
+                            </CardContent>
                         </div>
 
-                        <CardHeader className="pb-2">
-                            <div className="flex items-start justify-between gap-2">
-                                <CardTitle className="text-lg md:text-xl font-bold leading-tight break-words">
-                                    {project.title}
-                                </CardTitle>
-                                <Badge variant="outline" className="shrink-0 font-mono text-[10px] h-5 mt-1">
-                                    {project.year}
-                                </Badge>
-                            </div>
-                        </CardHeader>
-
-                        <CardContent className="space-y-4">
-                            <p className="text-muted-foreground text-sm leading-relaxed min-h-[4.5rem]">
-                                {project.description}
-                            </p>
-
-                            <div className="flex flex-wrap gap-2">
-                                {(project.technologies ?? []).map((tech, i) => {
-                                    const icon = techIcons[tech] ?? null;
-                                    return (
-                                        <Badge
-                                            key={i}
-                                            variant="secondary"
-                                            className="px-2 py-0.5 text-[10px] sm:text-xs font-medium flex items-center gap-1.5"
-                                        >
-                                            {icon && (
-                                                <Image
-                                                    src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
-                                                    alt={tech}
-                                                    width={12}
-                                                    height={12}
-                                                    className="w-3 h-3 dark:invert"
-                                                    unoptimized
-                                                />
-                                            )}
-                                            {tech}
-                                        </Badge>
-                                    );
-                                })}
-                            </div>
-                        </CardContent>
-
-                        <CardFooter className="pt-0 border-none bg-transparent">
-                            {project.url && (
-                                <a
-                                    href={project.url}
-                                    className="inline-flex items-center text-sm font-bold text-primary hover:underline gap-1 transition-all"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                        {/* Footer Link */}
+                        <CardFooter className="p-4 pt-0 border-none bg-transparent">
+                            {project.url ? (
+                                <Button 
+                                    render={
+                                        <a
+                                            href={project.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        />
+                                    }
+                                    variant="outline" 
+                                    size="sm" 
+                                    className="w-full text-xs font-mono gap-1.5 border-border hover:border-foreground/30 hover:bg-secondary"
                                 >
-                                    Live Preview
-                                    <ExternalLink className="size-4" />
-                                </a>
+                                    <span>Live Preview</span>
+                                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
+                                </Button>
+                            ) : (
+                                <div className="h-8" />
                             )}
                         </CardFooter>
                     </Card>
@@ -191,8 +214,8 @@ export default function ProjectsGrid({ projects }) {
             </div>
 
             {sortedProjects.length === 0 && (
-                <div className="text-center py-20 border-2 border-dashed border-muted rounded-3xl mt-10">
-                    <p className="text-muted-foreground">No projects found for {activeYear}.</p>
+                <div className="text-center py-16 border border-dashed border-border rounded-xl mt-6">
+                    <p className="text-muted-foreground text-sm font-mono">No projects found for {activeYear}.</p>
                 </div>
             )}
         </div>

@@ -24,12 +24,12 @@ export default function ThemeToggle() {
             size="icon"
             onClick={toggleTheme}
             aria-label="Toggle Theme"
-            className="rounded-full w-10 h-10 transition-all hover:bg-muted"
+            className="rounded-md w-8 h-8 text-muted-foreground hover:text-foreground hover:bg-muted"
         >
             {dark ? (
-                <Sun className="h-[1.2rem] w-[1.2rem] text-yellow-500 transition-all scale-100 rotate-0" />
+                <Sun className="h-4 w-4 transition-all text-foreground" />
             ) : (
-                <Moon className="h-[1.2rem] w-[1.2rem] text-primary transition-all scale-100 rotate-0" />
+                <Moon className="h-4 w-4 transition-all text-foreground" />
             )}
         </Button>
     );

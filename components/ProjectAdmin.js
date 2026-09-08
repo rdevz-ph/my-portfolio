@@ -80,7 +80,7 @@ export default function ProjectAdmin() {
                     icon: 'success',
                     title: 'Success!',
                     text: `Project ${isAdding ? 'added' : 'updated'} successfully`,
-                    confirmButtonColor: '#8b5cf6'
+                    confirmButtonColor: '#18181b'
                 });
 
                 setFormData({
@@ -150,7 +150,7 @@ export default function ProjectAdmin() {
                         icon: 'success',
                         title: 'Deleted!',
                         text: 'Project has been deleted.',
-                        confirmButtonColor: '#8b5cf6'
+                        confirmButtonColor: '#18181b'
                     });
                     fetchProjects();
                 }

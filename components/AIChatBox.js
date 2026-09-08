@@ -34,7 +34,7 @@ const renderInline = (text) => {
                     href={part} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-blue-500 hover:text-blue-600 underline break-all transition-colors"
+                    className="text-foreground underline underline-offset-2 hover:text-muted-foreground break-all transition-colors font-mono text-xs"
                 >
                     {part}
                 </a>
@@ -48,7 +48,7 @@ const renderInline = (text) => {
                     <a 
                         key={`email-${i}-${k}`} 
                         href={`mailto:${ePart}`}
-                        className="text-blue-500 hover:text-blue-600 underline break-all transition-colors"
+                        className="text-foreground underline underline-offset-2 hover:text-muted-foreground break-all transition-colors font-mono text-xs"
                     >
                         {ePart}
                     </a>
@@ -101,7 +101,7 @@ const formatResponse = (text) => {
             const content = bulletMatch[2] || "";
             return (
                 <div key={i} className="flex gap-2 ml-2 my-1 leading-relaxed">
-                    <span className="text-primary shrink-0 mt-1">•</span>
+                    <span className="text-foreground shrink-0 mt-1">•</span>
                     <div className="flex-1">{renderInline(content)}</div>
                 </div>
             );
@@ -337,19 +337,19 @@ export default function AIChatBox() {
     };
 
     return (
-        <div className="fixed bottom-24 right-8 z-50 flex flex-col items-end">
+        <div className="fixed bottom-20 right-6 sm:bottom-24 sm:right-8 z-50 flex flex-col items-end">
             {/* Chat Window */}
             {isOpen && (
-                <Card className="mb-4 w-[350px] sm:w-[400px] h-[500px] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300 p-0 gap-0 border-none ring-1 ring-primary/20">
-                    <CardHeader className="bg-primary text-primary-foreground p-4 flex flex-row items-center justify-between space-y-0 rounded-b-none">
+                <Card className="mb-3 w-[340px] sm:w-[380px] h-[480px] shadow-lg flex flex-col overflow-hidden animate-in slide-in-from-bottom-3 duration-200 p-0 gap-0 border border-border bg-background">
+                    <CardHeader className="bg-muted/40 border-b border-border p-3.5 flex flex-row items-center justify-between space-y-0 rounded-none">
                         <div className="flex flex-col">
                             <div className="flex items-center gap-2">
-                                <Bot className="w-5 h-5" />
-                                <CardTitle className="text-lg font-bold">AI Assistant</CardTitle>
+                                <Bot className="w-4 h-4 text-foreground" />
+                                <CardTitle className="text-sm font-semibold font-mono text-foreground">AI Assistant</CardTitle>
                             </div>
-                            <div className="flex items-center gap-1.5 ml-7">
-                                <div className={cn("w-2 h-2 rounded-full", isOnline ? "bg-green-400 animate-pulse" : "bg-red-400")} />
-                                <span className="text-[10px] uppercase tracking-wider font-semibold opacity-90">
+                            <div className="flex items-center gap-1.5 ml-6">
+                                <div className={cn("w-1.5 h-1.5 rounded-full", isOnline ? "bg-foreground" : "bg-muted-foreground")} />
+                                <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
                                     {isOnline ? "Online" : "Offline"}
                                 </span>
                             </div>
@@ -359,45 +359,46 @@ export default function AIChatBox() {
                                 <Tooltip>
                                    <TooltipTrigger 
                                        render={
-                                           <div className="flex items-center gap-2 px-2 py-1 bg-primary-foreground/10 rounded-md mr-2 cursor-help">
+                                           <div className="flex items-center gap-1.5 px-2 py-1 bg-secondary rounded-md mr-1 cursor-help">
                                                <Checkbox 
                                                    id="remember" 
                                                    checked={rememberChat} 
                                                    onCheckedChange={handleRememberToggle}
-                                                   className="border-primary-foreground/50 data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary"
+                                                   className="h-3 w-3"
                                                />
-                                               <History className="w-3.5 h-3.5" />
+                                               <History className="w-3 h-3 text-muted-foreground" />
                                            </div>
                                        }
                                    />
-                                   <TooltipContent side="bottom" className="max-w-[200px] text-xs">                                        <p>When enabled, your chat history is saved locally on your browser so you can continue later.</p>
+                                   <TooltipContent side="bottom" className="max-w-[200px] text-xs">
+                                        <p>Save chat history locally in your browser.</p>
                                     </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
-                            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="text-primary-foreground hover:bg-primary-foreground/10 h-8 w-8">
-                                <X className="w-5 h-5" />
+                            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-7 w-7 text-muted-foreground hover:text-foreground">
+                                <X className="w-4 h-4" />
                             </Button>
                         </div>
                     </CardHeader>
                     
-                    <CardContent className="flex-1 overflow-y-auto p-4 space-y-4" ref={scrollRef}>
+                    <CardContent className="flex-1 overflow-y-auto p-3.5 space-y-3" ref={scrollRef}>
                         {messages.map((msg, index) => (
                             <div key={index} className={cn("flex w-full gap-2", msg.role === 'user' ? "flex-row-reverse" : "flex-row")}>
-                                <Avatar className="h-8 w-8 shrink-0">
+                                <Avatar className="h-7 w-7 shrink-0 border border-border">
                                     {msg.role === 'assistant' ? (
                                         <>
                                             <AvatarImage src="/images/profile.jpg" alt="AI" />
-                                            <AvatarFallback><Bot className="w-4 h-4" /></AvatarFallback>
+                                            <AvatarFallback><Bot className="w-3.5 h-3.5" /></AvatarFallback>
                                         </>
                                     ) : (
-                                        <AvatarFallback className="bg-primary/10 text-primary"><User className="w-4 h-4" /></AvatarFallback>
+                                        <AvatarFallback className="bg-secondary text-foreground text-xs"><User className="w-3.5 h-3.5" /></AvatarFallback>
                                     )}
                                 </Avatar>
                                 <div className={cn(
-                                    "max-w-[80%] p-3 rounded-2xl text-sm",
+                                    "max-w-[82%] p-2.5 rounded-lg text-xs leading-relaxed",
                                     msg.role === 'user' 
-                                        ? "bg-primary text-primary-foreground rounded-tr-none" 
-                                        : "bg-muted text-muted-foreground rounded-tl-none border"
+                                        ? "bg-primary text-primary-foreground font-medium" 
+                                        : "bg-muted/60 text-foreground border border-border/60"
                                 )}>
                                     {msg.role === 'assistant' ? (
                                         msg.isTyped ? (
@@ -418,7 +419,7 @@ export default function AIChatBox() {
                                     )}
                                     {msg.timestamp && (
                                         <div className={cn(
-                                            "text-[10px] mt-1 opacity-50",
+                                            "text-[9px] font-mono mt-1 opacity-60",
                                             msg.role === 'user' ? "text-right" : "text-left"
                                         )}>
                                             {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -429,29 +430,29 @@ export default function AIChatBox() {
                         ))}
                         {isLoading && (
                             <div className="flex justify-start gap-2">
-                                <Avatar className="h-8 w-8 shrink-0">
+                                <Avatar className="h-7 w-7 shrink-0 border border-border">
                                     <AvatarImage src="/images/profile.jpg" alt="AI" />
-                                    <AvatarFallback><Bot className="w-4 h-4" /></AvatarFallback>
+                                    <AvatarFallback><Bot className="w-3.5 h-3.5" /></AvatarFallback>
                                 </Avatar>
-                                <div className="bg-muted text-muted-foreground p-3 rounded-2xl rounded-tl-none border flex items-center gap-2">
-                                    <Loader2 className="w-4 h-4 animate-spin" />
-                                    <span className="text-xs">Thinking...</span>
+                                <div className="bg-muted/60 text-muted-foreground p-2.5 rounded-lg border border-border flex items-center gap-2 text-xs">
+                                    <Loader2 className="w-3.5 h-3.5 animate-spin text-foreground" />
+                                    <span className="font-mono text-[11px]">Processing...</span>
                                 </div>
                             </div>
                         )}
                     </CardContent>
 
-                    <CardFooter className="p-4 border-t bg-muted/50">
+                    <CardFooter className="p-3 border-t border-border bg-background">
                         <form onSubmit={handleSendMessage} className="flex w-full gap-2">
                             <Input 
-                                placeholder="Type your message..." 
+                                placeholder="Ask a question..." 
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                className="flex-1"
+                                className="flex-1 h-8 text-xs font-mono border-border bg-muted/30"
                                 disabled={isLoading}
                             />
-                            <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
-                                <Send className="w-4 h-4" />
+                            <Button type="submit" size="icon" className="h-8 w-8" disabled={isLoading || !input.trim()}>
+                                <Send className="w-3.5 h-3.5" />
                             </Button>
                         </form>
                     </CardFooter>
@@ -460,10 +461,9 @@ export default function AIChatBox() {
 
             {/* Notification Bubble */}
             {showNotification && !isOpen && (
-                <div className="mb-4 mr-2 bg-card border shadow-xl p-3 rounded-2xl rounded-br-none max-w-[200px] text-sm animate-bounce relative">
-                    <div className="font-medium text-primary mb-1">AI Assistant</div>
-                    Hello! How can I help you today?
-                    <div className="absolute -bottom-2 right-4 w-4 h-4 bg-card border-r border-b rotate-45"></div>
+                <div className="mb-3 mr-1 bg-card border border-border shadow-md p-3 rounded-lg max-w-[200px] text-xs font-mono relative">
+                    <div className="font-semibold text-foreground mb-0.5">AI Assistant</div>
+                    <span className="text-muted-foreground">Ask anything about my experience or projects.</span>
                 </div>
             )}
 
@@ -473,17 +473,15 @@ export default function AIChatBox() {
                     size="icon"
                     onClick={toggleChat}
                     className={cn(
-                        "rounded-full shadow-2xl transition-all duration-300 h-14 w-14 hover:scale-110 active:scale-95",
-                        isOpen ? "bg-destructive hover:bg-destructive/90" : "bg-primary hover:bg-primary/90"
+                        "rounded-full shadow-md transition-all duration-200 h-11 w-11 border border-border",
+                        isOpen ? "bg-secondary text-foreground hover:bg-muted" : "bg-primary text-primary-foreground hover:bg-primary/90"
                     )}
                 >
-                    {isOpen ? <X className="w-7 h-7" /> : <MessageCircle className="w-7 h-7" />}
+                    {isOpen ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5" />}
                 </Button>
                 
                 {showNotification && !isOpen && (
-                    <Badge className="absolute -top-1 -right-1 h-6 w-6 flex items-center justify-center p-0 border-2 border-background animate-pulse">
-                        1
-                    </Badge>
+                    <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-foreground ring-2 ring-background" />
                 )}
             </div>
         </div>

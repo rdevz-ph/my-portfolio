@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Progress } from "@/components/ui/progress";
+import { Terminal } from "lucide-react";
 
 export default function Loader() {
     const [progress, setProgress] = useState(0);
-    const [status, setStatus] = useState('Initializing build...');
+    const [status, setStatus] = useState('Initializing runtime...');
 
     useEffect(() => {
         const interval = setInterval(() => {
             setProgress((prev) => {
                 const next = prev + 5;
 
-                // Status simulation
-                if (next >= 10 && next < 30) setStatus('Building project...');
-                else if (next >= 30 && next < 60) setStatus('Optimizing assets...');
-                else if (next >= 60 && next < 90) setStatus('Deploying to Vercel...');
-                else if (next >= 90) setStatus('Finishing up...');
+                if (next >= 15 && next < 35) setStatus('Loading components...');
+                else if (next >= 35 && next < 65) setStatus('Compiling shaders & styles...');
+                else if (next >= 65 && next < 90) setStatus('Synchronizing state...');
+                else if (next >= 90) setStatus('Ready');
 
                 if (next >= 100) {
                     clearInterval(interval);
@@ -23,23 +23,30 @@ export default function Loader() {
 
                 return next;
             });
-        }, 75);
+        }, 70);
 
         return () => clearInterval(interval);
     }, []);
 
     return (
         <div className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center px-6 text-center">
-            <div className="w-full max-w-md space-y-8">
-                <h1 className="text-xl md:text-2xl font-mono font-bold tracking-tight text-primary animate-pulse">
-                    {status}
-                </h1>
+            <div className="w-full max-w-sm p-6 rounded-xl border border-border bg-card/60 shadow-xs space-y-6">
+                <div className="flex items-center justify-between border-b border-border pb-3 text-xs font-mono text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                        <Terminal className="w-3.5 h-3.5 text-foreground" />
+                        <span className="text-foreground font-semibold">system</span>
+                    </div>
+                    <span>v2.0</span>
+                </div>
 
-                <div className="space-y-4">
-                    <Progress value={progress} className="h-2 w-full bg-muted shadow-xs" />
-                    <div className="flex justify-between items-center px-1 font-mono text-sm">
-                        <span className="text-muted-foreground">Progress</span>
-                        <span className="text-primary font-bold">{progress}%</span>
+                <div className="space-y-3 text-left font-mono">
+                    <p className="text-xs text-foreground font-medium">
+                        {status}
+                    </p>
+                    <Progress value={progress} className="h-1.5 w-full bg-muted" />
+                    <div className="flex justify-between items-center text-[11px] text-muted-foreground">
+                        <span>Progress</span>
+                        <span className="font-semibold text-foreground">{progress}%</span>
                     </div>
                 </div>
             </div>

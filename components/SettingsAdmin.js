@@ -69,7 +69,7 @@ export default function SettingsAdmin() {
                     icon: 'success',
                     title: 'Success!',
                     text: 'Settings updated successfully',
-                    confirmButtonColor: '#8b5cf6'
+                    confirmButtonColor: '#18181b'
                 });
             } else {
                 throw new Error('Failed to save settings');

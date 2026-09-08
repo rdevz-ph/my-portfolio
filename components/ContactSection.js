@@ -3,8 +3,8 @@ import Swal from 'sweetalert2';
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Facebook, Send, Loader2 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Github, Linkedin, Facebook, Send, Loader2, Mail } from "lucide-react";
 
 export default function ContactSection() {
     const [loading, setLoading] = useState(false);
@@ -26,79 +26,98 @@ export default function ContactSection() {
         if (res.ok) {
             Swal.fire({
                 icon: 'success',
-                title: 'Message Sent!',
+                title: 'Message Sent',
                 text: 'Thank you for reaching out. I will get back to you shortly.',
-                confirmButtonColor: '#8b5cf6'
+                confirmButtonColor: '#18181b',
+                background: 'var(--card)',
+                color: 'var(--foreground)'
             });
             form.reset();
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Error',
                 text: 'Something went wrong. Please try again.',
-                confirmButtonColor: '#ef4444'
+                confirmButtonColor: '#27272a',
+                background: 'var(--card)',
+                color: 'var(--foreground)'
             });
         }
     };
 
     return (
-        <section id="contact" className="py-24 bg-muted/30">
-            <div className="max-w-3xl mx-auto px-4">
-                <div className="text-center mb-12" data-aos="fade-up">
-                    <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                        Contact Me
+        <section id="contact" className="py-16 sm:py-24 border-t border-border bg-muted/20">
+            <div className="max-w-2xl mx-auto px-4">
+                <div className="text-center mb-8" data-aos="fade-up">
+                    <div className="flex justify-center mb-2">
+                        <div className="p-2 rounded-lg bg-secondary text-foreground">
+                            <Mail className="w-5 h-5" />
+                        </div>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                        Get In Touch
                     </h2>
-                    <div className="mt-4 mx-auto w-24 h-1 bg-primary rounded-full" />
-                    <p className="mt-6 text-lg text-muted-foreground">
-                        Want to work together or have a question? Feel free to reach out!
+                    <p className="mt-2 text-sm text-muted-foreground">
+                        Have a project inquiry, collaboration proposal, or technical question? Send a message directly.
                     </p>
                 </div>
 
-                <Card className="border-muted shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <CardContent className="p-8">
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                <Card className="border border-border bg-card/80 shadow-xs" data-aos="fade-up" data-aos-delay="150">
+                    <CardHeader className="pb-2">
+                        <CardTitle className="text-base font-semibold text-foreground">
+                            Direct Message
+                        </CardTitle>
+                        <CardDescription className="text-xs text-muted-foreground">
+                            Fill in your details below and I&apos;ll respond via email.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-6 pt-2">
+                        <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="space-y-2">
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-mono text-muted-foreground">Name</label>
                                     <Input
                                         type="text"
                                         name="name"
                                         required
                                         placeholder="Your Name"
-                                        className="h-12 border-muted-foreground/20 focus-visible:ring-primary"
+                                        className="h-10 text-sm border-border bg-background focus-visible:ring-ring"
                                     />
                                 </div>
-                                <div className="space-y-2">
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-mono text-muted-foreground">Email</label>
                                     <Input
                                         type="email"
                                         name="email"
                                         required
-                                        placeholder="Your Email"
-                                        className="h-12 border-muted-foreground/20 focus-visible:ring-primary"
+                                        placeholder="name@example.com"
+                                        className="h-10 text-sm border-border bg-background focus-visible:ring-ring"
                                     />
                                 </div>
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-1.5">
+                                <label className="text-xs font-mono text-muted-foreground">Message</label>
                                 <Textarea
                                     name="message"
                                     required
-                                    rows={5}
-                                    placeholder="Your Message"
-                                    className="min-h-[150px] border-muted-foreground/20 focus-visible:ring-primary resize-none"
+                                    rows={4}
+                                    placeholder="Write your message here..."
+                                    className="min-h-[120px] text-sm border-border bg-background focus-visible:ring-ring resize-none"
                                 />
                             </div>
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full sm:w-auto h-12 px-8 text-sm md:text-base font-semibold transition-all hover:scale-105 active:scale-95"
+                                className="w-full sm:w-auto h-9 px-5 text-xs font-mono font-medium gap-2 shadow-xs"
                             >
                                 {loading ? (
                                     <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
                                         Sending...
                                     </>
                                 ) : (
                                     <>
-                                        <Send className="mr-2 h-4 w-4" />
+                                        <Send className="h-3.5 w-3.5" />
                                         Send Message
                                     </>
                                 )}
@@ -109,25 +128,31 @@ export default function ContactSection() {
 
                 {/* Social Links */}
                 <div
-                    className="flex flex-wrap justify-center gap-6 mt-12"
+                    className="flex flex-wrap justify-center gap-3 mt-8"
                     data-aos="fade-up"
-                    data-aos-delay="300"
+                    data-aos-delay="200"
                 >
                     {[
                         { href: "https://github.com/rdevz-ph", icon: Github, label: "GitHub" },
                         { href: "https://linkedin.com/in/romel-brosas-b547572a8", icon: Linkedin, label: "LinkedIn" },
                         { href: "https://facebook.com/rdevzph.dev", icon: Facebook, label: "Facebook" },
                     ].map((social) => (
-                        <a
+                        <Button
                             key={social.label}
-                            href={social.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+                            render={
+                                <a
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                />
+                            }
+                            variant="outline"
+                            size="sm"
+                            className="gap-2 font-mono text-xs text-muted-foreground hover:text-foreground border-border"
                         >
-                            <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                            <span className="font-medium">{social.label}</span>
-                        </a>
+                            <social.icon className="w-3.5 h-3.5" />
+                            <span>{social.label}</span>
+                        </Button>
                     ))}
                 </div>
             </div>

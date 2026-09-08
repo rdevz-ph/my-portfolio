@@ -67,7 +67,7 @@ export default function SkillsAdmin() {
                     icon: 'success',
                     title: 'Success!',
                     text: 'Skill added successfully',
-                    confirmButtonColor: '#8b5cf6',
+                    confirmButtonColor: '#18181b',
                     timer: 1500,
                     showConfirmButton: false
                 });
@@ -125,7 +125,7 @@ export default function SkillsAdmin() {
                     icon: 'success',
                     title: 'Success!',
                     text: 'Skill updated successfully',
-                    confirmButtonColor: '#8b5cf6',
+                    confirmButtonColor: '#18181b',
                     timer: 1500,
                     showConfirmButton: false
                 });
@@ -172,7 +172,7 @@ export default function SkillsAdmin() {
                         icon: 'success',
                         title: 'Deleted!',
                         text: 'Skill has been deleted.',
-                        confirmButtonColor: '#8b5cf6',
+                        confirmButtonColor: '#18181b',
                         timer: 1500,
                         showConfirmButton: false
                     });
@@ -211,13 +211,13 @@ export default function SkillsAdmin() {
                     style="width: 100%; margin: 10px 0; font-family: monospace;"
                 ></textarea>
                 <p style="font-size: 12px; color: #666; margin-top: 10px; text-align: left;">
-                    💡 Tip: Separate each skill with a comma. Duplicates will be automatically filtered out.
+                    Tip: Separate each skill with a comma. Duplicates will be automatically filtered out.
                 </p>
             `,
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Add Skills',
-            confirmButtonColor: '#8b5cf6',
+            confirmButtonColor: '#18181b',
             preConfirm: () => {
                 const textarea = document.getElementById('bulkSkills');
                 return textarea.value;
@@ -238,7 +238,7 @@ export default function SkillsAdmin() {
                     icon: 'info',
                     title: 'No New Skills',
                     text: 'All entered skills already exist or were empty',
-                    confirmButtonColor: '#8b5cf6'
+                    confirmButtonColor: '#18181b'
                 });
                 return;
             }
@@ -257,7 +257,7 @@ export default function SkillsAdmin() {
                         icon: 'success',
                         title: 'Success!',
                         text: `Added ${newSkills.length} new skills`,
-                        confirmButtonColor: '#8b5cf6'
+                        confirmButtonColor: '#18181b'
                     });
                     fetchSkills();
                 }

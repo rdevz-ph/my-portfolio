@@ -79,7 +79,7 @@ export default function WorkAdmin() {
                     icon: 'success',
                     title: 'Success!',
                     text: `Work experience ${isAdding ? 'added' : 'updated'} successfully`,
-                    confirmButtonColor: '#8b5cf6'
+                    confirmButtonColor: '#18181b'
                 });
 
                 setFormData({
@@ -146,7 +146,7 @@ export default function WorkAdmin() {
                         icon: 'success',
                         title: 'Deleted!',
                         text: 'Work experience has been deleted.',
-                        confirmButtonColor: '#8b5cf6'
+                        confirmButtonColor: '#18181b'
                     });
                     fetchWorkExperience();
                 }

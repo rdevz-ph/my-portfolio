@@ -90,7 +90,7 @@ export default function Home({ projects, settings, experiences, skills }) {
         <meta name="bingbot" content="index, follow" />
 
         {/* Theme and App */}
-        <meta name="theme-color" content="#8b5cf6" />
+        <meta name="theme-color" content="#09090b" />
         <meta name="color-scheme" content="light dark" />
         <meta name="apple-mobile-web-app-title" content={settings.full_name} />
 
