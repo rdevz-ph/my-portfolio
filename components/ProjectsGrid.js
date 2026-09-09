@@ -4,7 +4,14 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Pin, FolderGit2, Eye } from "lucide-react";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogFooter,
+} from "@/components/ui/dialog";
+import { ExternalLink, Pin, FolderGit2, Eye, ArrowRight } from "lucide-react";
 
 const techIcons = {
     HTML: 'html5',
@@ -48,6 +55,7 @@ export default function ProjectsGrid({ projects }) {
     }, [projects]);
 
     const [activeYear, setActiveYear] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
 
     useEffect(() => {
         if (!activeYear && years.length) setActiveYear(String(years[0]));
@@ -145,7 +153,10 @@ export default function ProjectsGrid({ projects }) {
                             {/* Header */}
                             <CardHeader className="p-4 pb-2">
                                 <div className="flex items-start justify-between gap-2">
-                                    <CardTitle className="text-base font-bold leading-snug tracking-tight text-foreground">
+                                    <CardTitle 
+                                        onClick={() => setSelectedProject(project)}
+                                        className="text-base font-bold leading-snug tracking-tight text-foreground cursor-pointer hover:underline decoration-foreground/30 underline-offset-4 transition-colors"
+                                    >
                                         {project.title}
                                     </CardTitle>
                                     <Badge variant="outline" className="shrink-0 font-mono text-[10px] border-border text-muted-foreground">
@@ -156,9 +167,19 @@ export default function ProjectsGrid({ projects }) {
 
                             {/* Description & Tech */}
                             <CardContent className="p-4 pt-1 space-y-3">
-                                <p className="text-muted-foreground text-xs leading-relaxed line-clamp-3">
-                                    {project.description}
-                                </p>
+                                <div>
+                                    <p className="text-muted-foreground text-xs leading-relaxed line-clamp-3">
+                                        {project.description}
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedProject(project)}
+                                        className="text-[11px] font-mono text-foreground/80 hover:text-foreground hover:underline underline-offset-2 mt-1.5 inline-flex items-center gap-1 cursor-pointer transition-colors select-none"
+                                    >
+                                        <span>Full details</span>
+                                        <ArrowRight className="w-3 h-3" />
+                                    </button>
+                                </div>
 
                                 <div className="flex flex-wrap gap-1.5 pt-1">
                                     {(project.technologies ?? []).map((tech, i) => {
@@ -206,7 +227,16 @@ export default function ProjectsGrid({ projects }) {
                                     <ExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
                                 </Button>
                             ) : (
-                                <div className="h-8" />
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setSelectedProject(project)}
+                                    className="w-full text-xs font-mono gap-1.5 border-border hover:border-foreground/30 hover:bg-secondary text-muted-foreground"
+                                >
+                                    <span>View Overview</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                </Button>
                             )}
                         </CardFooter>
                     </Card>
@@ -218,6 +248,112 @@ export default function ProjectsGrid({ projects }) {
                     <p className="text-muted-foreground text-sm font-mono">No projects found for {activeYear}.</p>
                 </div>
             )}
+
+            {/* Project Details Modal */}
+            <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
+                <DialogContent className="max-w-lg sm:max-w-xl max-h-[90vh] overflow-y-auto p-5 sm:p-6 bg-background border-border">
+                    {selectedProject && (
+                        <div className="space-y-4">
+                            {/* Modal Image */}
+                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-border bg-muted">
+                                <Image
+                                    src={selectedProject.image}
+                                    alt={selectedProject.title}
+                                    width={700}
+                                    height={390}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+
+                            {/* Header */}
+                            <DialogHeader className="space-y-2">
+                                <div className="flex items-start justify-between gap-3">
+                                    <DialogTitle className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
+                                        {selectedProject.title}
+                                    </DialogTitle>
+                                    <div className="flex items-center gap-1.5 shrink-0">
+                                        {selectedProject.isPinned && (
+                                            <Badge variant="outline" className="font-mono text-[10px] gap-1 border-border">
+                                                <Pin className="w-3 h-3 text-muted-foreground" />
+                                                Featured
+                                            </Badge>
+                                        )}
+                                        <Badge variant="outline" className="font-mono text-[10px] border-border text-muted-foreground">
+                                            {selectedProject.year}
+                                        </Badge>
+                                    </div>
+                                </div>
+
+                                {/* Tech stack badges */}
+                                <div className="flex flex-wrap gap-1.5 pt-1">
+                                    {(selectedProject.technologies ?? []).map((tech, i) => {
+                                        const icon = techIcons[tech] ?? null;
+                                        return (
+                                            <Badge
+                                                key={i}
+                                                variant="secondary"
+                                                className="px-2.5 py-0.5 text-xs font-mono border border-border/70 flex items-center gap-1.5"
+                                            >
+                                                {icon && (
+                                                    <Image
+                                                        src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`}
+                                                        alt={tech}
+                                                        width={12}
+                                                        height={12}
+                                                        className="w-3 h-3 dark:invert opacity-75"
+                                                        unoptimized
+                                                    />
+                                                )}
+                                                <span>{tech}</span>
+                                            </Badge>
+                                        );
+                                    })}
+                                </div>
+                            </DialogHeader>
+
+                            {/* Full Description */}
+                            <div className="border-t border-border pt-4 space-y-2">
+                                <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                                    Project Overview
+                                </h4>
+                                <p className="text-sm text-foreground/90 leading-relaxed">
+                                    {selectedProject.description}
+                                </p>
+                            </div>
+
+                            {/* Footer */}
+                            <DialogFooter className="pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-2">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setSelectedProject(null)}
+                                    className="w-full sm:w-auto font-mono text-xs"
+                                >
+                                    Close
+                                </Button>
+
+                                {selectedProject.url && (
+                                    <Button
+                                        render={
+                                            <a
+                                                href={selectedProject.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            />
+                                        }
+                                        size="sm"
+                                        className="w-full sm:w-auto font-mono text-xs gap-1.5 shadow-xs"
+                                    >
+                                        <span>Open Live Project</span>
+                                        <ExternalLink className="w-3.5 h-3.5" />
+                                    </Button>
+                                )}
+                            </DialogFooter>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
