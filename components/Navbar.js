@@ -61,7 +61,7 @@ export default function Navbar() {
                         <span className="text-sm font-semibold tracking-tight text-foreground transition-colors group-hover:text-muted-foreground">
                             Romel Brosas
                         </span>
-                        <Badge variant="outline" className="hidden sm:inline-flex text-[10px] font-mono py-0 px-1.5 border-border text-muted-foreground">
+                        <Badge variant="outline" className="inline-flex text-[10px] font-mono py-0 px-1.5 border-border text-muted-foreground">
                             dev
                         </Badge>
                     </div>

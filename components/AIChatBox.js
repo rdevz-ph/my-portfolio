@@ -319,7 +319,11 @@ export default function AIChatBox() {
                 confirmButtonText: 'Yes, clear it!',
                 cancelButtonText: 'No, keep it',
                 background: 'var(--card)',
-                color: 'var(--foreground)'
+                color: 'var(--foreground)',
+                customClass: {
+                    confirmButton: '!text-primary-foreground font-semibold',
+                    cancelButton: '!text-white font-semibold'
+                }
             });
 
             if (!result.isConfirmed) return;

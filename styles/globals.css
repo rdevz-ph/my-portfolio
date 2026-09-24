@@ -207,3 +207,37 @@ body::before {
   pointer-events: none;
   z-index: -1;
 }
+
+/* SweetAlert2 Shadcn/UI Theme Adaptation */
+.swal2-popup {
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--border) !important;
+  font-family: inherit !important;
+}
+
+.swal2-styled.swal2-confirm {
+  color: var(--primary-foreground) !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.5rem 1.25rem !important;
+  font-size: 0.875rem !important;
+  letter-spacing: -0.01em !important;
+  transition: opacity 0.15s ease !important;
+}
+
+.swal2-styled.swal2-confirm:hover {
+  opacity: 0.9 !important;
+}
+
+.swal2-styled.swal2-cancel {
+  font-weight: 600 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.5rem 1.25rem !important;
+  font-size: 0.875rem !important;
+  letter-spacing: -0.01em !important;
+  transition: opacity 0.15s ease !important;
+}
+
+.swal2-styled.swal2-cancel:hover {
+  opacity: 0.9 !important;
+}
