@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ThemeToggle from './ThemeToggle';
 import { Menu, User, FolderHeart, MessageSquare, ChevronRight, Github } from 'lucide-react';
-import { Link as ScrollLink, Events, scrollSpy } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
@@ -9,22 +9,71 @@ import { cn } from "@/lib/utils";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState('');
+    const [activeSection, setActiveSection] = useState('about');
+    const isManualScroll = useRef(false);
+    const scrollTimeout = useRef(null);
+
+    const navLinks = [
+        { to: 'about', label: 'About', icon: User },
+        { to: 'github', label: 'GitHub', icon: Github },
+        { to: 'projects', label: 'Projects', icon: FolderHeart },
+        { to: 'contact', label: 'Contact', icon: MessageSquare },
+    ];
+
+    const handleLinkClick = (id) => {
+        setActiveSection(id);
+        isManualScroll.current = true;
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        scrollTimeout.current = setTimeout(() => {
+            isManualScroll.current = false;
+        }, 650);
+    };
 
     useEffect(() => {
-        Events.scrollEvent.register('begin', () => { });
-        Events.scrollEvent.register('end', () => { });
-        scrollSpy.update();
+        const sectionIds = ['contact', 'projects', 'github', 'about'];
+
+        const handleScroll = () => {
+            if (isManualScroll.current) return;
+
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+
+            // When scrolled near or to the bottom of the page, activate 'contact'
+            if (windowHeight + scrollPosition >= documentHeight - 120) {
+                setActiveSection('contact');
+                return;
+            }
+
+            const navOffset = 140;
+            for (const id of sectionIds) {
+                const el = document.getElementById(id);
+                if (el) {
+                    const top = el.getBoundingClientRect().top;
+                    if (top <= navOffset) {
+                        setActiveSection(id);
+                        return;
+                    }
+                }
+            }
+
+            setActiveSection('about');
+        };
+
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll, { passive: true });
 
         return () => {
-            Events.scrollEvent.remove('begin');
-            Events.scrollEvent.remove('end');
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+            if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
         };
     }, []);
 
     const linkClasses = (id) =>
         cn(
-            "relative px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer",
+            "relative px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer select-none",
             activeSection === id
                 ? "bg-secondary text-secondary-foreground font-semibold shadow-xs"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
@@ -34,17 +83,7 @@ export default function Navbar() {
         smooth: true,
         duration: 500,
         offset: -80,
-        spy: true,
-        activeClass: 'active',
-        onSetActive: setActiveSection,
     };
-
-    const navLinks = [
-        { to: 'about', label: 'About', icon: User },
-        { to: 'github', label: 'GitHub', icon: Github },
-        { to: 'projects', label: 'Projects', icon: FolderHeart },
-        { to: 'contact', label: 'Contact', icon: MessageSquare },
-    ];
 
     return (
         <nav className="fixed top-0 w-full z-50 border-b border-border bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
@@ -52,7 +91,10 @@ export default function Navbar() {
                 {/* Brand / Logo */}
                 <div 
                     className="flex items-center gap-2.5 cursor-pointer group select-none"
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    onClick={() => {
+                        handleLinkClick('about');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
                 >
                     <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground font-mono text-xs font-bold tracking-tighter shadow-xs">
                         RB
@@ -75,6 +117,7 @@ export default function Navbar() {
                                 key={link.to}
                                 to={link.to}
                                 className={linkClasses(link.to)}
+                                onClick={() => handleLinkClick(link.to)}
                                 {...commonProps}
                             >
                                 {link.label}
@@ -110,7 +153,10 @@ export default function Navbar() {
                                     <ScrollLink
                                         key={link.to}
                                         to={link.to}
-                                        onClick={() => setIsOpen(false)}
+                                        onClick={() => {
+                                            handleLinkClick(link.to);
+                                            setIsOpen(false);
+                                        }}
                                         {...commonProps}
                                     >
                                         <div className={cn(

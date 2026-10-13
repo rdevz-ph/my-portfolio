@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Github, BarChart3, Code2, Flame, Info, Loader2 } from "lucide-react";
+import { Github, BarChart3, Code2, Flame, Info, Loader2, ExternalLink } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -59,7 +59,7 @@ export default function GitHubStats() {
     const streakUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=${streakTheme}&hide_border=true&stroke=${strokeColor}&ring=${ringColor}&fire=${primaryColor}&currStreakLabel=${streakLabel}&currStreakNum=${titleColor}&sideLabels=${textColor}&sideNums=${textColor}&dates=${textColor}`;
 
     return (
-        <section id="github" className="py-6 sm:py-10 max-w-4xl mx-auto w-full">
+        <section id="github" className="scroll-mt-16 py-6 sm:py-10 max-w-4xl mx-auto w-full">
             <div className="space-y-8" data-aos="fade-up">
                 <div className="text-center space-y-3">
                     <div className="flex justify-center mb-1">
@@ -73,6 +73,18 @@ export default function GitHubStats() {
                     <p className="text-muted-foreground text-sm max-w-xl mx-auto">
                         Activity, repositories, and development metrics tracked directly from GitHub.
                     </p>
+                    <div className="flex justify-center pt-1">
+                        <a
+                            href={`https://github.com/${username}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-border bg-muted/40 hover:bg-muted text-xs font-mono text-foreground font-medium transition-all duration-200 shadow-2xs hover:shadow-xs group"
+                        >
+                            <Github className="w-3.5 h-3.5 text-foreground transition-transform group-hover:scale-110" />
+                            <span>github.com/{username}</span>
+                            <ExternalLink className="w-3 h-3 text-foreground transition-colors" />
+                        </a>
+                    </div>
                 </div>
 
                 <Tabs defaultValue="stats" className="w-full">

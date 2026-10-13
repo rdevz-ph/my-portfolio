@@ -145,29 +145,26 @@ export default function Home({ projects, settings, experiences, skills }) {
 
       <main className="min-h-screen bg-background text-foreground transition-colors duration-500">
         <Navbar />
-        <div className="max-w-7xl mx-auto px-4 pt-24">
-          <section id="about" className="space-y-12 md:space-y-24">
-            <div className="space-y-12 md:space-y-24">
-              <ProfileCard settings={settings} />
-              <StatsBox settings={settings} />
-              <TechStack skills={skills} />
-              <GitHubStats />
-            </div>
-            
-            <div className="space-y-12 md:space-y-24">
-              <CodeShowcase />
-              <WorkTimeline experiences={experiences} />
-            </div>
+        <div className="max-w-7xl mx-auto px-4 pt-24 space-y-12 md:space-y-24">
+          <section id="about" className="scroll-mt-20 space-y-12 md:space-y-24">
+            <ProfileCard settings={settings} />
+            <StatsBox settings={settings} />
+            <TechStack skills={skills} />
           </section>
 
-          <section id="projects" className="py-12 md:py-24">
+          <GitHubStats />
+            
+          <div className="space-y-12 md:space-y-24">
+            <CodeShowcase />
+            <WorkTimeline experiences={experiences} />
+          </div>
+
+          <section id="projects" className="scroll-mt-20 py-12 md:py-24">
             <ProjectsGrid projects={projects} />
           </section>
         </div>
 
-        <section id="contact">
-          <ContactSection />
-        </section>
+        <ContactSection />
         <Footer />
         <ScrollToTop />
         <AIChatBox />
