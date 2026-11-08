@@ -455,17 +455,19 @@
     },
     {
         "title": "PyAMPP",
-        "description": "PyAMPP is a portable web development stack manager for Windows that automates the deployment and management of Apache, MySQL, PHP, and phpMyAdmin. It features a modern graphical interface, intelligent service orchestration, automated lifecycle management, and global CLI integration, ensuring a zero-configuration, truly portable local development environment.",
+        "description": "PyAMPP is a portable web development stack manager for Windows that automates the deployment and management of Apache, MySQL, PHP, and phpMyAdmin. It features a modern web interface, intelligent service orchestration, automated lifecycle management, and global CLI integration, ensuring a zero-configuration, truly portable local development environment.",
         "image": "/projects/pyampp.png",
         "technologies": [
             "Python",
-            "CustomTkinter",
+            "HTML",
+            "CSS",
+            "JavaScript",
             "PowerShell",
             "Apache",
             "MySQL",
             "PHP"
         ],
-        "url": "https://github.com/rdevz-ph/PyAMPP-Windows",
+        "url": "https://github.com/rdevz-ph/PyAMPP-Web",
         "isPinned": true,
         "year": 2026
     },
@@ -509,6 +511,19 @@
             "Android"
         ],
         "url": "https://rdevz-ph.github.io/FPS-Meter-Android/",
+        "isPinned": true,
+        "year": 2026
+    },
+    {
+        "title": "RedirectGuard: Ad Redirect & Deep Link Interceptor",
+        "description": "An open-source Android utility designed to prevent unwanted deep links and intrusive ad redirects from force-opening external apps. It intercepts unauthorized app launches using Android Accessibility Service and integrates with Shizuku for process termination, offering interactive confirmation prompts or instant auto-returns.",
+        "image": "/projects/redirect-guard.png",
+        "technologies": [
+            "Kotlin",
+            "Android",
+            "Jetpack Compose"
+        ],
+        "url": "https://rdevz-ph.github.io/RedirectGuard/",
         "isPinned": true,
         "year": 2026
     }

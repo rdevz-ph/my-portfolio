@@ -41,7 +41,8 @@ const techIcons = {
     Apache: 'apache',
     'Tesseract OCR': 'googlelens',
     Kotlin: 'kotlin',
-    Android: 'android'
+    Android: 'android',
+    'Jetpack Compose': 'jetpackcompose'
 };
 
 export default function ProjectsGrid({ projects }) {
